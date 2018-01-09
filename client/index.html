@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 
- , __                                   __                      
-/|/  \                                 /  \                     
- | __/ ,_    __           ,   _   ,_  | __ |          _   , _|_ 
- |   \/  |  /  \_|  |  |_/ \_|/  /  | |/  \|  |   |  |/  / \_|  
+This is a fork by Dante Tam, which is in turn, a fork by github user nenuadrian.
+
+ , __                                   __
+/|/  \                                 /  \
+ | __/ ,_    __           ,   _   ,_  | __ |          _   , _|_
+ |   \/  |  /  \_|  |  |_/ \_|/  /  | |/  \|  |   |  |/  / \_|
  |(__/   |_/\__/  \/ \/   \/ |__/   |_/\__/\_/ \_/|_/|__/ \/ |_/
 
 Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworkshop.fr
@@ -21,12 +23,12 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
         <link rel="icon" type="image/png" href="img/common/favicon.png">
-        <meta property="og:title" content="BrowserQuest">
+        <meta property="og:title" content="DanteQuest">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="http://browserquest.mozilla.org/">
-        <meta property="og:image" content="http://browserquest.mozilla.org/img/common/promo-title.jpg">
-        <meta property="og:site_name" content="BrowserQuest">
-        <meta property="og:description" content="Play Mozilla's BrowserQuest, an HTML5 massively multiplayer game demo powered by WebSockets!">
+        <!--<meta property="og:url" content="http://browserquest.mozilla.org/">
+        <meta property="og:image" content="http://browserquest.mozilla.org/img/common/promo-title.jpg">-->
+        <meta property="og:site_name" content="DanteQuest">
+        <meta property="og:description" content="">
         <link rel="stylesheet" href="css/main.css" type="text/css">
         <link rel="stylesheet" href="css/achievements.css" type="text/css">
         <script src="js/lib/modernizr.js" type="text/javascript"></script>
@@ -40,7 +42,7 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                 </script>
         <![endif]-->
         <script src="js/detect.js" type="text/javascript"></script>
-        <title>BrowserQuest</title>
+        <title>DanteQuest</title>
 	</head>
     <!--[if lt IE 9]>
 	<body class="intro upscaled">
@@ -48,13 +50,13 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
 	<body class="intro">
 	    <noscript>
 	       <div class="alert">
-	           You need to enable JavaScript to play BrowserQuest.
+	           You need to enable JavaScript to play DanteQuest.
 	       </div>
 	    </noscript>
 	    <div id="intro">
 	        <h1 id="logo">
 	           <span id="logosparks">
-	               
+
 	           </span>
 	        </h1>
 	        <article id="portrait">
@@ -90,13 +92,9 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                     <article id="loadcharacter">
           	           <h1>
           	               <span class="left-ornament"></span>
-          	               Load your character
+          	               Continue your adventure!
           	               <span class="right-ornament"></span>
                          </h1>
-                         <div class="ribbon">
-                            <div class="top"></div>
-                            <div class="bottom"></div>
-                         </div>
                          <img id="playerimage" src="">
                          <div id="playername" class="stroke">
                          </div>
@@ -104,9 +102,10 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                              <div></div>
                              <img src="img/common/spinner.gif" alt="">
                          </div>
+												 <!--
                          <div id="create-new">
                             <span><span>or</span> create a new character</span>
-                         </div>
+                         </div>-->
                     </article>
                     <article id="confirmation">
           	           <h1>
@@ -127,7 +126,7 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
         	            <h1>
          	               <span class="left-ornament"></span>
          	               <span class="title">
-         	                   Made for Mozilla by <a target="_blank" class="stroke clickable" href="http://www.littleworkshop.fr/">Little Workshop</a>
+         	                   Originally made for Mozilla by <a target="_blank" class="stroke clickable" href="http://www.littleworkshop.fr/">Little Workshop</a>
          	               </span>
          	               <span class="right-ornament"></span>
                         </h1>
@@ -147,8 +146,9 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                             <br/>
                             <span id="note"></span>
                             Music by <a class="clickable" target="_blank" href="http://soundcloud.com/gyrowolf/sets/gyrowolfs-rpg-maker-music-pack/">Gyrowolf</a>, <a class="clickable" target="_blank" href="http://blog.dayjo.org/?p=335">Dayjo</a>, <a class="clickable" target="_blank" href="http://soundcloud.com/freakified/what-dangers-await-campus-map">Freakified</a>, &amp; <a target="_blank" class="clickable" href="http://www.newgrounds.com/audio/listen/349734">Camoshark</a>
-                           <br/><br/>
                            SocketIO upgrade by <a class="clickable" target="_blank" href="http://nenuadrian.com">Adrian Nenu</a>
+													 <br><br>
+													 RPG fork and game upgrades by <a class="clickable" target="_blank" href="https://dantetam.github.io/" style="color: steelblue; text-decoration: underline;">Dante Tam</a>
                         </div>
 	                    <div id="close-credits">
 	                        <span>- click anywhere to close -</span>
@@ -187,6 +187,19 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                             </span>
                         </div>
 	                    <div id="close-about">
+	                        <span>- click anywhere to close -</span>
+                        </div>
+    	            </article>
+									<article id="settings">
+        	            <h1>
+         	               <span class="left-ornament"></span>
+         	               <span class="title">
+         	                   Settings
+         	               </span>
+         	               <span class="right-ornament"></span>
+											 </h1>
+											 <span>Work in progress...</span>
+	                    	<div id="close-settings">
 	                        <span>- click anywhere to close -</span>
                         </div>
     	            </article>
@@ -237,7 +250,7 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
     		                <span id="unlocked-achievements">0</span>
     		                /
     		                <span id="total-achievements"></span>
-    		            </div> 
+    		            </div>
     		        </div>
 		            <nav class="clickable">
 		                <div id="previous"></div>
@@ -249,7 +262,7 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
     				<canvas id="entities"></canvas>
     				<canvas id="foreground" class="clickable"></canvas>
     			</div>
-    			<div id="bubbles">				
+    			<div id="bubbles">
     			</div>
     			<div id="achievement-notification">
     			    <div class="coin">
@@ -299,15 +312,17 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
 		    </div>
 		</div>
 		<footer>
-		    <div id="sharing" class="clickable">
+		    <!--<div id="sharing" class="clickable">
 		     United in coding!
-             
-		    </div>
+
+			 </div>-->
 		    <div id="credits-link" class="clickable">
-		      – <span id="toggle-credits">Credits</span>
+					<span id="toggle-settings">Settings</span>
+		      <span id="toggle-credits">Credits</span>
+					<span id="toggle-about">About</span>
 		    </div>
 		</footer>
-		
+
 		<ul id="page-tmpl" class="clickable" style="display:none">
         </ul>
         <ul>
@@ -320,23 +335,23 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                 </div>
             </li>
         </ul>
-        
+
         <img src="img/common/thingy.png" alt="" class="preload">
-        
+
         <div id="resize-check"></div>
-		
+
         <script type="text/javascript">
             var ctx = document.querySelector('canvas').getContext('2d'),
                 parchment = document.getElementById("parchment");
-            
+
             if(!Detect.supportsWebSocket()) {
                 parchment.className = "error";
             }
-            
+
             if(ctx.mozImageSmoothingEnabled === undefined) {
                 document.querySelector('body').className += ' upscaled';
             }
-            
+
             if(!Modernizr.localstorage) {
                 var alert = document.createElement("div");
                     alert.className = 'alert';
@@ -349,7 +364,7 @@ Mozilla presents an HTML5 mini-MMORPG by Little Workshop http://www.littleworksh
                 parchment.className = "loadcharacter";
             }
         </script>
-        
+
         <script src="js/lib/log.js"></script>
         <script>
                 var require = { waitSeconds: 60 };

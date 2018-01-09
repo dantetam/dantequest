@@ -1,7 +1,7 @@
 /* Eric Meyer's CSS reset */
 
 html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -16,6 +16,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
+}
+h1, h2, h3, h4, h5, h6 {
+
 }
 body {
 	line-height: 1;
@@ -125,6 +128,12 @@ footer, header, hgroup, menu, nav, section {
 
 /* Common rules */
 
+		#menu-title {
+			margin-top: 5%;
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+		}
+
     body.upscaled.game {background:#000;}
     .game #logo {display:none;-moz-animation:none;-webkit-animation:none;-o-animation:none;-ms-animation:none;animation:none;}
 
@@ -199,13 +208,13 @@ footer, header, hgroup, menu, nav, section {
     #create-new span span:hover {color:#b2af9b;}
     #playername {color:#fff;}
 
-    #credits, #loadcharacter, #confirmation, #death, #error, #about {position:absolute;left:50%;text-align:center;font-family:'GraphicPixel', sans-serif;z-index:1000;}
+    #credits, #loadcharacter, #confirmation, #death, #error, #about, #settings {position:absolute;left:50%;text-align:center;font-family:'GraphicPixel', sans-serif;z-index:1000;}
 
     #playerimage {image-rendering: -moz-crisp-edges; image-rendering: -webkit-optimize-contrast;}
 
     #parchment p {font-family:'GraphicPixel';}
 
-    #credits, #death, #about {top:50%;}
+    #credits, #death, #about, #settings {top:50%;}
     .intro #credits, .intro #about {top:55%;}
     #credits h1 a {color:#fcda5c;text-decoration:none;}
     #authors div a {display:block;color:#fff;text-decoration:none;}
@@ -216,7 +225,8 @@ footer, header, hgroup, menu, nav, section {
 
     #about .link a:hover {color:#d83939;}
 
-    footer {font-family:'GraphicPixel';position:absolute;bottom:5%;left:0;text-align:center;width:100%;color:#c6c0a3;-moz-transition:0.2s opacity linear;-webkit-transition:0.2s opacity linear;-o-transition:0.2s opacity linear;-ms-transition:0.2s opacity linear;transition:0.2s opacity linear;}
+    footer {font-family:'GraphicPixel';position:absolute;bottom:5%;left:0;text-align:center;width:100%;color:#6c6c6c;
+		-moz-transition:0.2s opacity linear;-webkit-transition:0.2s opacity linear;-o-transition:0.2s opacity linear;-ms-transition:0.2s opacity linear;transition:0.2s opacity linear;}
     .upscaled.game footer {color:#8a8a8a;}
 
     .intro footer {opacity:1;}
@@ -246,7 +256,7 @@ footer, header, hgroup, menu, nav, section {
 
     .alert {height:50px;background:#d83939;width:100%;color:#eee;font-size:20px;font-family:'GraphicPixel', arial, sans-serif;text-align:center;line-height:50px;border-bottom:1px solid #000;}
 
-    #instructions, #achievements, #lists, #about, #credits, .ribbon, .play, .play div, .barbutton {-webkit-tap-highlight-color:transparent;}
+    #instructions, #achievements, #lists, #about, #credits, #settings, .ribbon, .play, .play div, .barbutton {-webkit-tap-highlight-color:transparent;}
     #nameinput::-webkit-input-placeholder  {color:#fff;}
 
     #resize-check {position:absolute;height:0;top:0;left:0;-moz-transition:0.001s height ease;-webkit-transition:0.001s height ease;-o-transition:0.001s height ease;-ms-transition:0.001s height ease;transition:0.001s height ease;}
@@ -535,13 +545,13 @@ footer, header, hgroup, menu, nav, section {
 		#chatbox input {font-size:20px;color:#eee;background:none;width:90%;border:0;margin-left:2%;padding:16px 0;}
 
 		/*Credits*/
-        #credits, #death, #about {width:1266px;height:546px;margin-left:-633px;margin-top:-273px;font-size:30px;}
+        #credits, #death, #about, #settings {width:1266px;height:546px;margin-left:-633px;margin-top:-273px;font-size:30px;}
         .parchment-left, .parchment-right, .parchment-middle {background-size:1266px;}
         .parchment-left {width:114px;height:546px;background-position:0 -882px;}
         .parchment-right {width:114px;height:546px;background-position:-1152px -882px;}
         .parchment-middle {height:546px;background-position:-114px -882px;width:1038px;margin-left:-519px;}
 
-        #credits h1, #about h1 {margin-top:35px;font-weight:normal;}
+        #credits h1, #about h1, #settings h1 {margin-top:35px;font-weight:normal;}
         #credits h1 a {font-size:36px;}
         .game #credits h1, .game #about h1 {margin-top:52px;}
         #credits h1 span.title {max-width:300px;display:inline-block;line-height:39px;margin-top:-90px;position:relative;top:36px;}
@@ -698,7 +708,7 @@ footer, header, hgroup, menu, nav, section {
 		#chatbox input {font-size:20px;color:#eee;background:none;width:90%;border:0;margin-left:2%;padding:7px 0;}
 
 		/*Credits*/
-        #credits, #death, #about {width:844px;height:364px;margin-left:-422px;margin-top:-182px;font-size:20px;}
+        #credits, #death, #about, #settings {width:844px;height:364px;margin-left:-422px;margin-top:-182px;font-size:20px;}
         .parchment-left, .parchment-right, .parchment-middle {background-size:844px;}
         .parchment-left {width:76px;height:364px;background-position:0 -588px;}
         .parchment-right {width:76px;height:364px;background-position:-768px -588px;}
@@ -862,7 +872,7 @@ footer, header, hgroup, menu, nav, section {
 		#chatbox input {font-size:20px;color:#eee;background:none;width:90%;border:0;margin-left:2%;padding:7px 0;}
 
 		/*Credits*/
-        #credits, #death, #about {width:844px;height:364px;margin-left:-422px;margin-top:-182px;font-size:20px;}
+        #credits, #death, #about, #settings {width:844px;height:364px;margin-left:-422px;margin-top:-182px;font-size:20px;}
         .parchment-left, .parchment-right, .parchment-middle {background-size:844px;}
         .parchment-left {width:76px;height:364px;background-position:0 -588px;}
         .parchment-right {width:76px;height:364px;background-position:-768px -588px;}
@@ -1023,7 +1033,7 @@ footer, header, hgroup, menu, nav, section {
 		#chatbox input {font-size:10px;color:#eee;background:none;width:90%;border:0;margin-left:2%;padding:0;}
 
 		/*Credits*/
-        #credits, #death, #about {width:422px;height:182px;top:50%;margin-left:-211px;margin-top:-91px;font-size:10px;}
+        #credits, #death, #about, #settings {width:422px;height:182px;top:50%;margin-left:-211px;margin-top:-91px;font-size:10px;}
         #credits h1 a {font-size:12px;}
         .parchment-left, .parchment-right, .parchment-middle {background-size:422px;}
         .parchment-left {width:38px;height:182px;background-position:0 -294px;}

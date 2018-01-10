@@ -117,6 +117,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             if(this.storage.hasAlreadyPlayed()) {
                 this.player.setSpriteName(this.storage.data.player.armor);
                 this.player.setWeaponName(this.storage.data.player.weapon);
+                this.player.setInventory(this.storage.data.player.inventory);
             }
 
         	this.player.setSprite(this.sprites[this.player.getSpriteName()]);
@@ -791,7 +792,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.storage.initPlayer(self.player.name);
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getSpriteName(),
-                                            self.player.getWeaponName());
+                                            self.player.getWeaponName(),
+                                            self.player.getInventory());
                     self.showNotification("Welcome to DanteQuest!");
                 } else {
                     self.showNotification("Welcome back to DanteQuest!");
@@ -1055,7 +1057,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 self.player.onSwitchItem(function() {
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getArmorName(),
-                                            self.player.getWeaponName());
+                                            self.player.getWeaponName(),
+                                            self.player.getInventory());
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }

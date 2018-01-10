@@ -14,13 +14,20 @@ define(['entity'], function(Entity) {
             return true;
         },
 
+        //Original behavior: player loots weapon, wields best
+        //Now: simply add the item to the player's inventory,
+        //and do not check for conditions
         onLoot: function(player) {
+            /*
             if(this.type === "weapon") {
-                player.switchWeapon(this.itemKind);
+                //player.switchWeapon(this.itemKind);
             }
             else if(this.type === "armor") {
-                player.armorloot_callback(this.itemKind);
+                //player.armorloot_callback(this.itemKind);
             }
+            */
+            player.inventory.push(this.itemKind);
+            console.log(player.inventory);
         },
 
         getSpriteName: function() {
@@ -31,6 +38,6 @@ define(['entity'], function(Entity) {
             return this.lootMessage;
         }
     });
-    
+
     return Item;
 });

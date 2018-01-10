@@ -41,4 +41,4 @@ dest.write(json.dumps(res))
 tmx.close()
 dest.close()
 
-print "Finished converting TMX to JSON."
+print("Finished converting TMX to JSON.")

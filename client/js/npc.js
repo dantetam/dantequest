@@ -3,87 +3,45 @@ define(['character'], function(Character) {
 
     var NpcTalk = {
         "guard": [
-            "Hello there",
-            "We don't need to see your identification",
-            "You are not the player we're looking for",
-            "Move along, move along..."
+            "Hail Aeterna.",
+            "Peace and order.",
+            "Long day, ain't it?",
+            "Beautiful day to be just standing here."
         ],
 
         "king": [
-            "Hi, I'm the King",
-            "I run this place",
-            "Like a boss",
-            "I talk to people",
-            "Like a boss",
-            "I wear a crown",
-            "Like a boss",
-            "I do nothing all day",
-            "Like a boss",
-            "Now leave me alone",
-            "Like a boss"
+            "REDACTED"
         ],
 
         "villagegirl": [
-            "Hi there, adventurer!",
-            "How do you like this game?",
-            "It's all happening in a single web page! Isn't it crazy?",
-            "It's all made possible thanks to WebSockets.",
-            "I don't know much about it, after all I'm just a program.",
-            'Why don&#x27;t you read this <a target="_blank" href="http://hacks.mozilla.org/2012/03/browserquest/">blog post</a> and learn all about it?'
+            "Hello, wanderer.",
+            "This is the city square.",
+            "It's the center of life in the Kingdom of Aeterna.",
+            "Come here for quests and knowledge."
         ],
 
         "villager": [
-            "Howdy stranger. Do you like poetry?",
-            "Roses are red, violets are blue...",
-            "I like hunting rats, and so do you...",
-            "The rats are dead, now what to do?",
-            "To be honest, I have no clue.",
-            "Maybe the forest, could interest you...",
-            "or instead, cook a rat stew."
+            "Aeterna, a shining diamond of civilization in a sea of wildness,",
+            "and a boring, calm town surrounded by adventure."
         ],
 
         "agent": [
-            "Do not try to bend the sword",
-            "That's impossible",
-            "Instead, only try to realize the truth...",
-            "There is no sword."
+            "REDACTED"
         ],
 
         "rick": [
-            "We're no strangers to love",
-            "You know the rules and so do I",
-            "A full commitment's what I'm thinking of",
-            "You wouldn't get this from any other guy",
-            "I just wanna tell you how I'm feeling",
-            "Gotta make you understand",
-            "Never gonna give you up",
-            "Never gonna let you down",
-            "Never gonna run around and desert you",
-            "Never gonna make you cry",
-            "Never gonna say goodbye",
-            "Never gonna tell a lie and hurt you"
+            "REDACTED"
         ],
 
         "scientist": [
-            "Greetings.",
-            "I am the inventor of these two potions.",
-            "The red one will replenish your health points...",
-            "The orange one will turn you into a firefox and make you invincible...",
-            "But it only lasts for a short while.",
-            "So make good use of it!",
-            "Now if you'll excuse me, I need to get back to my experiments..."
+            "Good afternoon, adventurer.",
+            "The discovery and channeling of magic led to the founding of Aeterna,",
+            "but also its demise, and the creation of monsters,",
+            "that roam our world in packs and nests."
         ],
 
         "nyan": [
-            "nyan nyan nyan nyan nyan",
-            "nyan nyan nyan nyan nyan nyan nyan",
-            "nyan nyan nyan nyan nyan nyan",
-            "nyan nyan nyan nyan nyan nyan nyan nyan"
-        ],
-
-        "beachnpc": [
-            "lorem ipsum dolor sit amet",
-            "consectetur adipisicing elit, sed do eiusmod tempor"
+            "REDACTED"
         ],
 
         "forestnpc": [
@@ -102,55 +60,32 @@ define(['character'], function(Character) {
         ],
 
         "priest": [
-            "Oh, hello, young man.",
-            "Wisdom is everything, so I'll share a few guidelines with you.",
-            "You are free to go wherever you like in this world",
-            "but beware of the many foes that await you.",
-            "You can find many weapons and armors by killing enemies.",
-            "The tougher the enemy, the higher the potential rewards.",
-            "You can also unlock achievements by exploring and hunting.",
-            "Click on the small cup icon to see a list of all the achievements.",
-            "Please stay a while and enjoy the many surprises of BrowserQuest",
-            "Farewell, young friend."
+            "Ever since humans crossed the Forbidden Gate,",
+            "they unleashed the greater evils of the world,",
+            "but also revealed its once unknown and transcendent mysteries.",
+            "Such mysteries were only once speculation of priests such as myself."
         ],
 
         "sorcerer": [
-            "Ah... I had foreseen you would come to see me.",
-            "Well? How do you like my new staff?",
-            "Pretty cool, eh?",
-            "Where did I get it, you ask?",
-            "I understand. It's easy to get envious.",
-            "I actually crafted it myself, using my mad wizard skills.",
-            "But let me tell you one thing...",
-            "There are lots of items in this game.",
-            "Some more powerful than others.",
-            "In order to find them, exploration is key.",
-            "Good luck."
+            "I have seen the future. Looks quite bleak.",
+            "At least you are perpetually fine and adventurous."
         ],
 
         "octocat": [
-            "Welcome to BrowserQuest!"
+            "Welcome to DanteQuest!",
+            "I am a higher god, known for source control."
         ],
 
         "coder": [
-            "Hi! Do you know that you can also play BrowserQuest on your tablet or mobile?",
-            "That's the beauty of HTML5!",
-            "Give it a try..."
+            "REDACTED"
         ],
 
         "beachnpc": [
-            "Don't mind me, I'm just here on vacation.",
-            "I have to say...",
-            "These giant crabs are somewhat annoying.",
-            "Could you please get rid of them for me?"
+            "REDACTED"
         ],
 
         "desertnpc": [
-            "One does not simply walk into these mountains...",
-            "An ancient undead lord is said to dwell here.",
-            "Nobody knows exactly what he looks like...",
-            "...for none has lived to tell the tale.",
-            "It's not too late to turn around and go home, kid."
+            "REDACTED"
         ],
 
         "othernpc": [

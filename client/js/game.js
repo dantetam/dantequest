@@ -104,11 +104,12 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         loadMap: function() {
             var self = this;
 
-            this.map = new Map(!this.renderer.upscaledRendering, this);
+            this.map = new Map(false, this);
 
         	this.map.ready(function() {
                 log.info("Map loaded.");
-                var tilesetIndex = self.renderer.upscaledRendering ? 0 : self.renderer.scale - 1;
+                //var tilesetIndex = self.renderer.upscaledRendering ? 0 : self.renderer.scale - 1;
+                var tilesetIndex = 0;
                 self.renderer.setTileset(self.map.tilesets[tilesetIndex]);
         	});
         },
@@ -318,40 +319,27 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         },
 
         loadSprite: function(name) {
-            if(this.renderer.upscaledRendering) {
-                this.spritesets[0][name] = new Sprite(name, 1);
-            } else {
-                this.spritesets[1][name] = new Sprite(name, 2);
-                if(!this.renderer.mobile && !this.renderer.tablet) {
-                    this.spritesets[2][name] = new Sprite(name, 3);
-                }
-            }
+            this.spritesets[0][name] = new Sprite(name, 1);
         },
 
         setSpriteScale: function(scale) {
             var self = this;
 
-            if(this.renderer.upscaledRendering) {
-                this.sprites = this.spritesets[0];
-            } else {
-                this.sprites = this.spritesets[scale - 1];
+            this.sprites = this.spritesets[0];
 
-                _.each(this.entities, function(entity) {
-                    entity.sprite = null;
-                    entity.setSprite(self.sprites[entity.getSpriteName()]);
-                });
-                this.initHurtSprites();
-                this.initShadows();
-                this.initCursors();
-            }
+            _.each(this.entities, function(entity) {
+                entity.sprite = null;
+                entity.setSprite(self.sprites[entity.getSpriteName()]);
+            });
+            this.initHurtSprites();
+            this.initShadows();
+            this.initCursors();
         },
 
         loadSprites: function() {
             log.info("Loading sprites...");
             this.spritesets = [];
             this.spritesets[0] = {};
-            this.spritesets[1] = {};
-            this.spritesets[2] = {};
             _.map(this.spriteNames, this.loadSprite, this);
         },
 

@@ -17,6 +17,17 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
             this.weaponName = "sword1";
             this.inventory = [];
             this.inventoryLimit = 30;
+            this.characterSkills = {
+                level: 1,
+                exp: 0,
+                dexterity: 1, //Quick attacks, combos, and counter-attacks
+                strength: 1, //Strong attacks and parry actions
+                vitality: 1, //Health, defense
+                ancientMagic: 1, //Mostly healing, bonuses, buffs, defenses, and shields
+                humanMagic: 1, //Mostly attacks, attack strengthening, weaken and poison enemies
+                bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
+                machineRanged: 1 //Compound bows, crossbow, siege machines, cannons, and other machines
+            };
 
             // modes
             this.isLootMoving = false;
@@ -100,6 +111,17 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
 
         setInventory: function(inventory) {
             this.inventory = inventory;
+        },
+
+        getCharacterSkills: function() {
+            return this.characterSkills;
+        },
+
+        /*
+        
+        */
+        setCharacterSkills: function(skills) {
+            this.characterSkills = skills;
         },
 
         hasWeapon: function() {

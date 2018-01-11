@@ -118,6 +118,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 this.player.setSpriteName(this.storage.data.player.armor);
                 this.player.setWeaponName(this.storage.data.player.weapon);
                 this.player.setInventory(this.storage.data.player.inventory);
+                this.player.setCharacterSkills(this.storage.data.player.characterSkills)
             }
 
         	this.player.setSprite(this.sprites[this.player.getSpriteName()]);
@@ -793,7 +794,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getSpriteName(),
                                             self.player.getWeaponName(),
-                                            self.player.getInventory());
+                                            self.player.getInventory(),
+                                            self.player.getCharacterSkills());
                     self.showNotification("Welcome to DanteQuest!");
                 } else {
                     self.showNotification("Welcome back to DanteQuest!");
@@ -1058,7 +1060,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getArmorName(),
                                             self.player.getWeaponName(),
-                                            self.player.getInventory());
+                                            self.player.getInventory(),
+                                            self.player.getCharacterSkills());
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }

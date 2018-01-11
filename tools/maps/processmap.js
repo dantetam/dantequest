@@ -16,7 +16,7 @@ module.exports = function processMap(json, options) {
 		layerIndex = 0,
 		tileIndex = 0,
 		tilesetFilepath = "";
-	
+
     map = {
             width: 0,
             height: 0,
@@ -25,7 +25,7 @@ module.exports = function processMap(json, options) {
             checkpoints: []
         };
     mode = options.mode;
-    
+
     if(mode === "client") {
         map.data = [];
         map.high = [];
@@ -40,7 +40,7 @@ module.exports = function processMap(json, options) {
         map.staticChests = [];
         map.staticEntities = {};
     }
-    
+
     log.info("Processing map info...");
     map.width = Tiled.width;
     map.height = Tiled.height;
@@ -52,7 +52,7 @@ module.exports = function processMap(json, options) {
         if(property.name === "c") {
             collidingTiles[id] = true;
         }
-        
+
         if(mode === "client") {
             if(property.name === "v") {
                 map.high.push(id);
@@ -71,21 +71,29 @@ module.exports = function processMap(json, options) {
             }
         }
     }
+
+    //log.info(Tiled.tileset);
     
     if(Tiled.tileset instanceof Array) {
         _.each(Tiled.tileset, function(tileset) {
-            if(tileset.name === "tilesheet") {
-                log.info("Processing terrain properties...");
+            if(tileset.name !== "Mobs") {
+                log.info("Processing tileset properties: " + tileset.name);
                 tileProperties = tileset.tile;
-                for(var i=0; i < tileProperties.length; i += 1) {
-                    var property = tileProperties[i].properties.property;
-                    var tilePropertyId = tileProperties[i].id + 1;
-                    if(property instanceof Array) {
-                        for(var pi=0; pi < property.length; pi += 1) {
-                            handleProp(property[pi], tilePropertyId);
+                if (tileProperties === undefined) { //TODO: Learn how to put custom properties into tiled map editor
+                    log.info("WARNING: invalid map tileset properties for: " + tileset.name + "(was it created properly through Tiled map editor?)");
+                }
+                else {
+                    log.info("Processed successfully: " + tileset.name);
+                    for(var i=0; i < tileProperties.length; i += 1) {
+                        var property = tileProperties[i].properties.property;
+                        var tilePropertyId = tileProperties[i].id + 1;
+                        if(property instanceof Array) {
+                            for(var pi=0; pi < property.length; pi += 1) {
+                                handleProp(property[pi], tilePropertyId);
+                            }
+                        } else {
+                            handleProp(property, tilePropertyId);
                         }
-                    } else {
-                        handleProp(property, tilePropertyId);
                     }
                 }
             }
@@ -105,8 +113,8 @@ module.exports = function processMap(json, options) {
     } else {
         log.error("A tileset is missing");
     }
-    
-    
+
+
     for(var i=0; i < Tiled.objectgroup.length; i += 1) {
         var group = Tiled.objectgroup[i];
         if(group.name === 'doors') {
@@ -131,12 +139,12 @@ module.exports = function processMap(json, options) {
         if(objectlayer.name === "roaming" && mode === "server") {
             log.info("Processing roaming areas...");
             var areas = objectlayer.object;
-    
+
             for(var i=0; i < areas.length; i += 1) {
                 if(areas[i].properties) {
                     var nb = areas[i].properties.property.value;
                 }
-        
+
                 map.roamingAreas[i] = {  id: i,
                                          x: areas[i].x / 16,
                                          y: areas[i].y / 16,
@@ -158,7 +166,7 @@ module.exports = function processMap(json, options) {
                 };
                 _.each(area.properties.property, function(prop) {
                     if(prop.name === 'items') {
-                        chestArea['i'] = _.map(prop.value.split(','), function(name) { 
+                        chestArea['i'] = _.map(prop.value.split(','), function(name) {
                             return Types.getKindFromString(name);
                         });
                     } else {
@@ -222,7 +230,7 @@ module.exports = function processMap(json, options) {
     } else {
         processLayer(Tiled.layer);
     }
-    
+
     if(mode === "client") {
         // Set all undefined tiles to 0
         for(var i=0, max=map.data.length; i < max; i+=1) {
@@ -231,7 +239,7 @@ module.exports = function processMap(json, options) {
             }
         }
     }
-      
+
     return map;
 };
 
@@ -241,7 +249,7 @@ var processLayer = function processLayer(layer) {
         if(layer.name === "entities") {
             log.info("Processing positions of static entities ...");
             var tiles = layer.data.tile;
-            
+
             for(var j=0; j < tiles.length; j += 1) {
                 var gid = tiles[j].gid - mobsFirstgid + 1;
                 if(gid && gid > 0) {
@@ -250,14 +258,14 @@ var processLayer = function processLayer(layer) {
             }
         }
     }
-    
+
     var tiles = layer.data.tile;
-    
+
     if(mode === "client" && layer.name === "blocking") {
         log.info("Processing blocking tiles...");
         for(var i=0; i < tiles.length; i += 1) {
             var gid = tiles[i].gid;
-            
+
             if(gid && gid > 0) {
                 map.blocking.push(i);
             }
@@ -267,7 +275,7 @@ var processLayer = function processLayer(layer) {
         log.info("Processing plateau tiles...");
         for(var i=0; i < tiles.length; i += 1) {
             var gid = tiles[i].gid;
-            
+
             if(gid && gid > 0) {
                 map.plateau.push(i);
             }
@@ -275,7 +283,7 @@ var processLayer = function processLayer(layer) {
     }
     else if(layer.visible !== 0 && layer.name !== "entities") {
         log.info("Processing layer: "+ layer.name);
-        
+
         for(var j=0; j < tiles.length; j += 1) {
             var gid = tiles[j].gid;
 
@@ -293,7 +301,7 @@ var processLayer = function processLayer(layer) {
                     }
                 }
             }
-            
+
             // Colliding tiles
             if(gid in collidingTiles) {
                 map.collisions.push(j);

@@ -18,6 +18,17 @@ define(function() {
                     weapon: "",
                     armor: "",
                     inventory: [],
+                    characterSkills: {
+                        level: 1,
+                        exp: 0,
+                        dexterity: 1, //Quick attacks, combos, and counter-attacks
+                        strength: 1, //Strong attacks and parry actions
+                        vitality: 1, //Health, defense
+                        ancientMagic: 1, //Mostly healing, bonuses, buffs, defenses, and shields
+                        humanMagic: 1, //Mostly attacks, attack strengthening, weaken and poison enemies
+                        bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
+                        machineRanged: 1 //
+                    },
                     image: ""
                 },
                 achievements: {
@@ -84,11 +95,16 @@ define(function() {
             this.save();
         },
 
-        savePlayer: function(img, armor, weapon, inventory) {
+        setPlayerCharSkills: function(skills) {
+            this.data.player.characterSkills = skills;
+        },
+
+        savePlayer: function(img, armor, weapon, inventory, skills) {
             this.setPlayerImage(img);
             this.setPlayerArmor(armor);
             this.setPlayerWeapon(weapon);
             this.setPlayerInventory(inventory);
+            this.setPlayerCharSkills(skills);
         },
 
         // Achievements

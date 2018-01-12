@@ -91,6 +91,10 @@ define(['character'], function(Character) {
         "othernpc": [
             "lorem ipsum",
             "lorem ipsum"
+        ],
+
+        "sorceress-blackhair": [
+            "REDACTED"
         ]
     };
 

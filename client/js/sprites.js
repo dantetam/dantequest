@@ -1,4 +1,6 @@
 
+//Why does this have to be hardcoded?
+
 define(['text!../sprites/agent.json',
         'text!../sprites/arrow.json',
         'text!../sprites/axe.json',
@@ -59,6 +61,7 @@ define(['text!../sprites/agent.json',
         'text!../sprites/skeleton2.json',
         'text!../sprites/snake.json',
         'text!../sprites/sorcerer.json',
+        'text!../sprites/sorceress-blackhair.json',
         'text!../sprites/sparks.json',
         'text!../sprites/spectre.json',
         'text!../sprites/sword.json',
@@ -69,14 +72,14 @@ define(['text!../sprites/agent.json',
         'text!../sprites/villagegirl.json',
         'text!../sprites/villager.json',
         'text!../sprites/wizard.json'], function() {
-    
+
     var sprites = {};
-    
+
     _.each(arguments, function(spriteJson) {
         var sprite = JSON.parse(spriteJson);
-        
+
         sprites[sprite.id] = sprite;
     });
-    
+
     return sprites;
 });

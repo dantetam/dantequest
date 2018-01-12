@@ -38,7 +38,7 @@ define(['npc'], function(Npc) {
                 this._super(id, Types.Entities.VILLAGER, 1);
             }
         }),
-        
+
         Coder: Npc.extend({
             init: function(id) {
                 this._super(id, Types.Entities.CODER, 1);
@@ -57,7 +57,7 @@ define(['npc'], function(Npc) {
                 this.idleSpeed = 50;
             }
         }),
-        
+
         Sorcerer: Npc.extend({
             init: function(id) {
                 this._super(id, Types.Entities.SORCERER, 1);
@@ -70,13 +70,13 @@ define(['npc'], function(Npc) {
                 this._super(id, Types.Entities.PRIEST, 1);
             }
         }),
-        
+
         BeachNpc: Npc.extend({
             init: function(id) {
                 this._super(id, Types.Entities.BEACHNPC, 1);
             }
         }),
-        
+
         ForestNpc: Npc.extend({
             init: function(id) {
                 this._super(id, Types.Entities.FORESTNPC, 1);
@@ -99,8 +99,14 @@ define(['npc'], function(Npc) {
             init: function(id) {
                 this._super(id, Types.Entities.OCTOCAT, 1);
             }
+        }),
+
+        SorceressBlackhair: Npc.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.SORCERESS_BLACKHAIR, 1);
+            }
         })
     };
-    
+
     return NPCs;
 });

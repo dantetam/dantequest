@@ -512,7 +512,7 @@ define(['jquery', 'storage'], function($, Storage) {
         	if (window.focus) {newwindow.focus()}
         },
 
-        showGameMenu: function(menuType) {
+        showGameMenu: function(menuType, actionData={}) {
             //Close the menu if it is already open, else open it up
             var menu = $('#gameMenu');
             if (this.currentMenuMode === menuType || !this.game.player) { //Hide the menu if closed or the player is dead
@@ -526,50 +526,58 @@ define(['jquery', 'storage'], function($, Storage) {
                 menu.css("padding", "20px");
 
                 if (menuType === "inventory") {
-                    //General purpose method for creating a path for a sprite at scale factor
-                    var scale = this.game.renderer.getScaleFactor();
-                    var getIconPath = function(spriteName) {
-                            return 'img/'+ scale +'/item-' + spriteName + '.png';
-                        };
+                    this.displayInventoryMenu();
+                }
+                else if (menuType === "dialogue") {
+                    this.displayDialogue(actionData["speaker"]); //Pass in the person that the user is talking to
+                }
+            }
+        },
 
-                    //Display the menu programmatically
-                    //menu.html("<p>Loading menu...</p>");
-                    menu.html("");
-                    //TODO: In the future, use a templating HTML language on top of an established front-end framework
-                    var menuHtmlString = "";
-                    menuHtmlString += "<h1>Inventory</h1>";
-                    menu.html(menuHtmlString);
+        displayInventoryMenu: function() {
+            //General purpose method for creating a path for a sprite at scale factor
+            var scale = this.game.renderer.getScaleFactor();
+            var getIconPath = function(spriteName) {
+                    return 'img/'+ scale +'/item-' + spriteName + '.png';
+                };
 
-                    var inventoryGridWidth = 8;
-                    var iconPixelWidth = 32;
-                    var inventory = this.game.player.inventory;
-                    for (var i = 0; i < inventory.length; i += 1) {
-                        var itemName = inventory[i];
+            //Display the menu programmatically
+            //menu.html("<p>Loading menu...</p>");
+            menu.html("");
+            //TODO: In the future, use a templating HTML language on top of an established front-end framework
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Inventory</h1>";
+            menu.html(menuHtmlString);
 
-                        var xPos = (i % inventoryGridWidth) * iconPixelWidth;
-                        var yPos = Math.floor(i / inventoryGridWidth) * iconPixelWidth;
-                        var inventoryImgPath = getIconPath(itemName);
+            var inventoryGridWidth = 8;
+            var iconPixelWidth = 32;
+            var inventory = this.game.player.inventory;
+            for (var i = 0; i < inventory.length; i += 1) {
+                var itemName = inventory[i];
 
-                        //var tpl = _.template('<img src="<%= path %>">');
-                        //var tplString = tpl({path: inventoryImgPath});
+                var xPos = (i % inventoryGridWidth) * iconPixelWidth;
+                var yPos = Math.floor(i / inventoryGridWidth) * iconPixelWidth;
+                var inventoryImgPath = getIconPath(itemName);
 
-                        $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
+                //var tpl = _.template('<img src="<%= path %>">');
+                //var tplString = tpl({path: inventoryImgPath});
 
-                        var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
-                        var tplString = tpl({
-                            path: "url(" + inventoryImgPath + ")",
-                            width: iconPixelWidth + "px",
-                            height: iconPixelWidth + "px",
-                            left: xPos + "px",
-                            top: yPos + "px"
-                        });
+                $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
 
-                        menu.html(menu.html() + tplString);
+                //var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
+                var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
+                var tplString = tpl({
+                    path: "url(" + inventoryImgPath + ")",
+                    width: iconPixelWidth + "px",
+                    height: iconPixelWidth + "px" //,
+                    //left: xPos + "px",
+                    //top: yPos + "px"
+                });
 
-                        if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
-                            menu.html(menu.html() + "<br>");
-                        }
-                    }
+                menu.html(menu.html() + tplString);
+
+                if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
+                    menu.html(menu.html() + "<br>");
                 }
             }
         },

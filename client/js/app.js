@@ -512,6 +512,10 @@ define(['jquery', 'storage'], function($, Storage) {
         	if (window.focus) {newwindow.focus()}
         },
 
+        /*
+        @param menuType The menu command, a string, which defines the UI type to bring up
+        @param actionData An optional dictionary of data to be passed to the UI
+        */
         showGameMenu: function(menuType, actionData={}) {
             //Close the menu if it is already open, else open it up
             var menu = $('#gameMenu');
@@ -523,18 +527,22 @@ define(['jquery', 'storage'], function($, Storage) {
             else {
                 this.currentMenuMode = menuType;
                 menu.css("opacity", "1");
+                menu.css("background-color", "rgba(255,255,255,0.4)");
                 menu.css("padding", "20px");
 
                 if (menuType === "inventory") {
-                    this.displayInventoryMenu();
+                    this.displayInventoryMenu(menu);
                 }
                 else if (menuType === "dialogue") {
-                    this.displayDialogue(actionData["speaker"]); //Pass in the person that the user is talking to
+                    this.displayDialogue(menu, actionData["speaker"]); //Pass in the person that the user is talking to
                 }
             }
         },
 
-        displayInventoryMenu: function() {
+        /*
+        @param menu The menu div/DOM object UI being modified
+        */
+        displayInventoryMenu: function(menu) {
             //General purpose method for creating a path for a sprite at scale factor
             var scale = this.game.renderer.getScaleFactor();
             var getIconPath = function(spriteName) {

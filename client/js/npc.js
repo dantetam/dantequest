@@ -98,6 +98,10 @@ define(['character'], function(Character) {
         ]
     };
 
+    var NpcConversations = {
+
+    };
+
     var Npc = Character.extend({
         init: function(id, kind) {
             this._super(id, kind, 1);

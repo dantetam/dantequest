@@ -145,6 +145,13 @@ define(['jquery', 'app'], function($, App) {
              return false;
           });
 
+          //Previous click events relate to BrowserQuest's original menu icons
+          //The ones below this comment relate to the new mods in DanteQuest.
+
+          $('#inventory').click(function(event) {
+              app.showGameMenu("inventory");
+          });
+
           var data = app.storage.data;
       		if(data.hasAlreadyPlayed) {
       		    if(data.player.name && data.player.name !== "") {
@@ -191,7 +198,7 @@ define(['jquery', 'app'], function($, App) {
     		}
 
     		game.onGameStart(function() {
-                app.initEquipmentIcons();
+                app.initEquipmentIcons(); //The inventory (previous weapon and armor) icons
     		});
 
     		game.onDisconnect(function(message) {
@@ -206,9 +213,12 @@ define(['jquery', 'app'], function($, App) {
                 $('body').addClass('death');
     		});
 
+            //No longer need to update this since the inventory icon is static
+            /*
     		game.onPlayerEquipmentChange(function() {
     		    app.initEquipmentIcons();
     		});
+            */
 
     		game.onPlayerInvincible(function() {
     		    $('#hitpoints').toggleClass('invincible');

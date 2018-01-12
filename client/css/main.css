@@ -156,6 +156,10 @@ footer, header, hgroup, menu, nav, section {
 
     #mask {height:100%;width:100%;position:fixed;top:0;left:0;background:rgba(20,20,20,1);opacity:1;z-index:20;-moz-transition:0.5s opacity linear;-webkit-transition:0.5s opacity linear;-o-transition:0.5s opacity linear;-ms-transition:0.5s opacity linear;transition:0.5s opacity linear;pointer-events:none;}
 
+	/* Game Menu UI Overlay
+	#gameMenu {background:url('../img/1/loot.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
+	*/
+
     #bar-container {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
     #healthbar {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:absolute;}
 	#hitpoints {background:#d83939;-moz-transition:.5s width ease;-webkit-transition:.5s width ease;-o-transition:.5s width ease;-ms-transition:.5s width ease;transition:.5s width ease;}
@@ -182,7 +186,7 @@ footer, header, hgroup, menu, nav, section {
     #instructions {position:absolute;top:50%;left:50%;z-index:1000;font-family:'GraphicPixel';pointer-events:none;opacity:0;-moz-transition:0.25s opacity linear;-webkit-transition:0.4s top ease, 0.4s opacity linear;-o-transition:0.4s top ease, 0.4s opacity linear;-ms-transition:0.4s top ease, 0.4s opacity linear;transition:0.4s top ease, 0.4s opacity linear;}
     #instructions.active, #achievements.active {opacity:1;pointer-events:auto;}
 
-    #weapon, #armor {image-rendering:-moz-crisp-edges;}
+    #weapon, #armor, #inventory {image-rendering:-moz-crisp-edges;}
 
     #achievements, #achievements li, .coin, #achievement-notification, #coinsparks, .achievement-sharing a, #previous, #next {background:url('../img/1/achievements.png');image-rendering:-moz-crisp-edges;}
     #achievements {font-family:'GraphicPixel'; position:absolute;top:50%;left:50%;z-index:1000;opacity:0;pointer-events:none;-moz-transition:0.25s opacity linear;-webkit-transition:0.4s top ease, 0.4s opacity linear;-o-transition:0.4s top ease, 0.4s opacity linear;-ms-transition:0.4s top ease, 0.4s opacity linear;transition:0.4s top ease, 0.4s opacity linear;}
@@ -505,14 +509,17 @@ footer, header, hgroup, menu, nav, section {
 		p {font-family:arial, sans-serif;font-size:12px;margin:0;padding:12px 0}
 	    .bubble p {font-family:"GraphicPixel"; font-size:18px;line-height:24px;}
 
+		/* Game Menu UI Overlay */
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+
 	    /*GUI Bar*/
 	    #bar-container {height:51px;top:-3px;background-size:1440px;}
 
 		#healthbar {height:39px;background-position:0 -51px;width:306px;top:9px;background-size:1440px;z-index:20;}
 		#hitpoints {width:0px;height:33px;top:12px;left:33px;z-index:10;position:absolute;}
 
-        #armor, #weapon {width:48px;height:48px;position:absolute;background-size:288px;background-position:-96px;}
-        #weapon {left:312px;top:3px;background-size:288px;}
+        #armor, #weapon, #inventory {width:48px;height:48px;position:absolute;background-size:288px;background-position:-96px;}
+        #weapon, #inventory {left:312px;top:3px;background-size:288px;}
         #armor {left:363px;top:3px;}
 
         #notifications {width:588px;margin-left:-294px;font-size:20px;color:#eee;top:6px;height:45px;}
@@ -668,14 +675,17 @@ footer, header, hgroup, menu, nav, section {
 		p {font-family:arial, sans-serif;font-size:12px;margin:0;padding:0;line-height:35px;}
 	    .bubble p {font-family:"GraphicPixel"; font-size:14px;}
 
+		/* Game Menu UI Overlay */
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+
 	    /*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;}
 
 		#healthbar {height:26px;background-position:0 -34px;width:204px;top:6px;background-size:960px;z-index:20;}
 		#hitpoints {width:0px;height:22px;top:8px;left:22px;z-index:10;position:absolute;}
 
-        #armor, #weapon {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
-        #weapon {left:208px;top:2px;}
+        #armor, #weapon, #inventory {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
+        #weapon, #inventory {left:208px;top:2px;}
         #armor {left:242px;top:2px;}
 
         #notifications {width:392px;margin-left:-196px;font-size:16px;color:#eee;top:2px;height:30px;}
@@ -832,14 +842,17 @@ footer, header, hgroup, menu, nav, section {
 		p {font-family:arial, sans-serif;font-size:12px;margin:0;padding:0;}
 	    .bubble p {font-family:"GraphicPixel"; font-size:14px;line-height:35px;}
 
+		/* Game Menu UI Overlay */
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+
 	    /*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;}
 
 		#healthbar {height:26px;background-position:0 -34px;width:204px;top:6px;background-size:960px;z-index:20;}
 		#hitpoints {width:0px;height:22px;top:8px;left:22px;z-index:10;position:absolute;}
 
-        #armor, #weapon {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
-        #weapon {left:208px;top:2px;}
+        #armor, #weapon, #inventory {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
+        #weapon, #inventory {left:208px;top:2px;}
         #armor {left:242px;top:2px;}
 
         #notifications {width:392px;margin-left:-196px;font-size:16px;color:#eee;top:2px;height:30px;}
@@ -994,14 +1007,17 @@ footer, header, hgroup, menu, nav, section {
 		p {font-family:arial, sans-serif;font-size:12px;margin:0;padding:0;line-height:35px;}
 	    .bubble p {font-family:"GraphicPixel"; font-size:10px;}
 
+		/* Game Menu UI Overlay */
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+
 	    /*GUI Bar*/
 	    #bar-container {height:17px;top:-1px;background-size:480px;}
 
 		#healthbar {height:13px;background-position:0 -17px;width:102px;top:3px;background-size:480px;z-index:20;}
 		#hitpoints {width:0px;height:11px;top:4px;left:11px;z-index:10;position:absolute;}
 
-        #armor, #weapon {width:16px;height:16px;position:absolute;background-size:96px;background-position:-32px;}
-        #weapon {left:104px;top:1px;}
+        #armor, #weapon, #inventory {width:16px;height:16px;position:absolute;background-size:96px;background-position:-32px;}
+        #weapon, #inventory {left:104px;top:1px;}
         #armor {left:121px;top:1px;}
 
         #notifications {width:196px;margin-left:-98px;font-size:10px;color:#eee;top:2px;height:15px;}
@@ -1154,14 +1170,17 @@ footer, header, hgroup, menu, nav, section {
 
 		#playerimage {display:none;}
 
+		/* Game Menu UI Overlay */
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+
 		/*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;background-position:0 -96px;}
 
 		#healthbar {height:26px;background-position:0 -34px;width:204px;top:6px;background-size:960px;z-index:20;}
 		#hitpoints {width:0px;height:22px;top:8px;left:22px;z-index:10;position:absolute;}
 
-        #armor, #weapon {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
-        #weapon {left:208px;top:2px;}
+        #armor, #weapon, #inventory {width:32px;height:32px;position:absolute;background-size:192px;background-position:-64px;}
+        #weapon, #inventory {left:208px;top:2px;}
         #armor {left:242px;top:2px;}
 
         #notifications {display:none;}

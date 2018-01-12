@@ -12,6 +12,9 @@ define(['jquery', 'storage'], function($, Storage) {
             this.watchNameInputInterval = setInterval(this.toggleButton.bind(this), 100);
             this.$playButton = $('.play'),
             this.$playDiv = $('.play div');
+
+            this.currentMenuMode = null; //For in-game menus (except for settings, credits, about)
+            //Use a unified menu display function to create the menu and transition
         },
 
         setGame: function(game) {
@@ -239,10 +242,18 @@ define(['jquery', 'storage'], function($, Storage) {
                 weaponPath = getIconPath(weapon),
                 armorPath = getIconPath(armor);
 
+            //Instead of showing the weapon and armor, show an inventory icon
+            /*
             $('#weapon').css('background-image', 'url("' + weaponPath + '")');
             if(armor !== 'firefox') {
                 $('#armor').css('background-image', 'url("' + armorPath + '")');
             }
+            */
+            var inventoryImgPath = "img/" + scale + "/loot.png";
+            $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
+
+            //Now, enable the ability to open the inventory menu
+
         },
 
         hideWindows: function() {
@@ -394,6 +405,8 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
                 if($('body').hasClass('credits')) {
                     this.closeInGameCredits();
+                }
+                if($('body').hasClass('settings')) {
                     this.closeInGameSettings();
                 }
             } else {
@@ -422,8 +435,10 @@ define(['jquery', 'storage'], function($, Storage) {
                     $('body').toggleClass('death');
                 }
                 //Close other parchments?
-                if($('body').hasClass('credits') || $('body').hasClass('about')) {
+                if($('body').hasClass('credits')) {
                     this.closeInGameCredits();
+                }
+                if($('body').hasClass('about')) {
                     this.closeInGameAbout();
                 }
             } else {
@@ -495,6 +510,19 @@ define(['jquery', 'storage'], function($, Storage) {
 
         	newwindow = window.open(url,'name','height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left);
         	if (window.focus) {newwindow.focus()}
+        },
+
+        showGameMenu: function(menuType) {
+            //Close the menu if it is already open, else open it up
+            var menu = $('#gameMenu');
+            if (this.currentMenuMode === menuType) { //Hide the menu
+                this.currentMenuMode = null;
+                menu.css("opacity", "0");
+            }
+            else {
+                this.currentMenuMode = menuType;
+                menu.css("opacity", "1");
+            }
         },
 
         animateParchment: function(origin, destination) {

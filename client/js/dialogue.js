@@ -16,7 +16,14 @@ define(function() {
 
             this.text = text;
             this.dialogueActions = dialogueActions;
-    	}
+    	},
+
+        getLength: function() {
+            if (this.text) {
+                return this.text.length;
+            }
+            return -1;
+        }
 
     });
 

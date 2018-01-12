@@ -9,6 +9,7 @@ define(function() {
         /**
         @param choices An array of choice dictionaries, as such
                     {
+                        choiceText: The actual text option, usually a text summary, shown to the player
                         dialogue: An integer representing the index of the dialogue to go to,
                         resultNodeId: The final result i.e. the id of the node to go to. -1 signifies end of conversation.
                     }

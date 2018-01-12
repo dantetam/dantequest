@@ -99,7 +99,7 @@ define(['character'], function(Character) {
     };
 
     var NpcConversations = {
-
+        "sorceress-blackhair":
     };
 
     var Npc = Character.extend({

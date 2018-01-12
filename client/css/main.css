@@ -159,6 +159,7 @@ footer, header, hgroup, menu, nav, section {
 	/* Game Menu UI Overlay
 	#gameMenu {background:url('../img/1/loot.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
 	*/
+	#gameMenu {font-family:'GraphicPixel';overflow:hidden;} 
 
     #bar-container {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
     #healthbar {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:absolute;}
@@ -510,7 +511,7 @@ footer, header, hgroup, menu, nav, section {
 	    .bubble p {font-family:"GraphicPixel"; font-size:18px;line-height:24px;}
 
 		/* Game Menu UI Overlay */
-		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: white; opacity: 0; -moz-user-select: none; -webkit-user-select: none;}
 
 	    /*GUI Bar*/
 	    #bar-container {height:51px;top:-3px;background-size:1440px;}
@@ -676,7 +677,8 @@ footer, header, hgroup, menu, nav, section {
 	    .bubble p {font-family:"GraphicPixel"; font-size:14px;}
 
 		/* Game Menu UI Overlay */
-		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: white; opacity: 0; -moz-user-select: none; -webkit-user-select: none;}
+
 
 	    /*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;}
@@ -843,7 +845,8 @@ footer, header, hgroup, menu, nav, section {
 	    .bubble p {font-family:"GraphicPixel"; font-size:14px;line-height:35px;}
 
 		/* Game Menu UI Overlay */
-		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: white; opacity: 0; -moz-user-select: none; -webkit-user-select: none;}
+
 
 	    /*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;}
@@ -1008,7 +1011,8 @@ footer, header, hgroup, menu, nav, section {
 	    .bubble p {font-family:"GraphicPixel"; font-size:10px;}
 
 		/* Game Menu UI Overlay */
-		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: white; opacity: 0; -moz-user-select: none; -webkit-user-select: none;}
+
 
 	    /*GUI Bar*/
 	    #bar-container {height:17px;top:-1px;background-size:480px;}
@@ -1170,8 +1174,8 @@ footer, header, hgroup, menu, nav, section {
 
 		#playerimage {display:none;}
 
-		/* Game Menu UI Overlay */
-		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: purple; opacity: 0;}
+		/* Game Menu UI Overlay *//
+		#gameMenu {position: absolute; top: 10%; left: 10%; height: 80%; width: 80%; background-color: white; opacity: 0; -moz-user-select: none; -webkit-user-select: none;}
 
 		/*GUI Bar*/
 		#bar-container {height:34px;top:-2px;background-size:960px;background-position:0 -96px;}

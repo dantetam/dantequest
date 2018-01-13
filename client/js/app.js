@@ -545,6 +545,7 @@ define(['jquery', 'storage'], function($, Storage) {
         },
 
         displayDialogue: function(menu, actionData) {
+            var app = this; //Keep app in scope
             var mainNpc = actionData["mainNpc"];
 
             //Display the menu programmatically
@@ -561,43 +562,50 @@ define(['jquery', 'storage'], function($, Storage) {
             //Then give the user the appropriate options to advance the conversation:
             //continue (no input); or a list of choices for the user (input).
 
+            console.log(conve)
+
             if (!conve.convoActive) {
-                conve.startConvo();
+                conve.startConvo(null);
+            }
 
-                var result = null;
-                if (actionData.hasOwnProperty("choice")) {
-                    result = conve.advanceConvo(actionData["choice"]);
-                    delete actionData["choice"];
-                }
-                else {
-                    result = conve.advanceConvo();
-                }
+            var result = null;
+            if (actionData.hasOwnProperty("choice")) {
+                var nodeId = actionData["choice"];
+                result = conve.advanceConvo(nodeId);
+                delete actionData["choice"];
+            }
+            else {
+                result = conve.advanceConvo();
+            }
 
-                if (result === null) { //Result from the conversation object signaling end of conversation
-                    hideGameMenu();    
-                    return;
-                }
+            if (result === null) { //Result from the conversation object signaling end of conversation
+                this.hideGameMenu();
+                conve.endConvo(null);
+                return;
+            }
 
-                if (Array.isArray(result)) {
-                    //Temporary jQuery templating; TODO: replace with a better templating stack
-                    for (var i = 0; i < result.length; i++) {
-                        var choice = result[i];
-                        menuHtmlString += "<button id='advanceThisConvo'" + i + ">" + choice["choiceText"] + "</button>";
-                        menu.html(menuHtmlString);
-                        $("#advanceThisConvo" + i).click(function() {
-                            actionData["choice"] = choice;
-                            this.displayDialogue(menu, actionData);
-                        });
-                    }
+            if (Array.isArray(result)) {
+                //Temporary jQuery templating; TODO: replace with a better templating stack
+                for (var i = 0; i < result.length; i++) {
+                    var choice = result[i];
+                    menuHtmlString += "<button id='advanceThisConvo" + i + "'>" + choice["choiceText"] + "</button><br>";
                 }
-                else {
-                    menuHtmlString += "<p>" + result + "</p>";
-                    menuHtmlString += "<button id='advanceThisConvo'>Continue</button>";
-                    menu.html(menuHtmlString);
-                    $("#advanceThisConvo").click(function() {
-                        this.displayDialogue(menu, actionData);
+                menu.html(menuHtmlString);
+                for (var i = 0; i < result.length; i++) {
+                    $("#advanceThisConvo" + i).click(function() {
+                        actionData["choice"] = +(this.id.slice(this.id.length - 1));
+                        app.displayDialogue(menu, actionData);
                     });
                 }
+            }
+            else {
+                menuHtmlString += "<p>" + result + "</p><br>";
+                menuHtmlString += "<button id='advanceThisConvo'>Continue</button><br>";
+                menu.html(menuHtmlString);
+                $("#advanceThisConvo").click(function() {
+                    console.log("Tesssss");
+                    app.displayDialogue(menu, actionData);
+                });
             }
 
         },

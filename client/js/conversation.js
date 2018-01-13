@@ -59,48 +59,75 @@ define(function() {
         i) part of a dialogue, and possibly an action with the dialogue;
         ii) a series of choices, given to the user;
         iii) an object signaling the end of the conversation.
+
+        @param choiceIndex An integer representing the index choice within the node
         */
-        advanceConvo: function(choice=null) {
+        advanceConvo: function(choiceIndex=null) {
             if (this.convoActive) {
-                if (choice === null) { //Just advancing a conversation, not picking an option
+                if (choiceIndex === null) { //Just advancing a conversation, not picking an option
+                    if (this.dialoguePointer === null) {
+                        log.error("Attempting to advance a null dialogue");
+                        return;
+                    }
+
                     var curDialogue = this.dialogues[this.dialoguePointer];
-                    if (this.dialogueIndexPointer < curDialogue.getLength()) {
+                    console.log(this.dialogues);
+                    console.log(this.dialoguePointer);
+                    console.log(this.startingDialogueId);
+                    console.log(curDialogue);
+                    if (this.dialogueIndexPointer < curDialogue.length) {
                         this.dialogueIndexPointer += 1;
 
-                        var dialogueAction = curDialogue["dialogueActions"][this.dialogueIndexPointer];
-                        //Do something with the dialogue action
+                        if (curDialogue.hasOwnProperty("dialogueActions")) {
+                            var dialogueAction = curDialogue["dialogueActions"][this.dialogueIndexPointer];
+                            //Do something with the dialogue action
+                        }
 
-                        return curDialogue.text[this.dialogueIndexPointer - 1]; //Get the current one
+                        return curDialogue[this.dialogueIndexPointer - 1]["text"]; //Get the current one
                     }
                     else { //Done with the short dialogue
-                        if (this.dialogueResult === -1) { //End of conversation
-                            this.endConvo();
+                        if (this.nodeResult === -1) { //End of conversation
                             return null;
                         }
 
-                        this.nodePointer = this.dialogueResult;
+                        this.nodePointer = this.nodeResult;
                         this.nodeResult = null;
 
                         this.dialoguePointer = null;
                         this.dialogueIndexPointer = null;
 
+                        console.log(">>>>>>>>>>>>>" + this.nodePointer);
                         var curNode = this.nodes[this.nodePointer];
-                        return curNode.choices;
+                        return curNode; //This is now just a JSON object that refers directly to the array
                     }
                 }
-                else { //Pick a choice
+                else { //Pick a choice, start a new dialogue
+                    var choice = this.nodes[this.nodePointer][choiceIndex];
+
+                    console.log(">>>>>>><<<<<<<<<<<<<<<");
+                    console.log(this.nodePointer + " " + choiceIndex);
+                    console.log(this.nodes[this.nodePointer]);
+
+                    if (this.dialoguePointer !== null) {
+                        log.error("Warning: attempting to start a new dialogue, one is still in progress");
+                    }
+
+                    console.log(choice);
                     this.nodePointer = null;
+                    console.log(choice);
                     this.nodeResult = choice["resultNodeId"];
 
                     this.dialoguePointer = choice["dialogue"];
-                    this.dialogueIndexPointer = 0;
+                    this.dialogueIndexPointer = 1; //We started already incrementing
 
                     var curDialogue = this.dialogues[this.dialoguePointer];
 
-                    var dialogueAction = curDialogue["dialogueActions"][this.dialogueIndexPointer];
-                    //Do something with the dialogue action
+                    if (curDialogue.hasOwnProperty("dialogueActions")) {
+                        var dialogueAction = curDialogue["dialogueActions"][this.dialogueIndexPointer];
+                        //Do something with the dialogue action
+                    }
 
-                    return curDialogue.text[this.dialogueIndexPointer - 1]; //Get the current one
+                    return curDialogue[this.dialogueIndexPointer - 1]["text"]; //Get the current one
                 }
             }
         }

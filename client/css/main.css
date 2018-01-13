@@ -159,7 +159,18 @@ footer, header, hgroup, menu, nav, section {
 	/* Game Menu UI Overlay
 	#gameMenu {background:url('../img/1/loot.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
 	*/
-	#gameMenu {font-family:'GraphicPixel';overflow:hidden;} 
+	#gameMenu {font-family:'GraphicPixel';overflow:hidden;}
+	#gameMenu button {
+		font-family: 'Helvetica';
+		padding: 5px;
+		font-size: 16px;
+		border: none;
+	}
+	#gameMenu p {
+		font-family: 'Helvetica';
+		padding: 5px;
+		font-size: 16px;
+	}
 
     #bar-container {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:relative;width:100%;z-index:10;}
     #healthbar {background:url('../img/1/barsheet.png');image-rendering:-moz-crisp-edges;position:absolute;}

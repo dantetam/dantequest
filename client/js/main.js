@@ -228,9 +228,11 @@ define(['jquery', 'app'], function($, App) {
 
             */
             game.onPlayerChatNpc(function(player, mainNpc) {
-                var actionData = {"player": player};
-                actionData["mainNpc"] = mainNpc;
-                app.showGameMenu("dialogue", actionData);
+                if (mainNpc.conversation !== undefined) {
+                    var actionData = {"player": player};
+                    actionData["mainNpc"] = mainNpc;
+                    app.showGameMenu("dialogue", actionData);
+                }
             });
 
     		game.onNbPlayersChange(function(worldPlayers, totalPlayers) {

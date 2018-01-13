@@ -514,8 +514,10 @@ define(['jquery', 'storage'], function($, Storage) {
 
         hideGameMenu: function() {
             var menu = $('#gameMenu');
+            menu.html("");
             this.currentMenuMode = null;
             menu.css("opacity", "0");
+            menu.unbind(); //Allow the user to click on the screen again
         },
 
         /*
@@ -541,6 +543,9 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "dialogue") {
                     this.displayDialogue(menu, actionData); //Pass in the person that the user is talking to
                 }
+                menu.click(function(event) {
+                    event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
+                });
             }
         },
 
@@ -555,14 +560,17 @@ define(['jquery', 'storage'], function($, Storage) {
 
             var conve = mainNpc.conversation;
 
+            if (conve === undefined) { //This NPC just has a "minor" dialogue, displayed in the world
+                this.hideGameMenu();
+                return;
+            }
+
             //mainNpc.conversation.startConvo(actionData);
 
             //How a conversation works — here, we "advance" the conversation,
             //which can return two results: text dialogue, or a series of choices.
             //Then give the user the appropriate options to advance the conversation:
             //continue (no input); or a list of choices for the user (input).
-
-            console.log(conve)
 
             if (!conve.convoActive) {
                 conve.startConvo(null);
@@ -592,9 +600,11 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
                 menu.html(menuHtmlString);
                 for (var i = 0; i < result.length; i++) {
-                    $("#advanceThisConvo" + i).click(function() {
+                    $("#advanceThisConvo" + i).click(function(event) {
+                        //This hack simply preserves the digit at the end, since JS executes/interprets this code at click time -_-
                         actionData["choice"] = +(this.id.slice(this.id.length - 1));
                         app.displayDialogue(menu, actionData);
+                        event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                     });
                 }
             }
@@ -602,9 +612,9 @@ define(['jquery', 'storage'], function($, Storage) {
                 menuHtmlString += "<p>" + result + "</p><br>";
                 menuHtmlString += "<button id='advanceThisConvo'>Continue</button><br>";
                 menu.html(menuHtmlString);
-                $("#advanceThisConvo").click(function() {
-                    console.log("Tesssss");
+                $("#advanceThisConvo").click(function(event) {
                     app.displayDialogue(menu, actionData);
+                    event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
             }
 

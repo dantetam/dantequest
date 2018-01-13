@@ -106,17 +106,19 @@ define(['character', 'conversations'], function(Character, Conversations) {
         init: function(id, kind) {
             this._super(id, kind, 1);
             this.itemKind = Types.getKindAsString(this.kind);
-            //this.talkCount = NpcTalk[this.itemKind].length;
-            //this.talkIndex = 0;
+
             this.conversation = Conversations[this.itemKind];
+
+            if (this.conversation === undefined) {
+                this.talkCount = NpcTalk[this.itemKind].length;
+                this.talkIndex = 0;
+            }
+
             //Temporary display name
             this.displayName = this.itemKind.charAt(0).toUpperCase() + this.itemKind.slice(1);
-        }
+        },
 
-        /*
-        talk: function() {
-            console.log(this.conversation);
-
+        minorTalk: function() {
             var msg = null;
 
             if(this.talkIndex > this.talkCount) {
@@ -129,7 +131,7 @@ define(['character', 'conversations'], function(Character, Conversations) {
 
             return msg;
         }
-        */
+
     });
 
     return Npc;

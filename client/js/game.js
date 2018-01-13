@@ -988,8 +988,12 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     }
 
                     if(self.player.target instanceof Npc) {
-                        self.playerchatnpc_callback(self.player, self.player.target);
-                        //self.makeNpcTalk(self.player.target);
+                        if (self.player.target.conversation !== undefined) { //NPC has a major dialogue, rendered
+                            self.playerchatnpc_callback(self.player, self.player.target);
+                        }
+                        else {
+                            self.makeNpcTalk(self.player.target);
+                        }
                     } else if(self.player.target instanceof Chest) {
                         self.client.sendOpen(self.player.target);
                         self.audioManager.playSound("chest");
@@ -1612,12 +1616,10 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         makeNpcTalk: function(npc) {
             var msg;
 
-            if(npc) {
-
+            if (npc) {
 
                 //Below, previous methods for creating chat, very bare-bones
-                /*
-                msg = npc.talk();
+                msg = npc.minorTalk();
                 this.previousClickPosition = {};
                 if(msg) {
                     this.createBubble(npc.id, msg);
@@ -1632,7 +1634,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 if(npc.kind === Types.Entities.RICK) {
                     this.tryUnlockingAchievement("RICKROLLD");
                 }
-                */
             }
         },
 

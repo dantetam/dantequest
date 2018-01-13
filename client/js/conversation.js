@@ -71,10 +71,6 @@ define(function() {
                     }
 
                     var curDialogue = this.dialogues[this.dialoguePointer];
-                    console.log(this.dialogues);
-                    console.log(this.dialoguePointer);
-                    console.log(this.startingDialogueId);
-                    console.log(curDialogue);
                     if (this.dialogueIndexPointer < curDialogue.length) {
                         this.dialogueIndexPointer += 1;
 
@@ -96,7 +92,6 @@ define(function() {
                         this.dialoguePointer = null;
                         this.dialogueIndexPointer = null;
 
-                        console.log(">>>>>>>>>>>>>" + this.nodePointer);
                         var curNode = this.nodes[this.nodePointer];
                         return curNode; //This is now just a JSON object that refers directly to the array
                     }
@@ -104,17 +99,11 @@ define(function() {
                 else { //Pick a choice, start a new dialogue
                     var choice = this.nodes[this.nodePointer][choiceIndex];
 
-                    console.log(">>>>>>><<<<<<<<<<<<<<<");
-                    console.log(this.nodePointer + " " + choiceIndex);
-                    console.log(this.nodes[this.nodePointer]);
-
                     if (this.dialoguePointer !== null) {
                         log.error("Warning: attempting to start a new dialogue, one is still in progress");
                     }
 
-                    console.log(choice);
                     this.nodePointer = null;
-                    console.log(choice);
                     this.nodeResult = choice["resultNodeId"];
 
                     this.dialoguePointer = choice["dialogue"];

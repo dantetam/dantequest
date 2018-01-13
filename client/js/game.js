@@ -1,9 +1,11 @@
 
 define(['infomanager', 'bubble', 'renderer', 'map', 'animation', 'sprite', 'tile',
         'warrior', 'gameclient', 'audio', 'updater', 'transition', 'pathfinder',
+        'conversations',
         'item', 'mob', 'npc', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
 function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedTile,
          Warrior, GameClient, AudioManager, Updater, Transition, Pathfinder,
+         Conversations,
          Item, Mob, Npc, Player, Character, Chest, Mobs, Exceptions, config) {
 
     var Game = Class.extend({
@@ -857,6 +859,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         }
                     });
 
+                    /*
                     if((self.player.gridX <= 85 && self.player.gridY <= 179 && self.player.gridY > 178) || (self.player.gridX <= 85 && self.player.gridY <= 266 && self.player.gridY > 265)) {
                         self.tryUnlockingAchievement("INTO_THE_WILD");
                     }
@@ -876,6 +879,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     if(self.player.gridX <= 27 && self.player.gridY <= 123 && self.player.gridY > 112) {
                         self.tryUnlockingAchievement("TOMB_RAIDER");
                     }
+                    */
 
                     self.updatePlayerCheckpoint();
 
@@ -984,7 +988,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     }
 
                     if(self.player.target instanceof Npc) {
-                        self.makeNpcTalk(self.player.target);
+                        self.playerchatnpc_callback(self.player, self.player.target);
+                        //self.makeNpcTalk(self.player.target);
                     } else if(self.player.target instanceof Chest) {
                         self.client.sendOpen(self.player.target);
                         self.audioManager.playSound("chest");
@@ -1601,12 +1606,17 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         },
 
         /**
-         *
+         * No longer needed due to the callback to user's app/client, which creates a local conversation menu
+         See app::displayDialogue(...)
          */
         makeNpcTalk: function(npc) {
             var msg;
 
             if(npc) {
+
+
+                //Below, previous methods for creating chat, very bare-bones
+                /*
                 msg = npc.talk();
                 this.previousClickPosition = {};
                 if(msg) {
@@ -1622,6 +1632,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 if(npc.kind === Types.Entities.RICK) {
                     this.tryUnlockingAchievement("RICKROLLD");
                 }
+                */
             }
         },
 
@@ -2281,7 +2292,11 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         },
 
         onPlayerInvincible: function(callback) {
-            this.invincible_callback = callback
+            this.invincible_callback = callback;
+        },
+
+        onPlayerChatNpc: function(callback) {
+            this.playerchatnpc_callback = callback;
         },
 
         resize: function() {

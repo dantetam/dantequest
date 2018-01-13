@@ -46,7 +46,7 @@ define(['mob', 'timer'], function(Mob, Timer) {
                 this.setAttackRate(900);
             }
         }),
-        
+
         Deathknight: Mob.extend({
             init: function(id) {
                 this._super(id, Types.Entities.DEATHKNIGHT);
@@ -57,7 +57,7 @@ define(['mob', 'timer'], function(Mob, Timer) {
         		this.setAttackRate(800);
         		this.aggroRange = 3;
             },
-            
+
             idle: function(orientation) {
                 if(!this.hasTarget()) {
                     this._super(Types.Orientations.DOWN);
@@ -145,7 +145,7 @@ define(['mob', 'timer'], function(Mob, Timer) {
                 this.attackCooldown = new Timer(this.atkRate);
         		this.aggroRange = 3;
             },
-            
+
             idle: function(orientation) {
                 if(!this.hasTarget()) {
                     this._super(Types.Orientations.DOWN);

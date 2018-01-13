@@ -1,8 +1,56 @@
 
 define(['npc'], function(Npc) {
 
-    var NPCs = {
+        /*
+        var npcClassNames = ["Guard", "King", "Agent", "Rick", "VillageGirl", "Villager", "Coder",
+                             "Scientist", "Nyan", "Sorcerer", "Priest",
+                             "BeachNpc", "ForestNpc", "DesertNpc", "LavaNpc", "SorceressBlackhair", "Octocat"];
 
+        var npcEntityTypeEnums = [
+            Types.Entities.GUARD,
+            Types.Entities.KING,
+            Types.Entities.AGENT,
+            Types.Entities.RICK,
+            Types.Entities.VILLAGEGIRL,
+            Types.Entities.VILLAGER,
+            Types.Entities.CODER,
+
+            Types.Entities.SCIENTIST,
+            Types.Entities.NYAN,
+            Types.Entities.SORCERER,
+            Types.Entities.PRIEST,
+
+            Types.Entities.BEACHNPC,
+            Types.Entities.FORESTNPC,
+            Types.Entities.DESERTNPC,
+            Types.Entities.LAVANPC,
+            Types.Entities.SORCERESS_BLACKHAIR,
+            Types.Entities.OCTOCAT
+        ];
+
+        var NPCs = {};
+
+        if (npcClassNames.length !== npcEntityTypeEnums.length) {
+            log.error("npcClassNames.length !== npcEntityTypeEnums.length in file npcs.js (factory)");
+            return null;
+        }
+
+        for (var i = 0; i < npcClassNames.length; i++) {
+            var npcId = npcClassNames[i];
+            var npcEnumObj = npcEntityTypeEnums[i];
+
+            NPCs[npcClassNames[i]] = Npc.extend({
+                init: function(id) {
+                    this._super(id, npcEntityTypeEnums[i], 1);
+                    this.displayName = npcClassNames[i];
+                }
+            });
+
+            console.log(npcId, npcClassNames[i], npcEnumObj)
+        }
+        */
+
+    var NPCs = {
         Guard: Npc.extend({
             init: function(id) {
                 this._super(id, Types.Entities.GUARD, 1);
@@ -106,6 +154,7 @@ define(['npc'], function(Npc) {
                 this._super(id, Types.Entities.SORCERESS_BLACKHAIR, 1);
             }
         })
+
     };
 
     return NPCs;

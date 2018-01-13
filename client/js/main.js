@@ -224,6 +224,15 @@ define(['jquery', 'app'], function($, App) {
     		    $('#hitpoints').toggleClass('invincible');
     		});
 
+            /* Custom callback for talking to a game NPC
+
+            */
+            game.onPlayerChatNpc(function(player, mainNpc) {
+                var actionData = {"player": player};
+                actionData["mainNpc"] = mainNpc;
+                app.showGameMenu("dialogue", actionData);
+            });
+
     		game.onNbPlayersChange(function(worldPlayers, totalPlayers) {
     		    var setWorldPlayersString = function(string) {
         		        $("#instance-population").find("span:nth-child(2)").text(string);

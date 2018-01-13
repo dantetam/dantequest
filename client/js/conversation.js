@@ -73,6 +73,11 @@ define(function() {
                         return curDialogue.text[this.dialogueIndexPointer - 1]; //Get the current one
                     }
                     else { //Done with the short dialogue
+                        if (this.dialogueResult === -1) { //End of conversation
+                            this.endConvo();
+                            return null;
+                        }
+
                         this.nodePointer = this.dialogueResult;
                         this.nodeResult = null;
 

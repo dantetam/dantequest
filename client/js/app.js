@@ -512,6 +512,12 @@ define(['jquery', 'storage'], function($, Storage) {
         	if (window.focus) {newwindow.focus()}
         },
 
+        hideGameMenu: function() {
+            var menu = $('#gameMenu');
+            this.currentMenuMode = null;
+            menu.css("opacity", "0");
+        },
+
         /*
         @param menuType The menu command, a string, which defines the UI type to bring up
         @param actionData An optional dictionary of data to be passed to the UI
@@ -520,8 +526,7 @@ define(['jquery', 'storage'], function($, Storage) {
             //Close the menu if it is already open, else open it up
             var menu = $('#gameMenu');
             if (this.currentMenuMode === menuType || !this.game.player) { //Hide the menu if closed or the player is dead
-                this.currentMenuMode = null;
-                menu.css("opacity", "0");
+                this.hideGameMenu();
                 //menu.html("<p>Loading menu...</p>");
             }
             else {
@@ -534,9 +539,67 @@ define(['jquery', 'storage'], function($, Storage) {
                     this.displayInventoryMenu(menu);
                 }
                 else if (menuType === "dialogue") {
-                    this.displayDialogue(menu, actionData["speaker"]); //Pass in the person that the user is talking to
+                    this.displayDialogue(menu, actionData); //Pass in the person that the user is talking to
                 }
             }
+        },
+
+        displayDialogue: function(menu, actionData) {
+            var mainNpc = actionData["mainNpc"];
+
+            //Display the menu programmatically
+            menu.html("");
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>" + mainNpc.displayName + "</h1>";
+
+            var conve = mainNpc.conversation;
+
+            //mainNpc.conversation.startConvo(actionData);
+
+            //How a conversation works — here, we "advance" the conversation,
+            //which can return two results: text dialogue, or a series of choices.
+            //Then give the user the appropriate options to advance the conversation:
+            //continue (no input); or a list of choices for the user (input).
+
+            if (!conve.convoActive) {
+                conve.startConvo();
+
+                var result = null;
+                if (actionData.hasOwnProperty("choice")) {
+                    result = conve.advanceConvo(actionData["choice"]);
+                    delete actionData["choice"];
+                }
+                else {
+                    result = conve.advanceConvo();
+                }
+
+                if (result === null) { //Result from the conversation object signaling end of conversation
+                    hideGameMenu();    
+                    return;
+                }
+
+                if (Array.isArray(result)) {
+                    //Temporary jQuery templating; TODO: replace with a better templating stack
+                    for (var i = 0; i < result.length; i++) {
+                        var choice = result[i];
+                        menuHtmlString += "<button id='advanceThisConvo'" + i + ">" + choice["choiceText"] + "</button>";
+                        menu.html(menuHtmlString);
+                        $("#advanceThisConvo" + i).click(function() {
+                            actionData["choice"] = choice;
+                            this.displayDialogue(menu, actionData);
+                        });
+                    }
+                }
+                else {
+                    menuHtmlString += "<p>" + result + "</p>";
+                    menuHtmlString += "<button id='advanceThisConvo'>Continue</button>";
+                    menu.html(menuHtmlString);
+                    $("#advanceThisConvo").click(function() {
+                        this.displayDialogue(menu, actionData);
+                    });
+                }
+            }
+
         },
 
         /*

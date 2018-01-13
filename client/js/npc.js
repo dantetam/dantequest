@@ -1,5 +1,5 @@
 
-define(['character'], function(Character) {
+define(['character', 'conversations'], function(Character, Conversations) {
 
     var NpcTalk = {
         "guard": [
@@ -98,19 +98,25 @@ define(['character'], function(Character) {
         ]
     };
 
-    var NpcConversations = {
+    /*var NpcConversations = {
         "sorceress-blackhair":
-    };
+    };*/
 
     var Npc = Character.extend({
         init: function(id, kind) {
             this._super(id, kind, 1);
             this.itemKind = Types.getKindAsString(this.kind);
-            this.talkCount = NpcTalk[this.itemKind].length;
-            this.talkIndex = 0;
-        },
+            //this.talkCount = NpcTalk[this.itemKind].length;
+            //this.talkIndex = 0;
+            this.conversation = Conversations[this.itemKind];
+            //Temporary display name
+            this.displayName = this.itemKind.charAt(0).toUpperCase() + this.itemKind.slice(1);
+        }
 
+        /*
         talk: function() {
+            console.log(this.conversation);
+
             var msg = null;
 
             if(this.talkIndex > this.talkCount) {
@@ -123,6 +129,7 @@ define(['character'], function(Character) {
 
             return msg;
         }
+        */
     });
 
     return Npc;

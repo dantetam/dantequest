@@ -636,8 +636,14 @@ define(['jquery', 'storage'], function($, Storage) {
             //TODO: In the future, use a templating HTML language on top of an established front-end framework
             var menuHtmlString = "";
             menuHtmlString += "<h1>Inventory</h1>";
+            menuHtmlString += "<div id='leftGameMenu' style='display: inline-block; width: 40%; height: 100%;'></div>";
+            menuHtmlString += "<div id='rightGameMenu' style='display: inline-block; width: 60%; height: 100%;'></div>";
             menu.html(menuHtmlString);
 
+            var leftGameMenu = $("#leftGameMenu"), rightGameMenu = $("#rightGameMenu");
+            rightGameMenu.html("<p>Equipment</p>")
+
+            //Render the left side: all the items currently in inventory
             var inventoryGridWidth = 8;
             var iconPixelWidth = 32;
             var inventory = this.game.player.inventory;
@@ -663,12 +669,31 @@ define(['jquery', 'storage'], function($, Storage) {
                     //top: yPos + "px"
                 });
 
-                menu.html(menu.html() + tplString);
+                leftGameMenu.html(leftGameMenu.html() + tplString);
 
                 if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
-                    menu.html(menu.html() + "<br>");
+                    leftGameMenu.html(leftGameMenu.html() + "<br>");
                 }
             }
+
+            //Render the right side: currently equipped items; expand later
+            var weapon = this.game.player.getWeaponName(),
+            armor = this.game.player.getSpriteName(),
+            weaponPath = getIconPath(weapon),
+            armorPath = getIconPath(armor);
+
+            var tpl = _.template(`
+                    <div>Weapon <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= weaponPath %>"></div></div><br>
+                    <div>Armor <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= armorPath %>"></div></div><br>
+                `);
+            var tplString = tpl({
+                weaponPath: "url(" + weaponPath + ")",
+                armorPath: "url(" + armorPath + ")",
+                width: iconPixelWidth + "px",
+                height: iconPixelWidth + "px"
+            });
+
+            rightGameMenu.html(rightGameMenu.html() + tplString);
         },
 
         animateParchment: function(origin, destination) {

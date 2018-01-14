@@ -29,6 +29,7 @@ define(['character', 'exceptions', 'items'], function(Character, Exceptions, Ite
                 bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                 machineRanged: 1 //Compound bows, crossbow, siege machines, cannons, and other machines
             };
+            this.gold = 0;
 
             // modes
             this.isLootMoving = false;
@@ -123,6 +124,14 @@ define(['character', 'exceptions', 'items'], function(Character, Exceptions, Ite
         */
         setCharacterSkills: function(skills) {
             this.characterSkills = skills;
+        },
+
+        getGold: function() {
+            return this.gold;
+        },
+
+        setGold: function(gold) {
+            this.gold = gold;
         },
 
         hasWeapon: function() {

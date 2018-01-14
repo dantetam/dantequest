@@ -99,12 +99,17 @@ define(function() {
             this.data.player.characterSkills = skills;
         },
 
-        savePlayer: function(img, armor, weapon, inventory, skills) {
+        setPlayerGold: function(gold) {
+            this.data.player.setGold(gold);
+        },
+
+        savePlayer: function(img, armor, weapon, inventory, skills, gold) {
             this.setPlayerImage(img);
             this.setPlayerArmor(armor);
             this.setPlayerWeapon(weapon);
             this.setPlayerInventory(inventory);
             this.setPlayerCharSkills(skills);
+            this.setPlayerGold(gold);
         },
 
         // Achievements

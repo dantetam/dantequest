@@ -122,7 +122,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 this.player.setSpriteName(this.storage.data.player.armor);
                 this.player.setWeapon(this.storage.data.player.weapon);
                 this.player.setInventory(this.storage.data.player.inventory);
-                this.player.setCharacterSkills(this.storage.data.player.characterSkills)
+                this.player.setCharacterSkills(this.storage.data.player.characterSkills);
+                this.player.setGold(this.storage.data.player.gold);
             }
 
         	this.player.setSprite(this.sprites[this.player.getSpriteName()]);
@@ -786,7 +787,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.getSpriteName(),
                                             self.player.weapon,
                                             self.player.getInventory(),
-                                            self.player.getCharacterSkills());
+                                            self.player.getCharacterSkills(),
+                                            self.player.getGold());
                     self.showNotification("Welcome to DanteQuest!");
                 } else {
                     self.showNotification("Welcome back to DanteQuest!");
@@ -1059,7 +1061,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.getArmorName(),
                                             self.player.weapon,
                                             self.player.getInventory(),
-                                            self.player.getCharacterSkills());
+                                            self.player.getCharacterSkills(),
+                                            self.player.getGold());
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }

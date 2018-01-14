@@ -236,11 +236,14 @@ define(['jquery', 'storage'], function($, Storage) {
             var scale = this.game.renderer.getScaleFactor();
             var getIconPath = function(spriteName) {
                     return 'img/'+ scale +'/item-' + spriteName + '.png';
-                },
+                };
+
+                /*,
                 weapon = this.game.player.getWeaponName(),
                 armor = this.game.player.getSpriteName(),
                 weaponPath = getIconPath(weapon),
                 armorPath = getIconPath(armor);
+                */
 
             //Instead of showing the weapon and armor, show an inventory icon
             /*
@@ -624,6 +627,8 @@ define(['jquery', 'storage'], function($, Storage) {
         @param menu The menu div/DOM object UI being modified
         */
         displayInventoryMenu: function(menu) {
+            var app = this; //Preserve the scope of the larger app
+
             //General purpose method for creating a path for a sprite at scale factor
             var scale = this.game.renderer.getScaleFactor();
             var getIconPath = function(spriteName) {
@@ -641,14 +646,17 @@ define(['jquery', 'storage'], function($, Storage) {
             menu.html(menuHtmlString);
 
             var leftGameMenu = $("#leftGameMenu"), rightGameMenu = $("#rightGameMenu");
-            rightGameMenu.html("<p>Equipment</p>")
+            rightGameMenu.html("<p>Equipment</p>");
 
             //Render the left side: all the items currently in inventory
             var inventoryGridWidth = 8;
             var iconPixelWidth = 32;
             var inventory = this.game.player.inventory;
             for (var i = 0; i < inventory.length; i += 1) {
-                var itemName = inventory[i];
+
+                console.log(inventory[i]);
+
+                var itemName = inventory[i].itemKind;
 
                 var xPos = (i % inventoryGridWidth) * iconPixelWidth;
                 var yPos = Math.floor(i / inventoryGridWidth) * iconPixelWidth;
@@ -660,11 +668,12 @@ define(['jquery', 'storage'], function($, Storage) {
                 $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
 
                 //var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
-                var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
+                var tpl = _.template('<div id="<%= divId %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
                 var tplString = tpl({
                     path: "url(" + inventoryImgPath + ")",
                     width: iconPixelWidth + "px",
-                    height: iconPixelWidth + "px" //,
+                    height: iconPixelWidth + "px", //,
+                    divId: "inventoryEquipButton" + i
                     //left: xPos + "px",
                     //top: yPos + "px"
                 });
@@ -674,11 +683,29 @@ define(['jquery', 'storage'], function($, Storage) {
                 if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
                     leftGameMenu.html(leftGameMenu.html() + "<br>");
                 }
+
+                if (inventory[i].type === "weapon") {
+                    $("#inventoryEquipButton" + i).click(function() {
+                        if (app.game.player) {
+                            var index = +(this.id.slice(this.id.length - 1)); //The hack referring to the DOM
+                            app.game.player.equipWeapon(index);
+                            app.displayInventoryMenu(menu);
+                        }
+                    });
+                }
             }
 
             //Render the right side: currently equipped items; expand later
             var weapon = this.game.player.getWeaponName(),
-            armor = this.game.player.getSpriteName(),
+            armor = this.game.player.getSpriteName();
+
+            //Check if either null or undefined
+            if (weapon == null) {
+                weapon = "sword1";
+            }
+            if (armor == null) {
+                armor = "clotharmor";
+            }
             weaponPath = getIconPath(weapon),
             armorPath = getIconPath(armor);
 

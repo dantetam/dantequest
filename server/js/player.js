@@ -26,6 +26,8 @@ module.exports = Player = Character.extend({
 
         this.connection.listen(function(message) {
 
+            console.log(message);
+
             var action = parseInt(message[0]);
 
             log.debug("Received: " + message);
@@ -107,6 +109,16 @@ module.exports = Player = Character.extend({
 
                         self.broadcast(new Messages.LootMove(self, item));
                         self.lootmove_callback(self.x, self.y);
+                    }
+
+                    //Save the player's inventory when the player loots an item
+                    self.storage.savePlayer(self.renderer.getPlayerImage(),
+                                            self.player.getArmorName(),
+                                            self.player.weapon,
+                                            self.player.getInventory(),
+                                            self.player.getCharacterSkills());
+                    if(self.equipment_callback) {
+                        self.equipment_callback();
                     }
                 }
             }
@@ -315,7 +327,7 @@ module.exports = Player = Character.extend({
         this.broadcastzone_callback = callback;
     },
 
-    equip: function(item) {
+    equip: function(item) { //TODO: Item needs to be an actual item object
         return new Messages.EquipItem(this, item);
     },
 

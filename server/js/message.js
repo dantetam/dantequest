@@ -73,7 +73,7 @@ Messages.Health = Message.extend({
     serialize: function() {
         var health = [Types.Messages.HEALTH,
                       this.points];
-        
+
         if(this.isRegen) {
             health.push(1);
         }
@@ -92,14 +92,14 @@ Messages.HitPoints = Message.extend({
 });
 
 Messages.EquipItem = Message.extend({
-    init: function(player, itemKind) {
+    init: function(player, item) {
         this.playerId = player.id;
-        this.itemKind = itemKind;
+        this.item = item;
     },
     serialize: function() {
         return [Types.Messages.EQUIP,
                 this.playerId,
-                this.itemKind];
+                this.item];
     }
 });
 
@@ -183,7 +183,7 @@ Messages.List = Message.extend({
     },
     serialize: function() {
         var list = this.ids;
-        
+
         list.unshift(Types.Messages.LIST);
         return list;
     }

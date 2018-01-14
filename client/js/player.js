@@ -1,5 +1,5 @@
 
-define(['character', 'exceptions'], function(Character, Exceptions) {
+define(['character', 'exceptions', 'items'], function(Character, Exceptions, Items) {
 
     var Player = Character.extend({
         MAX_LEVEL: 10,
@@ -14,7 +14,8 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
 
             // sprites
             this.spriteName = "clotharmor";
-            this.weaponName = "sword1";
+            this.weapon = new Items.GoldenSword(503);
+            this.weaponName = "goldensword";
             this.inventory = [];
             this.inventoryLimit = 30;
             this.characterSkills = {
@@ -31,7 +32,6 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
 
             // modes
             this.isLootMoving = false;
-            this.isSwitchingWeapon = true;
         },
 
         loot: function(item) {
@@ -101,8 +101,9 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
             return this.weaponName;
         },
 
-        setWeaponName: function(name) {
-            this.weaponName = name;
+        setWeapon: function(weaponObj) {
+            this.weapon = weaponObj;
+            this.weaponName = weaponObj.itemKind;
         },
 
         getInventory: function() {
@@ -118,7 +119,7 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
         },
 
         /*
-        
+
         */
         setCharacterSkills: function(skills) {
             this.characterSkills = skills;
@@ -128,73 +129,34 @@ define(['character', 'exceptions'], function(Character, Exceptions) {
             return this.weaponName !== null;
         },
 
-        switchWeapon: function(newWeaponName) {
-            var count = 14,
-                value = false,
-                self = this;
+        equipWeapon: function(inventoryIndex) {
+            //this.inventory.
+            var item = this.inventory[inventoryIndex];
+            if(item.type === "weapon") { //&& newWeaponName !== this.getWeaponName()) {
+                //this.inventory = _.without(this.inventory, _.findWhere(this.inventory, {itemKind: newWeaponName}));
+                this.inventory.splice(inventoryIndex, 1);
 
-            var toggle = function() {
-                value = !value;
-                return value;
-            };
-
-            if(newWeaponName !== this.getWeaponName()) {
-                if(this.isSwitchingWeapon) {
-                    clearInterval(blanking);
+                if (this.getWeaponName() !== null) {
+                    console.log(this.weapon);
+                    this.inventory.push(this.weapon);
                 }
 
-                this.switchingWeapon = true;
-                var blanking = setInterval(function() {
-                    if(toggle()) {
-                        self.setWeaponName(newWeaponName);
-                    } else {
-                        self.setWeaponName(null);
-                    }
+                this.setWeapon(item);
 
-                    count -= 1;
-                    if(count === 1) {
-                        clearInterval(blanking);
-                        self.switchingWeapon = false;
-
-                        if(self.switch_callback) {
-                            self.switch_callback();
-                        }
-                    }
-                }, 90);
+                if(this.switch_callback) {
+                    this.switch_callback();
+                }
             }
         },
 
         switchArmor: function(newArmorSprite) {
-            var count = 14,
-                value = false,
-                self = this;
-
-            var toggle = function() {
-                value = !value;
-                return value;
-            };
-
             if(newArmorSprite && newArmorSprite.id !== this.getSpriteName()) {
-                if(this.isSwitchingArmor) {
-                    clearInterval(blanking);
-                }
-
-                this.isSwitchingArmor = true;
                 self.setSprite(newArmorSprite);
                 self.setSpriteName(newArmorSprite.id);
-                var blanking = setInterval(function() {
-                    self.setVisible(toggle());
 
-                    count -= 1;
-                    if(count === 1) {
-                        clearInterval(blanking);
-                        self.isSwitchingArmor = false;
-
-                        if(self.switch_callback) {
-                            self.switch_callback();
-                        }
-                    }
-                }, 90);
+                if(self.switch_callback) {
+                    self.switch_callback();
+                }
             }
         },
 

@@ -120,7 +120,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         initPlayer: function() {
             if(this.storage.hasAlreadyPlayed()) {
                 this.player.setSpriteName(this.storage.data.player.armor);
-                this.player.setWeaponName(this.storage.data.player.weapon);
+                this.player.setWeapon(this.storage.data.player.weapon);
                 this.player.setInventory(this.storage.data.player.inventory);
                 this.player.setCharacterSkills(this.storage.data.player.characterSkills)
             }
@@ -784,7 +784,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.storage.initPlayer(self.player.name);
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getSpriteName(),
-                                            self.player.getWeaponName(),
+                                            self.player.weapon,
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills());
                     self.showNotification("Welcome to DanteQuest!");
@@ -1057,7 +1057,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 self.player.onSwitchItem(function() {
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
                                             self.player.getArmorName(),
-                                            self.player.getWeaponName(),
+                                            self.player.weapon,
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills());
                     if(self.equipment_callback) {
@@ -1417,15 +1417,16 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.updateBars();
                 });
 
-                self.client.onPlayerEquipItem(function(playerId, itemKind) {
+                self.client.onPlayerEquipItem(function(playerId, item) {
                     var player = self.getEntityById(playerId),
+                        itemKind = item.itemKind,
                         itemName = Types.getKindAsString(itemKind);
 
                     if(player) {
                         if(Types.isArmor(itemKind)) {
                             player.setSprite(self.sprites[itemName]);
                         } else if(Types.isWeapon(itemKind)) {
-                            player.setWeaponName(itemName);
+                            player.setWeapon(item);
                         }
                     }
                 });

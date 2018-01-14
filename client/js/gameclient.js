@@ -275,10 +275,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
         receiveEquipItem: function(data) {
             var id = data[1],
-                itemKind = data[2];
+                item = data[2];
 
             if(this.equip_callback) {
-                this.equip_callback(id, itemKind);
+                this.equip_callback(id, item);
             }
         },
 

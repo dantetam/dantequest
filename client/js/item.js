@@ -26,8 +26,7 @@ define(['entity'], function(Entity) {
                 //player.armorloot_callback(this.itemKind);
             }
             */
-            player.inventory.push(this.itemKind);
-            console.log(player.inventory);
+            player.inventory.push(this);
         },
 
         getSpriteName: function() {

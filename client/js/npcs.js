@@ -153,6 +153,24 @@ define(['npc'], function(Npc) {
             init: function(id) {
                 this._super(id, Types.Entities.SORCERESS_BLACKHAIR, 1);
             }
+        }),
+
+        AnnoyingKnight: Npc.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.ANNOYING_KNIGHT, 1);
+            }
+        }),
+
+        ChachieTheSuitor: Npc.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.CHACHIE_THE_SUITOR, 1);
+            }
+        }),
+
+        PrincessPenelope: Npc.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.PRINCESS_PENELOPE, 1);
+            }
         })
 
     };

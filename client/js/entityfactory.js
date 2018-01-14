@@ -210,7 +210,19 @@ define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs
 
     EntityFactory.builders[Types.Entities.SORCERESS_BLACKHAIR] = function(id) {
         return new NPCs.SorceressBlackhair(id);
-    }
+    };
+
+    EntityFactory.builders[Types.Entities.ANNOYING_KNIGHT] = function(id) {
+        return new NPCs.AnnoyingKnight(id);
+    };
+
+    EntityFactory.builders[Types.Entities.CHACHIE_THE_SUITOR] = function(id) {
+        return new NPCs.ChachieTheSuitor(id);
+    };
+
+    EntityFactory.builders[Types.Entities.PRINCESS_PENELOPE] = function(id) {
+        return new NPCs.PrincessPenelope(id);
+    };
 
     return EntityFactory;
 });

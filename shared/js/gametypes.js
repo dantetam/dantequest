@@ -82,6 +82,9 @@ Types = {
         LAVANPC: 54,
         CODER: 55,
         SORCERESS_BLACKHAIR: 56,
+        ANNOYING_KNIGHT: 57,
+        CHACHIE_THE_SUITOR: 58,
+        PRINCESS_PENELOPE: 59,
 
         // Weapons
         SWORD1: 500,
@@ -157,6 +160,8 @@ var kinds = {
     desertnpc: [Types.Entities.DESERTNPC, "npc"],
     lavanpc: [Types.Entities.LAVANPC, "npc"],
     "sorceress-blackhair": [Types.Entities.SORCERESS_BLACKHAIR, "npc"],
+    "chachie-the-suitor": [Types.Entities.CHACHIE_THE_SUITOR, "npc"],
+    "chachie-the-suitor": [Types.Entities.CHACHIE_THE_SUITOR, "npc"],
 
     getType: function(kind) {
         return kinds[Types.getKindAsString(kind)][1];

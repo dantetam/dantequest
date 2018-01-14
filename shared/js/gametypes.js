@@ -161,7 +161,8 @@ var kinds = {
     lavanpc: [Types.Entities.LAVANPC, "npc"],
     "sorceress-blackhair": [Types.Entities.SORCERESS_BLACKHAIR, "npc"],
     "chachie-the-suitor": [Types.Entities.CHACHIE_THE_SUITOR, "npc"],
-    "chachie-the-suitor": [Types.Entities.CHACHIE_THE_SUITOR, "npc"],
+    "annoying-knight": [Types.Entities.ANNOYING_KNIGHT, "npc"],
+    "princess-penelope": [Types.Entities.PRINCESS_PENELOPE, "npc"],
 
     getType: function(kind) {
         return kinds[Types.getKindAsString(kind)][1];

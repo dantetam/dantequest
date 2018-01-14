@@ -4,7 +4,7 @@ define(['conversation',
         'text!../conversations/sorceress-blackhair.json',
         'text!../conversations/annoying-knight.json',
         'text!../conversations/chachie-the-suitor.json',
-        'text!../conversations/princess-penelope.json',
+        'text!../conversations/princess-penelope.json'
         //'text!../conversations/sparks.json'], function() {
         ], function(Conversation) {
 

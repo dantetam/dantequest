@@ -1,11 +1,11 @@
 
 define(['infomanager', 'bubble', 'renderer', 'map', 'animation', 'sprite', 'tile',
         'warrior', 'gameclient', 'audio', 'updater', 'transition', 'pathfinder',
-        'conversations',
+        'conversations', 'conversation', 'quests', 'quest',
         'item', 'mob', 'npc', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
 function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedTile,
          Warrior, GameClient, AudioManager, Updater, Transition, Pathfinder,
-         Conversations,
+         Conversations, Conversation, Quests, Quest,
          Item, Mob, Npc, Player, Character, Chest, Mobs, Exceptions, config) {
 
     var Game = Class.extend({
@@ -124,6 +124,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 this.player.setInventory(this.storage.data.player.inventory);
                 this.player.setCharacterSkills(this.storage.data.player.characterSkills);
                 this.player.setGold(this.storage.data.player.gold);
+                this.player.setCompletedQuests(this.storage.data.player.completedQuestNames);
+                this.player.setInProgressQuests(this.storage.data.player.inProgressQuestObjs);
             }
 
         	this.player.setSprite(this.sprites[this.player.getSpriteName()]);
@@ -788,7 +790,9 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.weapon,
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
-                                            self.player.getGold());
+                                            self.player.getGold(),
+                                            self.player.getCompletedQuests(),
+                                            self.player.getInProgressQuests());
                     self.showNotification("Welcome to DanteQuest!");
                 } else {
                     self.showNotification("Welcome back to DanteQuest!");
@@ -1062,7 +1066,9 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.weapon,
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
-                                            self.player.getGold());
+                                            self.player.getGold(),
+                                            self.player.getCompletedQuests(),
+                                            self.player.getInProgressQuests());
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }

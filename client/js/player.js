@@ -1,5 +1,5 @@
 
-define(['character', 'exceptions', 'items'], function(Character, Exceptions, Items) {
+define(['character', 'exceptions', 'items', 'quests'], function(Character, Exceptions, Items, Quests) {
 
     var Player = Character.extend({
         MAX_LEVEL: 10,
@@ -18,6 +18,8 @@ define(['character', 'exceptions', 'items'], function(Character, Exceptions, Ite
             this.weaponName = "goldensword";
             this.inventory = [];
             this.inventoryLimit = 30;
+            this.completedQuestNames = [];
+            this.inProgressQuestObjs = [];
             this.characterSkills = {
                 level: 1,
                 exp: 0,
@@ -132,6 +134,22 @@ define(['character', 'exceptions', 'items'], function(Character, Exceptions, Ite
 
         setGold: function(gold) {
             this.gold = gold;
+        },
+
+        getCompletedQuests: function() {
+            return this.completedQuestNames;
+        },
+
+        setCompletedQuests: function(names) {
+            this.completedQuestNames = names;
+        },
+
+        getInProgressQuests: function() {
+            return this.inProgressQuestObjs;
+        },
+
+        setInProgressQuests: function(inProgressQuestObjs) {
+            this.inProgressQuestObjs = inProgressQuestObjs;
         },
 
         hasWeapon: function() {

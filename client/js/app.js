@@ -1,5 +1,5 @@
 
-define(['jquery', 'storage'], function($, Storage) {
+define(['jquery', 'storage', 'quests'], function($, Storage, Quests) {
 
     var App = Class.extend({
         init: function() {
@@ -563,6 +563,8 @@ define(['jquery', 'storage'], function($, Storage) {
 
             var conve = mainNpc.conversation;
 
+            //TODO: Encapsulate the user-npc interaction within the player class
+
             if (conve === undefined) { //This NPC just has a "minor" dialogue, displayed in the world
                 this.hideGameMenu();
                 return;
@@ -599,11 +601,18 @@ define(['jquery', 'storage'], function($, Storage) {
                 //Temporary jQuery templating; TODO: replace with a better templating stack
                 for (var i = 0; i < result.length; i++) {
                     var choice = result[i];
-                    menuHtmlString += "<button id='advanceThisConvo" + i + "'>" + choice["choiceText"] + "</button><br>";
+                    if (choice.hasOwnProperty("quest-start")) {
+                        menuHtmlString += "<button id='advanceThisConvo" + i + "' quest='" + choice["quest-start"] + "'>" + choice["choiceText"] + "</button><br>";
+                    }
+                    else {
+                        menuHtmlString += "<button id='advanceThisConvo" + i + "'>" + choice["choiceText"] + "</button><br>";
+                    }
                 }
                 menu.html(menuHtmlString);
                 for (var i = 0; i < result.length; i++) {
+                    var choice = result[i];
                     $("#advanceThisConvo" + i).click(function(event) {
+                        console.log(this.attr("quest"));
                         //This hack simply preserves the digit at the end, since JS executes/interprets this code at click time -_-
                         actionData["choice"] = +(this.id.slice(this.id.length - 1));
                         app.displayDialogue(menu, actionData);

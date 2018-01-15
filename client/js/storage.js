@@ -29,6 +29,8 @@ define(function() {
                         bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                         machineRanged: 1 //
                     },
+                    completedQuestNames: [],
+                    inProgressQuestObjs: [],
                     image: ""
                 },
                 achievements: {
@@ -100,16 +102,22 @@ define(function() {
         },
 
         setPlayerGold: function(gold) {
-            this.data.player.setGold(gold);
+            this.data.player.gold = gold;
         },
 
-        savePlayer: function(img, armor, weapon, inventory, skills, gold) {
+        setPlayerQuests: function(completed, inProgress) {
+            this.data.player.completedQuestNames = completed;
+            this.data.player.inProgressQuestObjs = inProgress;
+        },
+
+        savePlayer: function(img, armor, weapon, inventory, skills, gold, completedQuests, inProgressQuests) {
             this.setPlayerImage(img);
             this.setPlayerArmor(armor);
             this.setPlayerWeapon(weapon);
             this.setPlayerInventory(inventory);
             this.setPlayerCharSkills(skills);
             this.setPlayerGold(gold);
+            this.setPlayerQuests(completedQuests, inProgressQuests);
         },
 
         // Achievements

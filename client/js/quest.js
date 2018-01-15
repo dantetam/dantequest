@@ -2,16 +2,21 @@
 define(function() {
 
     var Quest = Class.extend({
-        init: function(id, name) {
+        init: function(name, stages, startingStage, listEndingStages) {
     	    var self = this;
 
             this.name = name;
+            this.stages = stages;
             this.startingStage = 0;
+            this.listEndingStages = listEndingStages;
+
+            this.currentStagePointer = null;
     	},
 
-    	setName: function(name) {
-    		this.name = name;
-    	}
+        startQuest: function() {
+            this.currentStagePointer = this.startingStage;
+        }
+
 
     });
 

@@ -1,12 +1,13 @@
 {
 	"id": "free-the-princess",
+  "name": "Free the Princess",
 	"startingStage": 0,
 	"endingStages": [100],
 	"stages": {
 		"0": {
       "onStageStart": "",
       "onStageEnd": "",
-      "stageTargets": [
+      "stageTargets": {
         "10": [
           {
             "objText": "Look for the princess's new armor in Aeterna's main market.",
@@ -14,12 +15,12 @@
             "objData": "848202"
           }
         ]
-      ]
+      }
     },
     "10": {
       "onStageStart": "",
       "onStageEnd": "",
-      "stageTargets": [
+      "stageTargets": {
         "20": [
           {
             "objText": "Return to the princess.",
@@ -27,22 +28,22 @@
             "objData": "877206"
           }
         ]
-      ]
+      }
     },
     "20": {
       "onStageStart": [
-        {"action": "teleport", "location": ""}
+        {"action": "teleport", "location": []}
       ],
       "onStageEnd": "",
-      "stageTargets": [
+      "stageTargets": {
         "100": [
           {
             "objText": "Fight and incapacitate the royal guards, then leave.",
             "objType": "walk",
-            "objData": ["NPC-NAMES-HERE"]
+            "objData": []
           }
         ]
-      ]
+      }
     },
 		"100": {
       

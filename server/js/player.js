@@ -114,7 +114,9 @@ module.exports = Player = Character.extend({
                                             self.player.weapon,
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
-                                            self.player.getGold());
+                                            self.player.getGold(),
+                                            self.player.getCompletedQuests(),
+                                            self.player.getInProgressQuests());
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }

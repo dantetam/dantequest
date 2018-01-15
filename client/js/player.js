@@ -152,6 +152,25 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             this.inProgressQuestObjs = inProgressQuestObjs;
         },
 
+        startQuest: function(questName) {
+            var questObj = Quests[questName];
+            var questClone = new Quest(questObj.name, questObj.stages, questObj.startingStage, questObj.endingStages);
+            this.inProgressQuestObjs.push(questClone);
+            questClone.startQuest(this);
+        },
+
+        completeQuest: function(questName) {
+            for (var i = 0; i < this.inProgressQuestObjs.length; i++) {
+                var quest = this.inProgressQuestObjs[i];
+                if (quest.name === questName) {
+                    this.inProgressQuestObjs.splice(i, 1);
+                    completedQuestNames.push(questName);
+                    return;
+                }
+            }
+            log.error("Could not find quest name to complete: " + questName);
+        },
+
         hasWeapon: function() {
             return this.weaponName !== null;
         },

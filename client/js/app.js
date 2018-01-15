@@ -1,5 +1,5 @@
 
-define(['jquery', 'storage', 'quests'], function($, Storage, Quests) {
+define(['jquery', 'storage'], function($, Storage) {
 
     var App = Class.extend({
         init: function() {
@@ -597,12 +597,12 @@ define(['jquery', 'storage', 'quests'], function($, Storage, Quests) {
                 return;
             }
 
-            if (Array.isArray(result)) {
+            if (Array.isArray(result)) { //This represents a series of choices between given
                 //Temporary jQuery templating; TODO: replace with a better templating stack
                 for (var i = 0; i < result.length; i++) {
                     var choice = result[i];
                     if (choice.hasOwnProperty("quest-start")) {
-                        menuHtmlString += "<button id='advanceThisConvo" + i + "' quest='" + choice["quest-start"] + "'>" + choice["choiceText"] + "</button><br>";
+                        menuHtmlString += "<button id='advanceThisConvo" + i + "' quest-start='" + choice["quest-start"] + "'>" + choice["choiceText"] + "</button><br>";
                     }
                     else {
                         menuHtmlString += "<button id='advanceThisConvo" + i + "'>" + choice["choiceText"] + "</button><br>";
@@ -612,7 +612,14 @@ define(['jquery', 'storage', 'quests'], function($, Storage, Quests) {
                 for (var i = 0; i < result.length; i++) {
                     var choice = result[i];
                     $("#advanceThisConvo" + i).click(function(event) {
-                        console.log(this.attr("quest"));
+                        //A much cleaner way of embedding data into buttons is using attributes,
+                        //but this is non-standard and susceptible to namespace collision.
+                        var questStart = this.attributes["quest-start"];
+                        if (questStart != null) {
+                            var questName = this.attributes["quest-start"].value
+                            this.player.startQuest(questName);
+                        }
+
                         //This hack simply preserves the digit at the end, since JS executes/interprets this code at click time -_-
                         actionData["choice"] = +(this.id.slice(this.id.length - 1));
                         app.displayDialogue(menu, actionData);

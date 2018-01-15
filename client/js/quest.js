@@ -1,5 +1,5 @@
 
-define(function() {
+define(['character', 'items'], function(Character, Items) {
 
     var Quest = Class.extend({
         init: function(name, stages, startingStage, listEndingStages) {
@@ -11,14 +11,22 @@ define(function() {
             this.listEndingStages = listEndingStages;
 
             this.currentStagePointer = null;
+            this.curObjectiveCallback = null;
     	},
 
-        startQuest: function() {
+        startQuest: function(player) {
             this.currentStagePointer = this.startingStage;
-        }
+            this.player = player;
+        },
 
+        objectiveCallback: function(stage) {
+            //TODO: Create a callback that activates upon completing the objective,
+            //executes the stageEnter/stageExit events,
+            //and moves to the correct next stage.
+        }
 
     });
 
     return Quest;
+
 });

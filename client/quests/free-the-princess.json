@@ -11,7 +11,7 @@
           {
             "objText": "Look for the princess's new armor in Aeterna's main market.",
             "objType": "talk",
-            "objData": "NPC-NAME-HERE"
+            "objData": "848202"
           }
         ]
       ]
@@ -24,19 +24,21 @@
           {
             "objText": "Return to the princess.",
             "objType": "talk",
-            "objData": "NPC-NAME-HERE"
+            "objData": "877206"
           }
         ]
       ]
     },
     "20": {
-      "onStageStart": "",
+      "onStageStart": [
+        {"action": "teleport", "location": ""}
+      ],
       "onStageEnd": "",
       "stageTargets": [
         "100": [
           {
-            "objText": "Fight and incapacitate the royal guards.",
-            "objType": "fight",
+            "objText": "Fight and incapacitate the royal guards, then leave.",
+            "objType": "walk",
             "objData": ["NPC-NAMES-HERE"]
           }
         ]

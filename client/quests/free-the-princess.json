@@ -40,13 +40,16 @@
           {
             "objText": "Fight and incapacitate the royal guards, then leave.",
             "objType": "walk",
-            "objData": []
+            "objData": ""
           }
         ]
       }
     },
 		"100": {
-      
+      "onStageStart": [
+        {"action": "give", "itemKind": ""}
+      ],
+      "onStageEnd": ""
     }
 	}
 }

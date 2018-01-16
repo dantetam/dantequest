@@ -255,6 +255,9 @@ define(['jquery', 'storage'], function($, Storage) {
             var inventoryImgPath = "img/" + scale + "/loot.png";
             $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
 
+            var questsImgPath = "img/" + scale + "/loot.png";
+            $('#quests').css('background-image', 'url("' + questsImgPath + '")');
+
             //Now, enable the ability to open the inventory menu
 
         },
@@ -546,10 +549,35 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "dialogue") {
                     this.displayDialogue(menu, actionData); //Pass in the person that the user is talking to
                 }
+                else if (menuType === "quests") {
+                    this.displayQuests(menu);
+                }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
             }
+        },
+
+        displayQuests: function(menu) {
+            menu.html("");
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Quests</h1>";
+
+            if (this.game.player) {
+                var completedQuests = this.game.player.getCompletedQuests();
+                var inProgressQuests = this.game.player.getInProgressQuests();
+
+                for (var i = 0; i < completedQuests.length; i++) {
+                    var quest = completedQuests[i];
+                    menuHtmlString += "<div style='color: black;'>" + quest.name + "</div>";
+                }
+                for (var i = 0; i < inProgressQuests.length; i++) {
+                    var quest = inProgressQuests[i];
+                    menuHtmlString += "<div style='color: steelblue;'>" + quest.name + "</div>";
+                }
+            }
+
+            menu.html(menuHtmlString);
         },
 
         displayDialogue: function(menu, actionData) {
@@ -681,7 +709,7 @@ define(['jquery', 'storage'], function($, Storage) {
                 //var tpl = _.template('<img src="<%= path %>">');
                 //var tplString = tpl({path: inventoryImgPath});
 
-                $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
+                //$('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
 
                 //var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
                 var tpl = _.template('<div id="<%= divId %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');

@@ -152,6 +152,10 @@ define(['jquery', 'app'], function($, App) {
               app.showGameMenu("inventory");
           });
 
+          $('#quests').click(function(event) {
+              app.showGameMenu("quests");
+          });
+
           var data = app.storage.data;
       		if(data.hasAlreadyPlayed) {
       		    if(data.player.name && data.player.name !== "") {

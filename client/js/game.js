@@ -119,7 +119,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
 
         initPlayer: function() {
             if(this.storage.hasAlreadyPlayed()) {
-                this.player.setSpriteName(this.storage.data.player.armor);
+                this.player.setArmor(this.storage.data.player.armor);
                 this.player.setWeapon(this.storage.data.player.weapon);
                 this.player.setInventory(this.storage.data.player.inventory);
                 this.player.setCharacterSkills(this.storage.data.player.characterSkills);

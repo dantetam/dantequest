@@ -13,7 +13,9 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
      		this.nameOffsetY = -10;
 
             // sprites
-            this.spriteName = "clotharmor";
+            this.armor = new Items.MailArmor(23);
+            this.armorName = "mailarmor";
+
             this.weapon = new Items.GoldenSword(503);
             this.weaponName = "goldensword";
             this.inventory = [];
@@ -80,11 +82,12 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         },
 
         getSpriteName: function() {
-            return this.spriteName;
+            return this.armorName;
         },
 
-        setSpriteName: function(name) {
-            this.spriteName = name;
+        setArmor: function(armor) {
+            this.armor = armor;
+            this.armorName = armor.itemKind;
         },
 
         getArmorName: function() {
@@ -175,11 +178,11 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             return this.weaponName !== null;
         },
 
-        equipWeapon: function(inventoryIndex) {
+        equipItem: function(inventoryIndex) {
             //this.inventory.
             var item = this.inventory[inventoryIndex];
+            console.log("click");
             if(item.type === "weapon") { //&& newWeaponName !== this.getWeaponName()) {
-                //this.inventory = _.without(this.inventory, _.findWhere(this.inventory, {itemKind: newWeaponName}));
                 this.inventory.splice(inventoryIndex, 1);
 
                 if (this.getWeaponName() !== null) {
@@ -193,15 +196,18 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                     this.switch_callback();
                 }
             }
-        },
+            else if (item.type === "armor") {
+                this.inventory.splice(inventoryIndex, 1);
 
-        switchArmor: function(newArmorSprite) {
-            if(newArmorSprite && newArmorSprite.id !== this.getSpriteName()) {
-                self.setSprite(newArmorSprite);
-                self.setSpriteName(newArmorSprite.id);
+                if (this.getSpriteName() !== null) {
+                    console.log(this.armor);
+                    this.inventory.push(this.armor);
+                }
 
-                if(self.switch_callback) {
-                    self.switch_callback();
+                this.setArmor(item);
+
+                if(this.switch_callback) {
+                    this.switch_callback();
                 }
             }
         },

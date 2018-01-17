@@ -18,15 +18,8 @@ define(['entity'], function(Entity) {
         //Now: simply add the item to the player's inventory,
         //and do not check for conditions
         onLoot: function(player) {
-            /*
-            if(this.type === "weapon") {
-                //player.switchWeapon(this.itemKind);
-            }
-            else if(this.type === "armor") {
-                //player.armorloot_callback(this.itemKind);
-            }
-            */
             player.inventory.push(this);
+            console.log(player.inventory);
         },
 
         getSpriteName: function() {

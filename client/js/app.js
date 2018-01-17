@@ -728,15 +728,13 @@ define(['jquery', 'storage'], function($, Storage) {
                     leftGameMenu.html(leftGameMenu.html() + "<br>");
                 }
 
-                if (inventory[i].type === "weapon") {
-                    $("#inventoryEquipButton" + i).click(function() {
-                        if (app.game.player) {
-                            var index = +(this.id.slice(this.id.length - 1)); //The hack referring to the DOM
-                            app.game.player.equipWeapon(index);
-                            app.displayInventoryMenu(menu);
-                        }
-                    });
-                }
+                $("#inventoryEquipButton" + i).click(function() {
+                    if (app.game.player) {
+                        var index = +(this.id.slice(this.id.length - 1)); //The hack referring to the DOM
+                        app.game.player.equipItem(index);
+                        app.displayInventoryMenu(menu);
+                    }
+                });
             }
 
             //Render the right side: currently equipped items; expand later

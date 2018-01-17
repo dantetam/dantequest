@@ -327,6 +327,22 @@ function(Camera, Item, Character, Player, Timer) {
             }
         },
 
+        drawMinimapTile: function(ctx, tileid, tileset, setW, gridW, cellid) {
+            var s = 1; //this.upscaledRendering ? 1 : this.scale;
+            this.tilesize = 4;
+            if(tileid !== -1) { // -1 when tile is empty in Tiled. Don't attempt to draw it.
+                this.drawScaledImage(ctx,
+                                     tileset,
+                                     getX(tileid + 1, (setW / s)) * this.tilesize,
+                                     Math.floor(tileid / (setW / s)) * this.tilesize,
+                                     this.tilesize,
+                                     this.tilesize,
+                                     getX(cellid + 1, gridW) * this.tilesize,
+                                     Math.floor(cellid / gridW) * this.tilesize);
+            }
+            this.tilesize = 16;
+        },
+
         clearTile: function(ctx, gridW, cellid) {
             var s = this.scale,
                 ts = this.tilesize,
@@ -580,12 +596,12 @@ function(Camera, Item, Character, Player, Timer) {
             var sprite = entity.sprite,
                 shadow = this.game.shadows["small"],
                 anim = entity.currentAnimation,
-                os = this.upscaledRendering ? 1 : this.scale,
+                os = 1,
                 ds = 0.25; //this.upscaledRendering ? this.scale : 1;
 
             if(anim && sprite) {
                 var	frame = anim.currentFrame,
-                    s = 0.25, //this.scale,
+                    s = 1, //this.scale,
                     x = frame.x * os,
                     y = frame.y * os,
                     w = sprite.width * os,
@@ -640,6 +656,18 @@ function(Camera, Item, Character, Player, Timer) {
                     self.drawMinimapEntity(entity);
                 }
             });
+        },
+
+        drawMinimapTerrain: function() {
+            var self = this,
+                m = this.game.map,
+                tilesetwidth = this.tileset.width / m.tilesize;
+
+            this.game.forEachVisibleTile(function (id, index) {
+                if(!m.isHighTile(id) && !m.isAnimatedTile(id)) { // Don't draw unnecessary tiles
+                    self.drawMinimapTile(self.context, id, self.tileset, tilesetwidth, m.width, index);
+                }
+            }, 1);
         },
 
         drawTerrain: function() {
@@ -796,12 +824,13 @@ function(Camera, Item, Character, Player, Timer) {
         },
 
         renderFrame: function() {
-            if(this.mobile || this.tablet) {
+            this.renderFrameDesktop();
+            /* if(this.mobile || this.tablet) {
                 this.renderFrameMobile();
             }
             else {
                 this.renderFrameDesktop();
-            }
+            } */
         },
 
         renderFrameDesktop: function() {
@@ -816,23 +845,18 @@ function(Camera, Item, Character, Player, Timer) {
                     this.drawTargetCell();
                 }
 
-                //this.drawOccupiedCells();
                 this.drawPathingCells();
                 this.drawEntities();
                 this.drawCombatInfo();
                 this.drawHighTiles(this.context);
             this.context.restore();
 
-            console.log(this.minimap);
-            console.log(this.context);
-            console.log(this.foreground);
-            var a = []; a[5] = 10;
-
-            this.minimap.save();
+            this.context.save();
                 if(this.minimapVisible) {
-                    this.drawMinimapEntities();
+                    //this.drawMinimapEntities();
+                    //this.drawMinimapTerrain();
                 }
-            this.minimap.restore();
+            this.context.restore();
 
             // Overlay UI elements
             this.drawCursor();

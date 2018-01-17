@@ -786,8 +786,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 if(!self.storage.hasAlreadyPlayed()) {
                     self.storage.initPlayer(self.player.name);
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
-                                            self.player.getSpriteName(),
-                                            self.player.weapon,
+                                            self.player.getArmor(),
+                                            self.player.getWeapon(),
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
                                             self.player.getGold(),
@@ -1056,14 +1056,10 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.assignBubbleTo(player);
                 });
 
-                self.player.onArmorLoot(function(armorName) {
-                    self.player.switchArmor(self.sprites[armorName]);
-                });
-
                 self.player.onSwitchItem(function() {
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
-                                            self.player.getArmorName(),
-                                            self.player.weapon,
+                                            self.player.getArmor(),
+                                            self.player.getWeapon(),
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
                                             self.player.getGold(),
@@ -1072,6 +1068,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }
+                    self.player.switchArmorSprite(self.sprites[self.player.getSpriteName()]);
                 });
 
                 self.player.onInvincible(function() {

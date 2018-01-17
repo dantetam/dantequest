@@ -18,7 +18,8 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
 
             this.weapon = new Items.GoldenSword(503);
             this.weaponName = "goldensword";
-            this.inventory = [];
+
+            this.inventory = [new Items.RedArmor(25), new Items.Sword2(501), new Items.BlueSword(506)];
             this.inventoryLimit = 30;
             this.completedQuestNames = [];
             this.inProgressQuestObjs = [];
@@ -81,20 +82,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             return this.isLootMoving;
         },
 
-        getSpriteName: function() {
-            return this.armorName;
-        },
-
-        setArmor: function(armor) {
-            this.armor = armor;
-            this.armorName = armor.itemKind;
-        },
-
-        getArmorName: function() {
-            var sprite = this.getArmorSprite();
-            return sprite.id;
-        },
-
         getArmorSprite: function() {
             if(this.invincible) {
                 return this.currentArmorSprite;
@@ -103,22 +90,31 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             }
         },
 
-        getWeaponName: function() {
-            return this.weaponName;
+        getSpriteName: function() {return this.armorName;},
+
+        getArmor: function() {return this.armor;},
+
+        setArmor: function(armor) {
+            this.armor = armor;
+            this.armorName = armor.itemKind;
         },
+
+        switchArmorSprite: function(sprite) {
+            this.sprite = sprite;
+        },
+
+        getWeaponName: function() {return this.weaponName;},
+
+        getWeapon: function() {return this.weapon;},
 
         setWeapon: function(weaponObj) {
             this.weapon = weaponObj;
             this.weaponName = weaponObj.itemKind;
         },
 
-        getInventory: function() {
-            return this.inventory;
-        },
+        getInventory: function() {return this.inventory;},
 
-        setInventory: function(inventory) {
-            this.inventory = inventory;
-        },
+        setInventory: function(inventory) {this.inventory = inventory;},
 
         getCharacterSkills: function() {
             return this.characterSkills;
@@ -179,14 +175,12 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         },
 
         equipItem: function(inventoryIndex) {
-            //this.inventory.
+            console.log(inventoryIndex);
             var item = this.inventory[inventoryIndex];
-            console.log("click");
             if(item.type === "weapon") { //&& newWeaponName !== this.getWeaponName()) {
                 this.inventory.splice(inventoryIndex, 1);
 
                 if (this.getWeaponName() !== null) {
-                    console.log(this.weapon);
                     this.inventory.push(this.weapon);
                 }
 
@@ -200,7 +194,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 this.inventory.splice(inventoryIndex, 1);
 
                 if (this.getSpriteName() !== null) {
-                    console.log(this.armor);
                     this.inventory.push(this.armor);
                 }
 
@@ -212,19 +205,15 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             }
         },
 
-        onArmorLoot: function(callback) {
-            this.armorloot_callback = callback;
-        },
-
         onSwitchItem: function(callback) {
             this.switch_callback = callback;
         },
 
         onInvincible: function(callback) {
             this.invincible_callback = callback;
-        },
+        }
 
-        startInvincibility: function() {
+        /* startInvincibility: function() {
             var self = this;
 
             if(!this.invincible) {
@@ -256,7 +245,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             if(this.invincibleTimeout) {
                 clearTimeout(this.invincibleTimeout);
             }
-        }
+        } */
     });
 
     return Player;

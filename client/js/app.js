@@ -727,7 +727,9 @@ define(['jquery', 'storage'], function($, Storage) {
                 if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
                     leftGameMenu.html(leftGameMenu.html() + "<br>");
                 }
+            }
 
+            for (var i = 0; i < inventory.length; i++) {
                 $("#inventoryEquipButton" + i).click(function() {
                     if (app.game.player) {
                         var index = +(this.id.slice(this.id.length - 1)); //The hack referring to the DOM

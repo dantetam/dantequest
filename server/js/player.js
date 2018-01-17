@@ -110,8 +110,8 @@ module.exports = Player = Character.extend({
 
                     //Save the player's inventory when the player loots an item
                     self.storage.savePlayer(self.renderer.getPlayerImage(),
-                                            self.player.getArmorName(),
-                                            self.player.weapon,
+                                            self.player.getArmor(),
+                                            self.player.getWeapon(),
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
                                             self.player.getGold(),

@@ -74,9 +74,9 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                 "item-platearmor", "item-redarmor", "item-goldenarmor", "item-flask", "item-cake", "item-burger", "morningstar", "item-morningstar", "item-firepotion"];
         },
 
-        setup: function($bubbleContainer, canvas, background, foreground, input) {
+        setup: function($bubbleContainer, canvas, background, foreground, minimap, input) {
     		this.setBubbleManager(new BubbleManager($bubbleContainer));
-    		this.setRenderer(new Renderer(this, canvas, background, foreground));
+    		this.setRenderer(new Renderer(this, canvas, background, foreground, minimap));
     		this.setChatInput(input);
         },
 

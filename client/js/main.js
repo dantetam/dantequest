@@ -190,10 +190,11 @@ define(['jquery', 'app'], function($, App) {
             var canvas = document.getElementById("entities"),
         	    background = document.getElementById("background"),
         	    foreground = document.getElementById("foreground"),
+                minimap = document.getElementById("minimap"),
         	    input = document.getElementById("chatinput");
 
     		game = new Game(app);
-    		game.setup('#bubbles', canvas, background, foreground, input);
+    		game.setup('#bubbles', canvas, background, foreground, minimap, input);
     		game.setStorage(app.storage);
     		app.setGame(game);
 

@@ -3,15 +3,17 @@ define(['camera', 'item', 'character', 'player', 'timer'],
 function(Camera, Item, Character, Player, Timer) {
 
     var Renderer = Class.extend({
-        init: function(game, canvas, background, foreground) {
+        init: function(game, canvas, background, foreground, minimap) {
             this.game = game;
             this.context = (canvas && canvas.getContext) ? canvas.getContext("2d") : null;
             this.background = (background && background.getContext) ? background.getContext("2d") : null;
             this.foreground = (foreground && foreground.getContext) ? foreground.getContext("2d") : null;
+            this.minimap = (minimap && minimap.getContext) ? minimap.getContext("2d") : null;
 
             this.canvas = canvas;
             this.backcanvas = background;
             this.forecanvas = foreground;
+            this.minimap = minimap;
 
             this.initFPS();
             this.tilesize = 16;
@@ -26,6 +28,8 @@ function(Camera, Item, Character, Player, Timer) {
             this.maxFPS = this.FPS;
             this.realFPS = 0;
             this.isDebugInfoVisible = false;
+
+            this.minimapVisible = true;
 
             this.animatedTileCount = 0;
             this.highTileCount = 0;
@@ -76,6 +80,7 @@ function(Camera, Item, Character, Player, Timer) {
             this.context.mozImageSmoothingEnabled = false;
             this.background.mozImageSmoothingEnabled = false;
             this.foreground.mozImageSmoothingEnabled = false;
+            this.minimap.mozImageSmoothingEnabled = false;
 
             this.initFont();
             this.initFPS();
@@ -106,6 +111,10 @@ function(Camera, Item, Character, Player, Timer) {
             this.forecanvas.width = this.canvas.width;
             this.forecanvas.height = this.canvas.height;
             log.debug("#foreground set to "+this.forecanvas.width+" x "+this.forecanvas.height);
+
+            this.minimap.width = this.canvas.width / 4;
+            this.minimap.height = this.canvas.height / 4;
+            log.debug("#minimap set to "+this.minimap.width+" x "+this.minimap.height);
         },
 
         initFPS: function() {
@@ -567,6 +576,72 @@ function(Camera, Item, Character, Player, Timer) {
             this.context.restore();
         },
 
+        drawMinimapEntity: function(entity) {
+            var sprite = entity.sprite,
+                shadow = this.game.shadows["small"],
+                anim = entity.currentAnimation,
+                os = this.upscaledRendering ? 1 : this.scale,
+                ds = 0.25; //this.upscaledRendering ? this.scale : 1;
+
+            if(anim && sprite) {
+                var	frame = anim.currentFrame,
+                    s = 0.25, //this.scale,
+                    x = frame.x * os,
+                    y = frame.y * os,
+                    w = sprite.width * os,
+                    h = sprite.height * os,
+                    ox = sprite.offsetX * s,
+                    oy = sprite.offsetY * s,
+                    dx = entity.x * s,
+                    dy = entity.y * s,
+                    dw = w * ds,
+                    dh = h * ds;
+
+                if(entity.isFading) {
+                    this.context.save();
+                    this.context.globalAlpha = entity.fadingAlpha;
+                }
+
+                if(!this.mobile && !this.tablet) {
+                    this.drawEntityName(entity);
+                }
+
+                this.context.save();
+                if(entity.flipSpriteX) {
+                    this.context.translate(dx + this.tilesize*s, dy);
+                    this.context.scale(-1, 1);
+                }
+                else if(entity.flipSpriteY) {
+                    this.context.translate(dx, dy + dh);
+                    this.context.scale(1, -1);
+                }
+                else {
+                    this.context.translate(dx, dy);
+                }
+
+                if(entity.isVisible()) {
+                    //console.log(dx, dy, dw, dh);
+                    this.context.drawImage(sprite.image, x, y, w, h, ox, oy, dw, dh);
+                }
+
+                this.context.restore();
+
+                if(entity.isFading) {
+                    this.context.restore();
+                }
+            }
+        },
+
+        drawMinimapEntities: function(dirtyOnly) {
+            var self = this;
+
+            this.game.forEachVisibleEntityByDepth(function(entity) {
+                if(entity.isLoaded) {
+                    self.drawMinimapEntity(entity);
+                }
+            });
+        },
+
         drawTerrain: function() {
             var self = this,
                 m = this.game.map,
@@ -748,6 +823,17 @@ function(Camera, Item, Character, Player, Timer) {
                 this.drawHighTiles(this.context);
             this.context.restore();
 
+            console.log(this.minimap);
+            console.log(this.context);
+            console.log(this.foreground);
+            var a = []; a[5] = 10;
+
+            this.minimap.save();
+                if(this.minimapVisible) {
+                    this.drawMinimapEntities();
+                }
+            this.minimap.restore();
+
             // Overlay UI elements
             this.drawCursor();
             this.drawDebugInfo();
@@ -771,6 +857,7 @@ function(Camera, Item, Character, Player, Timer) {
                 this.background.fillRect(0, 0, 0, 0);
                 this.context.fillRect(0, 0, 0, 0);
                 this.foreground.fillRect(0, 0, 0, 0);
+                this.minimap.fillRect(0, 0, 0, 0);
             }
         }
     });

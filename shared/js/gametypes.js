@@ -169,6 +169,7 @@ var kinds = {
     }
 };
 
+/*
 Types.rankedWeapons = [
     Types.Entities.SWORD1,
     Types.Entities.SWORD2,
@@ -187,14 +188,7 @@ Types.rankedArmors = [
     Types.Entities.REDARMOR,
     Types.Entities.GOLDENARMOR
 ];
-
-Types.getWeaponRank = function(weaponKind) {
-    return _.indexOf(Types.rankedWeapons, weaponKind);
-};
-
-Types.getArmorRank = function(armorKind) {
-    return _.indexOf(Types.rankedArmors, armorKind);
-};
+*/
 
 Types.isPlayer = function(kind) {
     return kinds.getType(kind) === "player";

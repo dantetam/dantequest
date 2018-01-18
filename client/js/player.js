@@ -34,7 +34,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                 machineRanged: 1 //Compound bows, crossbow, siege machines, cannons, and other machines
             };
-            this.gold = 0;
+            this.gold = 50;
 
             // modes
             this.isLootMoving = false;

@@ -10,12 +10,12 @@ Formulas.normalGen = function(mean, stddev) {
 
 // Citing: https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 // Standard Normal variate using Box-Muller transform.
-Formulas.randn_bm() {
+Formulas.randn_bm = function() {
     var u = 0, v = 0;
     while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
     while(v === 0) v = Math.random();
     return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
-}
+};
 
 Formulas.dmg = function(weaponData, armorData, attackType) {
     /*
@@ -34,6 +34,9 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
     //TODO: ALlow users to use weapon with higher reqs, by decrease mean and increase variance of damage
     var rawDamage = 0, rawDefence = 0;
 
+    log.error(weaponData);
+    log.error(armorData);
+
     if (attackType === 'quick') {
         rawDamage = this.normalGen(weaponData["quickDmgBase"], weaponData["quickDmgVar"]);
         rawDefence = armorData["quickAtkDef"];
@@ -42,6 +45,14 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
         rawDamage = this.normalGen(weaponData["strongDmgBase"], weaponData["strongDmgVar"]);
         rawDefence = armorData["strongAtkDef"];
     }
+    else {
+        //Default to quick attack
+        log.error("Warning: No attack type specified for damage calculation");
+        rawDamage = this.normalGen(weaponData["quickDmgBase"], weaponData["quickDmgVar"]);
+        rawDefence = armorData["quickAtkDef"];
+    }
+
+    log.info("Dealt damage: " + (rawDamage - rawDefence));
 
     return rawDamage - rawDefence;
 };
@@ -50,6 +61,7 @@ Formulas.playerHp = function(armorData, characterSkills) {
     /*var hp = 80 + ((armorLevel - 1) * 30);
     return hp;
     */
+    return 60 + ((characterSkills.vitality - 1) * 10)
 };
 
 Formulas.npcHp = function(npcData) {

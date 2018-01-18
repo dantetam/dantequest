@@ -18,6 +18,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
 
             this.weapon = new Items.GoldenSword(503);
             this.weaponName = "goldensword";
+            //this.equipWeapon(new Items.GoldenSword(503));
 
             this.inventory = [new Items.RedArmor(25), new Items.Sword2(501), new Items.BlueSword(506)];
             this.inventoryLimit = 30;
@@ -110,6 +111,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         setWeapon: function(weaponObj) {
             this.weapon = weaponObj;
             this.weaponName = weaponObj.itemKind;
+            //this.weaponData = Properties.WeaponData[this.weaponName];
         },
 
         getInventory: function() {return this.inventory;},
@@ -187,7 +189,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 this.setWeapon(item);
 
                 if(this.switch_callback) {
-                    this.switch_callback();
+                    this.switch_callback(item);
                 }
             }
             else if (item.type === "armor") {
@@ -200,7 +202,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 this.setArmor(item);
 
                 if(this.switch_callback) {
-                    this.switch_callback();
+                    this.switch_callback(item);
                 }
             }
         },

@@ -6,12 +6,12 @@ var _ = require('underscore'),
     FormatChecker = Class.extend({
         init: function() {
             this.formats = [];
-            this.formats[Types.Messages.HELLO] = ['s', 'n', 'n'],
+            this.formats[Types.Messages.HELLO] = ['s', 'n', 'n', 'o'],
             this.formats[Types.Messages.MOVE] = ['n', 'n'],
             this.formats[Types.Messages.LOOTMOVE] = ['n', 'n', 'n'],
             this.formats[Types.Messages.AGGRO] = ['n'],
             this.formats[Types.Messages.ATTACK] = ['n'],
-            this.formats[Types.Messages.HIT] = ['n'],
+            this.formats[Types.Messages.HIT] = ['n', 's'],
             this.formats[Types.Messages.HURT] = ['n'],
             this.formats[Types.Messages.CHAT] = ['s'],
             this.formats[Types.Messages.LOOT] = ['n'],
@@ -20,23 +20,26 @@ var _ = require('underscore'),
             this.formats[Types.Messages.OPEN] = ['n'],
             this.formats[Types.Messages.CHECK] = ['n']
         },
-        
+
         check: function(msg) {
             var message = msg.slice(0),
                 type = message[0],
                 format = this.formats[type];
-            
+
             message.shift();
-            
-            if(format) {    
+
+            if(format) {
                 if(message.length !== format.length) {
                     return false;
                 }
                 for(var i = 0, n = message.length; i < n; i += 1) {
-                    if(format[i] === 'n' && !_.isNumber(message[i])) {
+                    if(format[i] === 'n' && !_.isNumber(message[i])) { //Number format
                         return false;
                     }
-                    if(format[i] === 's' && !_.isString(message[i])) {
+                    if(format[i] === 's' && !_.isString(message[i])) { //String format
+                        return false;
+                    }
+                    if(format[i] === 'o' && !_.isObject(message[i])) { //Object format
                         return false;
                     }
                 }
@@ -54,6 +57,6 @@ var _ = require('underscore'),
     });
 
     var checker = new FormatChecker;
-    
+
     exports.check = checker.check.bind(checker);
 })();

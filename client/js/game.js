@@ -910,6 +910,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                             self.removeItem(item);
                             self.showNotification(item.getLootMessage());
 
+                            /*
                             if(item.type === "armor") {
                                 self.tryUnlockingAchievement("FAT_LOOT");
                             }
@@ -936,6 +937,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                             if(item.wasDropped && !_(item.playersInvolved).include(self.playerId)) {
                                 self.tryUnlockingAchievement("NINJA_LOOT");
                             }
+                            */
+
                         } catch(e) {
                             if(e instanceof Exceptions.LootException) {
                                 self.showNotification(e.message);
@@ -1069,7 +1072,14 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         self.equipment_callback();
                     }
                     self.player.switchArmorSprite(self.sprites[self.player.getSpriteName()]);
+                    self.client.sendEquipItem(item); //Send message to server that item has been equipped
                 });
+
+                /*
+                self.player.onEquipWeaponArmor(function(item) {
+                    self.client.sendEquipItem(item); // Notify the server that this item has been looted
+                });
+                */
 
                 self.player.onInvincible(function() {
                     self.invincible_callback();
@@ -2067,7 +2077,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         character.hit();
 
                         if(character.id === this.playerId) {
-                            this.client.sendHit(character.target);
+                            this.client.sendHit(character.target, character.attackType);
                         }
 
                         if(character instanceof Player && this.camera.isVisible(character)) {

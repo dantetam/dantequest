@@ -56,6 +56,7 @@ module.exports = Player = Character.extend({
                 self.equipArmor(message[2]);
                 self.equipWeapon(message[3]);
                 self.orientation = Utils.randomOrientation();
+                self.characterSkills = message[4];
                 self.updateHitPoints();
                 self.updatePosition();
 
@@ -137,9 +138,10 @@ module.exports = Player = Character.extend({
             }
             else if(action === Types.Messages.HIT) {
                 var mob = self.server.getEntityById(message[1]);
+                var attackType = message[2];
 
                 if(mob) {
-                    var dmg = Formulas.dmg(self.weaponData, mob.armorData);
+                    var dmg = Formulas.dmg(self.weaponData, mob.armorData, attackType);
 
                     if(dmg > 0) {
                         mob.receiveDamage(dmg, self.id);
@@ -161,6 +163,11 @@ module.exports = Player = Character.extend({
                         }
                     }
                 }
+            }
+            else if(action === Types.Messages.EQUIP) {
+                var item = self.server.getEntityById(message[1]);
+
+                self.weaponData = Properties[item.kind];
             }
             else if(action === Types.Messages.LOOT) {
                 var item = self.server.getEntityById(message[1]);
@@ -376,7 +383,7 @@ module.exports = Player = Character.extend({
     },
 
     updateHitPoints: function() {
-        this.resetHitPoints(Formulas.hp(this.armorData, this.characterSkills));
+        this.resetHitPoints(Formulas.playerHp(this.armorData, this.characterSkills));
     },
 
     updatePosition: function() {

@@ -16,7 +16,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -39,7 +39,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -62,7 +62,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -86,7 +86,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -109,7 +109,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -130,7 +130,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -153,7 +153,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -176,7 +176,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -199,7 +199,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -222,7 +222,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -244,7 +244,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -266,7 +266,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,
@@ -286,7 +286,7 @@ var Properties = {
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
-            }
+            },
             offenseStats: {
                 quickDmgBase: 4,
                 quickDmgVar: 2,

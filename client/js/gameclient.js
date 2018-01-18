@@ -457,10 +457,13 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         },
 
         sendHello: function(player) {
-            this.sendMessage([Types.Messages.HELLO,
-                              player.name,
-                              Types.getKindFromString(player.getSpriteName()),
-                              Types.getKindFromString(player.getWeaponName())]);
+            this.sendMessage([
+                Types.Messages.HELLO,
+                player.name,
+                Types.getKindFromString(player.getSpriteName()),
+                Types.getKindFromString(player.getWeaponName()),
+                player.characterSkills
+            ]);
         },
 
         sendMove: function(x, y) {
@@ -486,9 +489,12 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               mob.id]);
         },
 
-        sendHit: function(mob) {
-            this.sendMessage([Types.Messages.HIT,
-                              mob.id]);
+        sendHit: function(mob, attackType) {
+            this.sendMessage([
+                Types.Messages.HIT,
+                mob.id,
+                attackType
+            ]);
         },
 
         sendHurt: function(mob) {
@@ -499,6 +505,11 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         sendChat: function(text) {
             this.sendMessage([Types.Messages.CHAT,
                               text]);
+        },
+
+        sendEquipMessage: function(item) {
+            this.sendMessage([Types.Messages.EQUIP,
+                              item.id]);
         },
 
         sendLoot: function(item) {

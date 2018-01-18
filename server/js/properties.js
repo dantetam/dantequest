@@ -10,13 +10,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 25,
+            level: 1,
             defenseStats: {
                 quickAtkDef: 5,
                 strongAtkDef: 2,
                 humanMagicDef: 1,
                 ancientMagicDef: 1
             }
-            weapon: 1
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         skeleton: {
@@ -27,8 +33,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 110,
-            armor: 2,
-            weapon: 2
+            level: 2,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         goblin: {
@@ -39,8 +56,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 90,
-            armor: 2,
-            weapon: 1
+            level: 3,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         ogre: {
@@ -52,8 +80,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 200,
-            armor: 3,
-            weapon: 2
+            level: 8,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         spectre: {
@@ -64,8 +103,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 250,
-            armor: 2,
-            weapon: 4
+            level: 15,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         deathknight: {
@@ -74,8 +124,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 250,
-            armor: 3,
-            weapon: 3
+            level: 12,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         crab: {
@@ -86,8 +147,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 60,
-            armor: 2,
-            weapon: 1
+            level: 4,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         snake: {
@@ -98,8 +170,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 150,
-            armor: 3,
-            weapon: 2
+            level: 8,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         skeleton2: {
@@ -110,8 +193,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 200,
-            armor: 3,
-            weapon: 3
+            level: 7,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         eye: {
@@ -122,8 +216,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 200,
-            armor: 3,
-            weapon: 3
+            level: 8,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         bat: {
@@ -133,8 +238,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 80,
-            armor: 2,
-            weapon: 1
+            level: 2,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         wizard: {
@@ -144,8 +260,19 @@ var Properties = {
                 firepotion: 5
             },
             hp: 100,
-            armor: 2,
-            weapon: 6
+            level: 8,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         },
 
         boss: {
@@ -153,8 +280,19 @@ var Properties = {
                 goldensword: 100
             },
             hp: 700,
-            armor: 6,
-            weapon: 7
+            level: 20,
+            defenseStats: { //Multiply these stats by ceil(level / 10)
+                quickAtkDef: 5,
+                strongAtkDef: 2,
+                humanMagicDef: 1,
+                ancientMagicDef: 1
+            }
+            offenseStats: {
+                quickDmgBase: 4,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 4,
+            }
         }
     },
     WeaponData: {
@@ -239,6 +377,56 @@ var Properties = {
             dexProp: 0.7,
             strProp: 0.1,
             vtyProp: 0.2
+        },
+        leatherarmor: {
+            levelReq: 3,
+            quickAtkDef: 12,
+            strongAtkDef: 16,
+            humanMagicDef: 7,
+            ancientMagicDef: 7,
+            dexProp: 0.6,
+            strProp: 0.1,
+            vtyProp: 0.3
+        },
+        mailarmor: {
+            levelReq: 5,
+            quickAtkDef: 21,
+            strongAtkDef: 10,
+            humanMagicDef: 18,
+            ancientMagicDef: 18,
+            dexProp: 0.1,
+            strProp: 0.6,
+            vtyProp: 0.3
+        },
+        platearmor: {
+            levelReq: 8,
+            quickAtkDef: 25,
+            strongAtkDef: 20,
+            humanMagicDef: 25,
+            ancientMagicDef: 25,
+            dexProp: 0.1,
+            strProp: 0.6,
+            vtyProp: 0.3
+        },
+        redarmor: {
+            levelReq: 12,
+            quickAtkDef: 28,
+            strongAtkDef: 35,
+            humanMagicDef: 30,
+            ancientMagicDef: 30,
+            dexProp: 0.7,
+            strProp: 0.1,
+            vtyProp: 0.2
+        },
+        goldenarmor: {
+            levelReq: 15,
+            quickAtkDef: 40,
+            strongAtkDef: 40,
+            humanMagicDef: 40,
+            ancientMagicDef: 40,
+            dexProp: 0.7,
+            strProp: 0.1,
+            vtyProp: 0.2
         }
     },
     PotionData: {
@@ -246,9 +434,23 @@ var Properties = {
     }
 };
 
+for (var enemyName in Properties.EnemyData) {
+    if (Properties.EnemyData.hasOwnProperty(enemyName)) {
+        var enemyData = Properties.EnemyData[enemyName];
+        for (var stat in enemyData.defenseStats) {
+            if (enemyData.defenseStats.hasOwnProperty(stat)) {
+                enemyData.defenseStats[stat] *= enemyData.level;
+            }
+        }
+        for (var stat in enemyData.offenseStats) {
+            if (enemyData.offenseStats.hasOwnProperty(stat)) {
+                enemyData.offenseStats[stat] *= enemyData.level;
+            }
+        }
+    }
+}
 
-
-Properties.getArmorLevel = function(kind) {
+Properties.getArmorData = function(kind) {
     try {
         if(Types.isMob(kind)) {
             return Properties.EnemyData[Types.getKindAsString(kind)].defenseStats;
@@ -260,7 +462,7 @@ Properties.getArmorLevel = function(kind) {
     }
 };
 
-Properties.getWeaponLevel = function(kind) {
+Properties.getWeaponData = function(kind) {
     try {
         if(Types.isMob(kind)) {
             return Properties.EnemyData[Types.getKindAsString(kind)].offenseStats;

@@ -139,7 +139,7 @@ module.exports = Player = Character.extend({
                 var mob = self.server.getEntityById(message[1]);
 
                 if(mob) {
-                    var dmg = Formulas.dmg(self.weaponLevel, mob.armorLevel);
+                    var dmg = Formulas.dmg(self.weaponData, mob.armorData);
 
                     if(dmg > 0) {
                         mob.receiveDamage(dmg, self.id);
@@ -151,7 +151,7 @@ module.exports = Player = Character.extend({
             else if(action === Types.Messages.HURT) {
                 var mob = self.server.getEntityById(message[1]);
                 if(mob && self.hitPoints > 0) {
-                    self.hitPoints -= Formulas.dmg(mob.weaponLevel, self.armorLevel);
+                    self.hitPoints -= Formulas.dmg(mob.weaponData, self.armorData);
                     self.server.handleHurtEntity(self, mob);
 
                     if(self.hitPoints <= 0) {
@@ -353,12 +353,12 @@ module.exports = Player = Character.extend({
 
     equipArmor: function(kind) {
         this.armor = kind;
-        this.armorLevel = Properties.getArmorLevel(kind);
+        this.armorData = Properties.getArmorData(kind);
     },
 
     equipWeapon: function(kind) {
         this.weapon = kind;
-        this.weaponLevel = Properties.getWeaponLevel(kind);
+        this.weaponData = Properties.getWeaponData(kind);
     },
 
     equipItem: function(item) {
@@ -376,7 +376,7 @@ module.exports = Player = Character.extend({
     },
 
     updateHitPoints: function() {
-        this.resetHitPoints(Formulas.hp(this.armorLevel));
+        this.resetHitPoints(Formulas.hp(this.armorData, this.characterSkills));
     },
 
     updatePosition: function() {

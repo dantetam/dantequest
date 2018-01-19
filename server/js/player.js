@@ -122,10 +122,10 @@ module.exports = Player = Character.extend({
                         self.equipment_callback();
                     }
                     //Set the auxiliary equipment data, from the server Properties file/module
-                    if (player.weapon) {
+                    if (self.player.weapon) {
                         self.weaponData = Properties.WeaponData[player.weapon.itemKind];
                     }
-                    if (player.armor) {
+                    if (self.player.armor) {
                         self.armorData = Properties.ArmorData[player.armor.itemKind];
                     }
                 }
@@ -148,8 +148,6 @@ module.exports = Player = Character.extend({
                 var attackType = message[2];
 
                 if(mob) {
-                    console.log(self.weaponData);
-
                     var dmg = Formulas.dmg(self.weaponData, mob.armorData, attackType);
 
                     if(dmg > 0) {
@@ -390,8 +388,10 @@ module.exports = Player = Character.extend({
                 this.equipArmor(item.kind);
                 this.updateHitPoints();
                 this.send(new Messages.HitPoints(this.maxHitPoints).serialize());
+                //this.armorData = Properties.getArmorData(kind);
             } else if(Types.isWeapon(item.kind)) {
                 this.equipWeapon(item.kind);
+                //this.weaponData = Properties.getWeaponData(kind);
             }
         }
     },

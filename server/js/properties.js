@@ -454,7 +454,13 @@ Properties.getArmorData = function(kind) {
     try {
         if(Types.isMob(kind)) {
             return Properties.EnemyData[Types.getKindAsString(kind)].defenseStats;
-        } else {
+        }
+        else if (_.isNumber(kind)) {
+            //log.error("Kind should be a name, in armor properties lookup");
+            //return null;
+            return Properties.ArmorData[Types.getKindAsString(kind)];
+        }
+        else {
             return Properties.ArmorData[kind];
         }
     } catch(e) {
@@ -466,7 +472,13 @@ Properties.getWeaponData = function(kind) {
     try {
         if(Types.isMob(kind)) {
             return Properties.EnemyData[Types.getKindAsString(kind)].offenseStats;
-        } else {
+        }
+        else if (_.isNumber(kind)) {
+            //log.error("Kind should be a name, in weapon properties lookup");
+            //return null;
+            return Properties.WeaponData[Types.getKindAsString(kind)];
+        }
+        else {
             return Properties.WeaponData[kind];
         }
     } catch(e) {

@@ -17,6 +17,28 @@ Formulas.randn_bm = function() {
     return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
 };
 
+Formulas.armorDefTradeOff = function(damage, defence) {
+    if (damage < 0 || defence < 0) {
+        log.error("Invalid damage value and defence value: " + damage + ", " + defence);
+        return 0;
+    }
+    if (damage === 0) {
+        return 0;
+    }
+    //Approximate a kind of "sigmoid". This is much less computationally expensive
+    var ratio = defence / damage;
+    if (ratio <= 0.4) return damage * 1.0;
+    else if (ratio >= 1.5) return damage * 0.2;
+    else {
+        //Interpolate on a line between the points
+        //ratio = 0.4, damage = raw * 1.0
+        //ratio = 1.5, damage = raw * 0.2
+        //var damageConst = 0.2 + (1.5 - ratio) / (1.5 - 0.4) * 0.8
+        var damageConst = 1.291 - 0.727 * ratio;
+        return damage * damageConst;
+    }
+};
+
 Formulas.dmg = function(weaponData, armorData, attackType) {
     /*
     var dealt = weaponLevel * Utils.randomInt(5, 10),
@@ -30,12 +52,13 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
         return dmg;
     }
     */
+    if (weaponData === undefined || armorData === undefined) {
+        log.error("Invalid weapon or armor data for combat damage calculations");
+        return 0;
+    }
 
     //TODO: ALlow users to use weapon with higher reqs, by decrease mean and increase variance of damage
     var rawDamage = 0, rawDefence = 0;
-
-    log.error(weaponData);
-    log.error(armorData);
 
     if (attackType === 'quick') {
         rawDamage = this.normalGen(weaponData["quickDmgBase"], weaponData["quickDmgVar"]);
@@ -52,11 +75,10 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
         rawDefence = armorData["quickAtkDef"];
     }
 
-    var finalDamage = Math.max(0, rawDamage - rawDefence);
-
-    log.info("Dealt damage: " + (rawDamage - rawDefence));
-
-    return Math.max(0, rawDamage - rawDefence);
+    //var finalDamage = Math.max(0, rawDamage - rawDefence);
+    var finalDamage = Math.floor(this.armorDefTradeOff(rawDamage, rawDefence));
+    log.info("Dealt damage: " + finalDamage);
+    return finalDamage;
 };
 
 Formulas.playerHp = function(armorData, characterSkills) {

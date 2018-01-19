@@ -642,7 +642,7 @@ module.exports = World = cls.Class.extend({
 
     getDroppedItem: function(mob) {
         var kind = Types.getKindAsString(mob.kind),
-            drops = Properties[kind].drops,
+            drops = Properties.EnemyData[kind].drops,
             v = Utils.random(100),
             p = 0,
             item = null;

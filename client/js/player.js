@@ -181,7 +181,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         },
 
         equipItem: function(inventoryIndex) {
-            console.log(inventoryIndex);
             var item = this.inventory[inventoryIndex];
             if(item.type === "weapon") { //&& newWeaponName !== this.getWeaponName()) {
                 this.inventory.splice(inventoryIndex, 1);

@@ -2,7 +2,7 @@
 define(['entity'], function(Entity) {
 
     var Item = Entity.extend({
-        init: function(id, kind, type) {
+        init: function(id, kind, type) { //Kind refers to the actual name; type is the much larger subclass
     	    this._super(id, kind);
 
             this.itemKind = Types.getKindAsString(kind);

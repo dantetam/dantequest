@@ -121,6 +121,13 @@ module.exports = Player = Character.extend({
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }
+                    //Set the auxiliary equipment data, from the server Properties file/module
+                    if (player.weapon) {
+                        self.weaponData = Properties.WeaponData[player.weapon.itemKind];
+                    }
+                    if (player.armor) {
+                        self.armorData = Properties.ArmorData[player.armor.itemKind];
+                    }
                 }
             }
             else if(action === Types.Messages.AGGRO) {
@@ -141,6 +148,8 @@ module.exports = Player = Character.extend({
                 var attackType = message[2];
 
                 if(mob) {
+                    console.log(self.weaponData);
+
                     var dmg = Formulas.dmg(self.weaponData, mob.armorData, attackType);
 
                     if(dmg > 0) {
@@ -165,9 +174,14 @@ module.exports = Player = Character.extend({
                 }
             }
             else if(action === Types.Messages.EQUIP) {
-                var item = self.server.getEntityById(message[1]);
+                var player = message[1]; //self.server.getEntityById(message[1]);
 
-                self.weaponData = Properties[item.kind];
+                if (player.weapon) {
+                    self.weaponData = Properties.WeaponData[player.weapon.itemKind];
+                }
+                if (player.armor) {
+                    self.armorData = Properties.ArmorData[player.armor.itemKind];
+                }
             }
             else if(action === Types.Messages.LOOT) {
                 var item = self.server.getEntityById(message[1]);

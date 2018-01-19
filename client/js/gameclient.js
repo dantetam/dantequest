@@ -507,9 +507,9 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               text]);
         },
 
-        sendEquipMessage: function(item) {
+        sendEquipMessage: function(player) {
             this.sendMessage([Types.Messages.EQUIP,
-                              item.id]);
+                              player]);
         },
 
         sendLoot: function(item) {

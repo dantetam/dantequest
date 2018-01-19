@@ -52,9 +52,11 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
         rawDefence = armorData["quickAtkDef"];
     }
 
+    var finalDamage = Math.max(0, rawDamage - rawDefence);
+
     log.info("Dealt damage: " + (rawDamage - rawDefence));
 
-    return rawDamage - rawDefence;
+    return Math.max(0, rawDamage - rawDefence);
 };
 
 Formulas.playerHp = function(armorData, characterSkills) {

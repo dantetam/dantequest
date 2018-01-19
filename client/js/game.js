@@ -1072,7 +1072,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         self.equipment_callback();
                     }
                     self.player.switchArmorSprite(self.sprites[self.player.getSpriteName()]);
-                    self.client.sendEquipItem(item); //Send message to server that item has been equipped
+                    self.client.sendEquipMessage(self.player); //Send message to server that item has been equipped
                 });
 
                 /*

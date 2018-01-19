@@ -176,6 +176,10 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             return this.weaponName !== null;
         },
 
+        hasArmor: function() {
+            return this.armorName !== null;
+        },
+
         equipItem: function(inventoryIndex) {
             console.log(inventoryIndex);
             var item = this.inventory[inventoryIndex];

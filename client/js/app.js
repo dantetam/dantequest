@@ -552,9 +552,54 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "quests") {
                     this.displayQuests(menu);
                 }
+                else if (menuType === "skills") {
+                    this.displaySkills(menu);
+                }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
+            }
+        },
+
+        /*
+        @param menu The menu div/DOM object UI being modified
+        */
+        displaySkills: function(menu) {
+            var player = this.game.player; //Preserve the scope of the larger app
+
+            menu.html("");
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Skills</h1>";
+            menu.html(menuHtmlString);
+
+            var rawSkillNames = {
+                "level": "Level",
+                "exp": "Experience",
+                "dexterity": "Dexterity",
+                "strength": "Strength",
+                "vitality": "Vitality",
+                "ancientMagic": "Ancient Magic",
+                "humanMagic": "Human Magic",
+                "bowsRanged": "Archery",
+                "machineRanged": "Machinery"
+            }
+
+            for (var skill in rawSkillNames) {
+                if (rawSkillNames.hasOwnProperty(skill)) {
+                    var skillDisplayName = rawSkillNames[skill];
+                    var playerLevel = player.characterSkills[skill];
+
+                    var tpl = _.template('<div id="<%= divId %>" style="display: inline-block;"><p><%= skillDisplayName %>&emsp;<%= playerLevel %></p></div>');
+                    var tplString = tpl({
+                        skillDisplayName: skillDisplayName,
+                        playerLevel: playerLevel,
+                        divId: "skillDisplay" + skill
+                        //left: xPos + "px",
+                        //top: yPos + "px"
+                    });
+
+                    menu.html(menu.html() + tplString);
+                }
             }
         },
 

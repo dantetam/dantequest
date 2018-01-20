@@ -380,9 +380,9 @@ function(Camera, Item, Character, Player, Timer) {
                     this.context.globalAlpha = entity.fadingAlpha;
                 }
 
-                if(!this.mobile && !this.tablet) {
-                    this.drawEntityName(entity);
-                }
+                //if(!this.mobile && !this.tablet) {
+                this.drawEntityName(entity);
+                //}
 
                 this.context.save();
                 if(entity.flipSpriteX) {
@@ -407,6 +407,7 @@ function(Camera, Item, Character, Player, Timer) {
 
                     this.context.drawImage(sprite.image, x, y, w, h, ox, oy, dw, dh);
 
+                    /*
                     if(entity instanceof Item && entity.kind !== Types.Entities.CAKE) {
                         var sparks = this.game.sprites["sparks"],
                             anim = this.game.sparksAnimation,
@@ -421,6 +422,7 @@ function(Camera, Item, Character, Player, Timer) {
                                                sparks.offsetY * s,
                                                sw * ds, sh * ds);
                     }
+                    */
                 }
 
                 if(entity instanceof Character && !entity.isDead && entity.hasWeapon()) {
@@ -581,11 +583,21 @@ function(Camera, Item, Character, Player, Timer) {
 
         drawEntityName: function(entity) {
             this.context.save();
-            if(entity.name && entity instanceof Player) {
-                var color = (entity.id === this.game.playerId) ? "#fcda5c" : "white";
+            var name = entity.name || Types.getKindAsString(entity.kind);
+            if(name) { // && entity instanceof Player) {
+                var color;
+                if (entity.id === this.game.playerId) {
+                    color = "#fcda5c";
+                }
+                else {
+                    color = "white";
+                }
+                console.log(entity.x + " " + entity.y);
                 this.drawText(entity.name,
                               (entity.x + 8) * this.scale,
-                              (entity.y + entity.nameOffsetY) * this.scale,
+                              (entity.y - 4) * this.scale,
+                              //(entity.x + 8) * this.scale,
+                              //(entity.y + entity.nameOffsetY) * this.scale,
                               true,
                               color);
             }
@@ -601,7 +613,7 @@ function(Camera, Item, Character, Player, Timer) {
 
             if(anim && sprite) {
                 var	frame = anim.currentFrame,
-                    s = 1, //this.scale,
+                    s = 2, //this.scale,
                     x = frame.x * os,
                     y = frame.y * os,
                     w = sprite.width * os,
@@ -618,9 +630,9 @@ function(Camera, Item, Character, Player, Timer) {
                     this.context.globalAlpha = entity.fadingAlpha;
                 }
 
-                if(!this.mobile && !this.tablet) {
-                    this.drawEntityName(entity);
-                }
+                //if(!this.mobile && !this.tablet) {
+                this.drawEntityName(entity);
+                //}
 
                 this.context.save();
                 if(entity.flipSpriteX) {

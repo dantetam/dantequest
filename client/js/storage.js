@@ -29,6 +29,7 @@ define(function() {
                         bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                         machineRanged: 1 //
                     },
+                    availableSkillPoints: 0,
                     completedQuestNames: [],
                     inProgressQuestObjs: [],
                     image: ""
@@ -101,6 +102,10 @@ define(function() {
             this.data.player.characterSkills = skills;
         },
 
+        setAvailableSkillPoints: function(points) {
+            this.data.player.availableSkillPoints = points;
+        },
+
         setPlayerGold: function(gold) {
             this.data.player.gold = gold;
         },
@@ -110,12 +115,13 @@ define(function() {
             this.data.player.inProgressQuestObjs = inProgress;
         },
 
-        savePlayer: function(img, armor, weapon, inventory, skills, gold, completedQuests, inProgressQuests) {
+        savePlayer: function(img, armor, weapon, inventory, skills, points, gold, completedQuests, inProgressQuests) {
             this.setPlayerImage(img);
             this.setPlayerArmor(armor);
             this.setPlayerWeapon(weapon);
             this.setPlayerInventory(inventory);
             this.setPlayerCharSkills(skills);
+            this.setAvailableSkillPoints(points);
             this.setPlayerGold(gold);
             this.setPlayerQuests(completedQuests, inProgressQuests);
         },

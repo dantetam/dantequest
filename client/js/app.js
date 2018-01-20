@@ -601,6 +601,9 @@ define(['jquery', 'storage'], function($, Storage) {
                     menu.html(menu.html() + tplString);
                 }
             }
+
+            var pointsString = "<p>Skill Points: " + player.getAvailableSkillPoints() + "</p>";
+            menu.html(menu.html() + pointsString);
         },
 
         displayQuests: function(menu) {

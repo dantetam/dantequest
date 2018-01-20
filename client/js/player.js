@@ -130,6 +130,14 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             this.characterSkills = skills;
         },
 
+        getAvailableSkillPoints: function() {
+            return availableSkillPoints;
+        },
+
+        setAvailableSkillPoints: function(points) {
+            availableSkillPoints = points;
+        },
+
         getGold: function() {
             return this.gold;
         },

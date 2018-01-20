@@ -11,6 +11,7 @@ var Properties = {
             },
             hp: 25,
             level: 1,
+            expOnKill: 10,
             defenseStats: {
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -34,6 +35,7 @@ var Properties = {
             },
             hp: 110,
             level: 2,
+            expOnKill: 21,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -57,6 +59,7 @@ var Properties = {
             },
             hp: 90,
             level: 3,
+            expOnKill: 33,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -81,6 +84,7 @@ var Properties = {
             },
             hp: 200,
             level: 8,
+            expOnKill: 150,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -104,6 +108,7 @@ var Properties = {
             },
             hp: 250,
             level: 15,
+            expOnKill: 400,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -125,6 +130,7 @@ var Properties = {
             },
             hp: 250,
             level: 12,
+            expOnKill: 300,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -148,6 +154,7 @@ var Properties = {
             },
             hp: 60,
             level: 4,
+            expOnKill: 50,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -171,6 +178,7 @@ var Properties = {
             },
             hp: 150,
             level: 8,
+            expOnKill: 120,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -194,6 +202,7 @@ var Properties = {
             },
             hp: 200,
             level: 7,
+            expOnKill: 80,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -216,7 +225,8 @@ var Properties = {
                 firepotion: 5
             },
             hp: 200,
-            level: 8,
+            level: 9,
+            expOnKill: 175,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -239,6 +249,7 @@ var Properties = {
             },
             hp: 80,
             level: 2,
+            expOnKill: 20,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -261,6 +272,7 @@ var Properties = {
             },
             hp: 100,
             level: 8,
+            expOnKill: 135,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -281,6 +293,7 @@ var Properties = {
             },
             hp: 700,
             level: 20,
+            expOnKill: 1000,
             defenseStats: { //Multiply these stats by ceil(level / 10)
                 quickAtkDef: 5,
                 strongAtkDef: 2,
@@ -431,6 +444,28 @@ var Properties = {
     },
     PotionData: {
 
+    },
+    ExpLevelData: { //Indexed by level i: exp need to level from i -> i + 1
+        1: 150,
+        2: 325, //175
+        3: 550, //225
+        4: 850, //300
+        5: 1250, //400
+        6: 1800, //550
+        7: 2500, //700
+        8: 3400, //900
+        9: 4600, //1200
+        10: 6200, //1600
+        11: 8200, //2000
+        12: 11000, //2800
+        13: 15000, //4000
+        14: 20500, //5500
+        15: 28000, //7500
+        16: 37000, //9000
+        17: 48500, //11500
+        18: 63000, //14500
+        19: 80000, //17000
+        20: -1 //End
     }
 };
 

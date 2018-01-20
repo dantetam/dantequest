@@ -558,6 +558,11 @@ module.exports = World = cls.Class.extend({
                 this.pushToAdjacentGroups(entity.group, entity.despawn());
             }
 
+            //Give the player experience on killing the mob
+            if (attacker.type === "player") {
+                this.handlePlayerExp(entity, attacker);
+            }
+
             this.removeEntity(entity);
         }
     },
@@ -605,6 +610,12 @@ module.exports = World = cls.Class.extend({
             return true;
         }
         return false;
+    },
+
+    handlePlayerExp: function(mob, player) {
+        var expGiven = Properties.EnemyData[Types.getKindAsString(mob.kind)].expOnKill;
+        player.giveExp(expGiven);
+        //this.giveExpToPlayer(player, expGiven);
     },
 
     handlePlayerVanish: function(player) {

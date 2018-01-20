@@ -56,7 +56,11 @@ module.exports = Player = Character.extend({
                 self.equipArmor(message[2]);
                 self.equipWeapon(message[3]);
                 self.orientation = Utils.randomOrientation();
+
                 self.characterSkills = message[4];
+                //TODO: WARNING: Changes in player's character skill on client
+                //may not propogate to server and vice versa
+
                 self.updateHitPoints();
                 self.updatePosition();
 
@@ -271,6 +275,17 @@ module.exports = Player = Character.extend({
         });
 
         this.connection.sendUTF8("go"); // Notify client that the HELLO/WELCOME handshake can start
+    },
+
+    giveExp: function(exp) {
+        this.characterSkills["exp"] += exp;
+        var expLevelUpReq = Properties.ExpLevelData[this.characterSkills["level"]];
+        if (this.characterSkills["exp"] >= expLevelUpReq && expLevelUpReq !== -1) { //Level up with enough exp
+            this.characterSkills["level"]++;
+            this.characterSkills["exp"] -= expLevelUpReq;
+        }
+        TODO <<<
+        //Propogate to player's client
     },
 
     destroy: function() {

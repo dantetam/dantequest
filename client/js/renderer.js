@@ -592,7 +592,7 @@ function(Camera, Item, Character, Player, Timer) {
                 else {
                     color = "white";
                 }
-                console.log(entity.x + " " + entity.y);
+                //console.log(entity.x + " " + entity.y);
                 this.drawText(entity.name,
                               (entity.x + 8) * this.scale,
                               (entity.y - 4) * this.scale,

@@ -177,6 +177,7 @@ module.exports = Player = Character.extend({
             }
             else if(action === Types.Messages.EQUIP) {
                 var player = message[1]; //self.server.getEntityById(message[1]);
+                var item = message[2];
 
                 if (player.weapon) {
                     self.weaponData = Properties.WeaponData[player.weapon.itemKind];
@@ -257,6 +258,10 @@ module.exports = Player = Character.extend({
                     self.lastCheckpoint = checkpoint;
                 }
             }
+            else if(action === Types.Messages.STATS_UPDATE) {
+                //var skills = message[1];
+
+            }
             else {
                 if(self.message_callback) {
                     self.message_callback(message);
@@ -284,8 +289,8 @@ module.exports = Player = Character.extend({
             this.characterSkills["level"]++;
             this.characterSkills["exp"] -= expLevelUpReq;
         }
-        TODO <<<
-        //Propogate to player's client
+        //See also this.getState()
+        this.send(new Messages.StatsUpdate(this.id, this.characterSkills).serialize()); //Server to client propogation
     },
 
     destroy: function() {
@@ -304,7 +309,7 @@ module.exports = Player = Character.extend({
 
     getState: function() {
         var basestate = this._getBaseState(),
-            state = [this.name, this.orientation, this.armor, this.weapon];
+            state = [this.name, this.orientation, this.armor, this.weapon, this.characterSkills];
 
         if(this.target) {
             state.push(this.target);

@@ -1436,6 +1436,13 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.updateBars();
                 });
 
+                self.client.onPlayerSkillsUpdate(function(playerId, skillsObj) {
+                    var player = self.getEntityById(playerId);
+                    if (player) {
+                        player.characterSkills = skillsObj;
+                    }
+                });
+
                 self.client.onPlayerEquipItem(function(playerId, item) {
                     var player = self.getEntityById(playerId),
                         itemKind = item.itemKind,

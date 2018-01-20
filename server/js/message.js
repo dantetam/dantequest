@@ -208,3 +208,15 @@ Messages.Blink = Message.extend({
                 this.item.id];
     }
 });
+
+Messages.StatsUpdate = Message.extend({
+    init: function(playerId, skillsObj) {
+        this.playerId = playerId;
+        this.skillsObj = skillsObj;
+    },
+    serialize: function() {
+        return [Types.Messages.STATS_UPDATE,
+                this.playerId,
+                this.skillsObj];
+    }
+});

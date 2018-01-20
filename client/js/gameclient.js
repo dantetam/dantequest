@@ -32,6 +32,8 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.HP] = this.receiveHitPoints;
             this.handlers[Types.Messages.BLINK] = this.receiveBlink;
 
+            this.handlers[Types.Messages.STATS_UPDATE] = this.receiveStatsUpdate;
+
             this.useBison = false;
             this.enable();
         },
@@ -153,6 +155,15 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             });
         },
 
+        receiveStatsUpdate: function(data) {
+            var id = data[1];
+            var skills = data[2];
+
+            if (this.update_skills_callback) {
+                this.update_skills_callback(id, skills);
+            }
+        },
+
         receiveWelcome: function(data) {
             var id = data[1],
                 name = data[2],
@@ -212,15 +223,16 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                     this.spawn_chest_callback(item, x, y);
                 }
             } else {
-                var name, orientation, target, weapon, armor;
+                var name, orientation, target, weapon, armor, skills;
 
                 if(Types.isPlayer(kind)) {
                     name = data[5];
                     orientation = data[6];
                     armor = data[7];
                     weapon = data[8];
-                    if(data.length > 9) {
-                        target = data[9];
+                    skills = data[9]
+                    if(data.length > 10) {
+                        target = data[10];
                     }
                 }
                 else if(Types.isMob(kind)) {
@@ -364,6 +376,8 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             }
         },
 
+
+
         onDispatched: function(callback) {
             this.dispatched_callback = callback;
         },
@@ -418,6 +432,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
         onPlayerTeleport: function(callback) {
             this.teleport_callback = callback;
+        },
+
+        onPlayerSkillsUpdate: function(callback) {
+            this.update_skills_callback = callback;
         },
 
         onChatMessage: function(callback) {

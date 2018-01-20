@@ -2,9 +2,9 @@
 
 DanteQuest
 ============
-A full medieval fantasy adventure game, based entirely in the browser with a full node.js/socket.io stack.
+Medieval fantasy adventure game, a full node.js/socket.io/HTML5 stack and browser based client.
 
-This is a fork of github.com/nenuadrian/browserquest, which is in turn, a fork of the popular BrowserQuest HTML5/node.js adventure game and proof of concept. 
+This is a fork of <github.com/nenuadrian/browserquest>, which is in turn, a fork of the popular [BrowserQuest](https://github.com/mozilla/BrowserQuest) HTML5/node.js adventure game and proof of concept. 
 
   * NPC dialogues and speech options
   * Quest progression and JSON data
@@ -12,7 +12,7 @@ This is a fork of github.com/nenuadrian/browserquest, which is in turn, a fork o
   * Custom combat formulas
   * Basic trainable skills, which affect combat
   * An inventory system with equippable weapons and armor
-  * Beautifully written dialogue, inspired by the Witcher book series, Warhammer, Monty Python, and more.
+  * Beautifully written dialogue, inspired by the Witcher book series, Warhammer lore, Monty Python, and more.
   
 
 Attributions & nenuadrian's Changes
@@ -33,6 +33,10 @@ npm install
 node /server/js/main.js
 (open or host) /client/index.html
 ```
+
+HOW TO EDIT THE MAP
+============
+The original BrowserQuest, and this fork, relies on .tmx files, which can be edited with the Tiled Map Editor. 
 
 Original README
 ============

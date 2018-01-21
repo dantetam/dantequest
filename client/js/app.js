@@ -779,8 +779,9 @@ define(['jquery', 'storage'], function($, Storage) {
             //TODO: In the future, use a templating HTML language on top of an established front-end framework
             var menuHtmlString = "";
             menuHtmlString += "<h1>Inventory</h1>";
-            menuHtmlString += "<div id='leftGameMenu' style='display: inline-block; width: 40%; height: 100%;'></div>";
-            menuHtmlString += "<div id='rightGameMenu' style='display: inline-block; width: 60%; height: 100%;'></div>";
+            menuHtmlString += "<div id='leftGameMenu' style='float:left; display: inline-block; width: 40%; height: 100%;'></div>";
+            menuHtmlString += "<div id='rightGameMenu' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
+            menuHtmlString += "<div id='tooltipInventory' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
             menu.html(menuHtmlString);
 
             var leftGameMenu = $("#leftGameMenu"), rightGameMenu = $("#rightGameMenu");
@@ -806,12 +807,13 @@ define(['jquery', 'storage'], function($, Storage) {
                 //$('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
 
                 //var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
-                var tpl = _.template('<div id="<%= divId %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
+                var tpl = _.template('<div id="<%= divId %>" inventory-index="<%= inventoryIndex %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
                 var tplString = tpl({
                     path: "url(" + inventoryImgPath + ")",
                     width: iconPixelWidth + "px",
                     height: iconPixelWidth + "px", //,
-                    divId: "inventoryEquipButton" + i
+                    divId: "inventoryEquipButton" + i,
+                    inventoryIndex: i
                     //left: xPos + "px",
                     //top: yPos + "px"
                 });
@@ -823,12 +825,27 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
             }
 
+            var tooltipMenu = $("#tooltipInventory");
+
             for (var i = 0; i < inventory.length; i++) {
                 $("#inventoryEquipButton" + i).click(function() {
                     if (app.game.player) {
-                        var index = +(this.id.slice(this.id.length - 1)); //The hack referring to the DOM
-                        app.game.player.equipItem(index);
-                        app.displayInventoryMenu(menu);
+                        var attr = this.attributes["inventory-index"];
+                        if (attr != null) {
+                            var index = +(this.attributes["inventory-index"].value);
+                            app.game.player.equipItem(index);
+                            app.displayInventoryMenu(menu);
+                        }
+                    }
+                });
+                $("#inventoryEquipButton" + i).mouseover(function() {
+                    if (app.game.player) {
+                        var attr = this.attributes["inventory-index"];
+                        if (attr != null) {
+                            var index = +(this.attributes["inventory-index"].value);
+                            var item = app.game.player.inventory[index];
+                            tooltipMenu.html("<h4>" + Types.getKindAsString(item.kind) + "</h4>")
+                        }
                     }
                 });
             }
@@ -848,17 +865,39 @@ define(['jquery', 'storage'], function($, Storage) {
             armorPath = getIconPath(armor);
 
             var tpl = _.template(`
-                    <div>Weapon <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= weaponPath %>"></div></div><br>
-                    <div>Armor <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= armorPath %>"></div></div><br>
+                    <div id="primaryWeaponSlot" item-name="<%= weaponName %>">Weapon <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= weaponPath %>"></div></div><br>
+                    <div id="primaryArmorSlot" item-name="<%= armorName %>">Armor <div style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= armorPath %>"></div></div><br>
                 `);
             var tplString = tpl({
                 weaponPath: "url(" + weaponPath + ")",
                 armorPath: "url(" + armorPath + ")",
+                weaponName: weapon,
+                armorName: armor,
                 width: iconPixelWidth + "px",
                 height: iconPixelWidth + "px"
             });
 
             rightGameMenu.html(rightGameMenu.html() + tplString);
+
+            //Display tooltip when mouse enters into the equipment slots
+            $("#primaryWeaponSlot").mouseover(function() {
+                if (app.game.player) {
+                    var attr = this.attributes["item-name"];
+                    if (attr != null) {
+                        var name = this.attributes["item-name"].value;
+                        tooltipMenu.html("<h4>" + name + "</h4>")
+                    }
+                }
+            });
+            $("#primaryArmorSlot").mouseover(function() {
+                if (app.game.player) {
+                    var attr = this.attributes["item-name"];
+                    if (attr != null) {
+                        var name = this.attributes["item-name"].value;
+                        tooltipMenu.html("<h4>" + name + "</h4>")
+                    }
+                }
+            });
         },
 
         animateParchment: function(origin, destination) {

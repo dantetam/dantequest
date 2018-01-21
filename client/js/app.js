@@ -531,7 +531,8 @@ define(['jquery', 'storage'], function($, Storage) {
         @param menuType The menu command, a string, which defines the UI type to bring up
         @param actionData An optional dictionary of data to be passed to the UI
         */
-        showGameMenu: function(menuType, actionData={}) {
+        showGameMenu: function(menuType, actionData) {
+            actionData = actionData != null ? actionData : {};
             //Close the menu if it is already open, else open it up
             var menu = $('#gameMenu');
             if (this.currentMenuMode === menuType || !this.game.player) { //Hide the menu if closed or the player is dead
@@ -556,10 +557,26 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "skills") {
                     this.displaySkills(menu);
                 }
+                else if (menuType === "chatlog") {
+                    this.displayChatlog(menu);
+                }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
             }
+        },
+
+        /*
+        @param menu The menu div/DOM object UI being modified
+        */
+        displayChatlog: function(menu) {
+            /*
+            self.chatClientHistory.append({id: entityId, message: message});
+            if (self.chatClientHistory.length > this.chatHistoryLimit) {
+                self.chatClientHistory.splice(0, 1);
+            }
+            */
+            
         },
 
         /*

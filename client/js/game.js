@@ -48,6 +48,10 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             this.hoveringItem = false;
             this.hoveringCollidingTile = false;
 
+            // Chat Log
+            this.chatClientHistory = [];
+            this.chatHistoryLimit = 100;
+
             // combat
             this.infoManager = new InfoManager(this);
 
@@ -1490,6 +1494,12 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.createBubble(entityId, message);
                     self.assignBubbleTo(entity);
                     self.audioManager.playSound("chat");
+
+                    //Client side chat history log, also see worldServer.chatHistory
+                    self.chatClientHistory.append({id: entityId, message: message});
+                    if (self.chatClientHistory.length > this.chatHistoryLimit) {
+                        self.chatClientHistory.splice(0, 1);
+                    }
                 });
 
                 self.client.onPopulationChange(function(worldPlayers, totalPlayers) {
@@ -1506,8 +1516,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         self.disconnect_callback(message);
                     }
                 });
-
-                
 
                 self.gamestart_callback();
 

@@ -279,7 +279,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         receiveChat: function(data) {
             var id = data[1],
                 text = data[2];
-
+                
             if(this.chat_callback) {
                 this.chat_callback(id, text);
             }

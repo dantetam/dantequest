@@ -27,6 +27,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
             this.characterSkills = {
                 level: 1,
                 exp: 0,
+                availableSkillPoints: 3,
                 dexterity: 1, //Quick attacks, combos, and counter-attacks
                 strength: 1, //Strong attacks and parry actions
                 vitality: 1, //Health, defense
@@ -35,7 +36,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                 machineRanged: 1 //Compound bows, crossbow, siege machines, cannons, and other machines
             };
-            this.availableSkillPoints = 0;
             this.gold = 50;
 
             // modes
@@ -128,14 +128,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         */
         setCharacterSkills: function(skills) {
             this.characterSkills = skills;
-        },
-
-        getAvailableSkillPoints: function() {
-            return availableSkillPoints;
-        },
-
-        setAvailableSkillPoints: function(points) {
-            availableSkillPoints = points;
         },
 
         getGold: function() {

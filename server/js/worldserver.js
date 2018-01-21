@@ -42,6 +42,9 @@ module.exports = World = cls.Class.extend({
         this.chestAreas = [];
         this.groups = {};
 
+        this.chatHistory = [];
+        this.chatHistoryLimit = 100;
+
         this.outgoingQueues = {};
 
         this.itemCount = 0;
@@ -806,6 +809,13 @@ module.exports = World = cls.Class.extend({
                     self.groups[id].incoming = [];
                 }
             });
+        }
+    },
+
+    pushToChatLog: function(message) {
+        this.chatHistory.push(message);
+        if (this.chatHistory.length > this.chatHistoryLimit) {
+            this.chatHistory.splice(0, 1);
         }
     },
 

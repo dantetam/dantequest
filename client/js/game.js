@@ -123,7 +123,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 this.player.setWeapon(this.storage.data.player.weapon);
                 this.player.setInventory(this.storage.data.player.inventory);
                 this.player.setCharacterSkills(this.storage.data.player.characterSkills);
-                this.player.setAvailableSkillPoints(this.storage.data.player.availableSkillPoints);
                 this.player.setGold(this.storage.data.player.gold);
                 this.player.setCompletedQuests(this.storage.data.player.completedQuestNames);
                 this.player.setInProgressQuests(this.storage.data.player.inProgressQuestObjs);
@@ -791,7 +790,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.getWeapon(),
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
-                                            self.player.getAvailableSkillPoints(),
                                             self.player.getGold(),
                                             self.player.getCompletedQuests(),
                                             self.player.getInProgressQuests());
@@ -1067,7 +1065,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                             self.player.getWeapon(),
                                             self.player.getInventory(),
                                             self.player.getCharacterSkills(),
-                                            self.player.getAvailableSkillPoints(),
                                             self.player.getGold(),
                                             self.player.getCompletedQuests(),
                                             self.player.getInProgressQuests());
@@ -1509,6 +1506,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         self.disconnect_callback(message);
                     }
                 });
+
+                
 
                 self.gamestart_callback();
 
@@ -2218,6 +2217,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             this.resetZone();
         },
 
+        //Send a message to the whole game and chat log
         say: function(message) {
             this.client.sendChat(message);
         },

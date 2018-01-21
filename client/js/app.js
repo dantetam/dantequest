@@ -254,12 +254,13 @@ define(['jquery', 'storage'], function($, Storage) {
             */
             var inventoryImgPath = "img/" + scale + "/loot.png";
             $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
+            //$('#armor').css('background-image', 'url("' + inventoryImgPath + '")');
 
             var questsImgPath = "img/" + scale + "/loot.png";
             $('#quests').css('background-image', 'url("' + questsImgPath + '")');
 
-            //Now, enable the ability to open the inventory menu
-
+            var skillsImgPath = "img/" + scale + "/loot.png";
+            $('#skills').css('background-image', 'url("' + skillsImgPath + '")');
         },
 
         hideWindows: function() {
@@ -575,6 +576,7 @@ define(['jquery', 'storage'], function($, Storage) {
             var rawSkillNames = {
                 "level": "Level",
                 "exp": "Experience",
+                "availableSkillPoints": "Free Skill Points",
                 "dexterity": "Dexterity",
                 "strength": "Strength",
                 "vitality": "Vitality",
@@ -589,7 +591,7 @@ define(['jquery', 'storage'], function($, Storage) {
                     var skillDisplayName = rawSkillNames[skill];
                     var playerLevel = player.characterSkills[skill];
 
-                    var tpl = _.template('<div id="<%= divId %>" style="display: inline-block;"><p><%= skillDisplayName %>&emsp;<%= playerLevel %></p></div>');
+                    var tpl = _.template('<div id="<%= divId %>" style="display: inline-block;"><p><%= skillDisplayName %>&emsp;<%= playerLevel %></p></div><br>');
                     var tplString = tpl({
                         skillDisplayName: skillDisplayName,
                         playerLevel: playerLevel,
@@ -602,8 +604,8 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
             }
 
-            var pointsString = "<p>Skill Points: " + player.getAvailableSkillPoints() + "</p>";
-            menu.html(menu.html() + pointsString);
+            //var pointsString = "<p>Skill Points: " + player.getAvailableSkillPoints() + "</p><br>";
+            //menu.html(menu.html() + pointsString);
         },
 
         displayQuests: function(menu) {

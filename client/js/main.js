@@ -156,6 +156,10 @@ define(['jquery', 'app'], function($, App) {
               app.showGameMenu("quests");
           });
 
+          $('#skills').click(function(event) {
+              app.showGameMenu("skills");
+          });
+
           var data = app.storage.data;
       		if(data.hasAlreadyPlayed) {
       		    if(data.player.name && data.player.name !== "") {
@@ -363,22 +367,21 @@ define(['jquery', 'app'], function($, App) {
                 var key = e.which,
                     chat_el = $('#chatinput');
 
-                if(key === 13) {
-                    if(chat_el.val().replace(/\s/g, '').length) {
+                if(key === 13) { //Enter
+                    if(chat_el.val().replace(/\s/g, '').length > 0) {
                         if(game.player) {
                             game.say(chat_el.val());
                         }
-                        app.hideChat();
-                        $('#foreground').focus();
-                        return false;
+                        //app.hideChat();
+                        //$('#foreground').focus();
+                        chat_el.val("");
                     } else {
                         app.hideChat();
-                        return false;
                     }
-                    chat_el.val("");
+                    return false;
                 }
 
-                if(key === 27) {
+                if(key === 27) { //Escape
                     app.hideChat();
                     return false;
                 }

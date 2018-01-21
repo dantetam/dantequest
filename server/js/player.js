@@ -185,6 +185,7 @@ module.exports = Player = Character.extend({
                 if (player.armor) {
                     self.armorData = Properties.ArmorData[player.armor.itemKind];
                 }
+                self.broadcast(self.equip(item.kind));
             }
             else if(action === Types.Messages.LOOT) {
                 var item = self.server.getEntityById(message[1]);
@@ -288,6 +289,7 @@ module.exports = Player = Character.extend({
         if (this.characterSkills["exp"] >= expLevelUpReq && expLevelUpReq !== -1) { //Level up with enough exp
             this.characterSkills["level"]++;
             this.characterSkills["exp"] -= expLevelUpReq;
+            this.characterSkills["availableSkillPoints"] += 3;
         }
         //See also this.getState()
         this.send(new Messages.StatsUpdate(this.id, this.characterSkills).serialize()); //Server to client propogation
@@ -332,6 +334,8 @@ module.exports = Player = Character.extend({
         if(this.broadcastzone_callback) {
             this.broadcastzone_callback(message, ignoreSelf === undefined ? true : ignoreSelf);
         }
+        //Send all chats from individual players to the whole server to be recorded
+        this.server.pushToChatLog(message);
     },
 
     onExit: function(callback) {

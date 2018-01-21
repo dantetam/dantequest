@@ -527,7 +527,7 @@ define(['jquery', 'storage'], function($, Storage) {
             menu.unbind(); //Allow the user to click on the screen again
         },
 
-        /*
+        /**
         @param menuType The menu command, a string, which defines the UI type to bring up
         @param actionData An optional dictionary of data to be passed to the UI
         */
@@ -566,20 +566,47 @@ define(['jquery', 'storage'], function($, Storage) {
             }
         },
 
-        /*
+        /**
         @param menu The menu div/DOM object UI being modified
         */
         displayChatlog: function(menu) {
+            menu.css("opacity", "1");
+            menu.css("background-color", "rgba(255,255,255,1.0)");
+            menu.css("padding", "20px");
             /*
             self.chatClientHistory.append({id: entityId, message: message});
             if (self.chatClientHistory.length > this.chatHistoryLimit) {
                 self.chatClientHistory.splice(0, 1);
             }
             */
-            
+            var chatLog = this.game.chatClientHistory;
+
+            menu.html("");
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Chat</h1><br>";
+
+            for (var i = 0; i < chatLog.length; i++) {
+                var chat = chatLog[i];
+
+                var speaker = this.game.getEntityById(chat.id);
+                var speakerName = speaker != null ? speaker.name : null;
+
+                var tpl = _.template('<div id="<%= divId %>"><p><%= chatId %>: <%= message %></p></div>');
+                var tplString = tpl({
+                    chatId: speakerName,
+                    message: chat.message,
+                    divId: "chatLog"
+                    //left: xPos + "px",
+                    //top: yPos + "px"
+                });
+
+                menuHtmlString += tplString;
+            }
+
+            menu.html(menuHtmlString);
         },
 
-        /*
+        /**
         @param menu The menu div/DOM object UI being modified
         */
         displaySkills: function(menu) {
@@ -587,7 +614,7 @@ define(['jquery', 'storage'], function($, Storage) {
 
             menu.html("");
             var menuHtmlString = "";
-            menuHtmlString += "<h1>Skills</h1>";
+            menuHtmlString += "<h1>Skills</h1><br>";
             menu.html(menuHtmlString);
 
             var rawSkillNames = {

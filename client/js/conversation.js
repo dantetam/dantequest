@@ -60,11 +60,12 @@ define(function() {
         ii) a series of choices, given to the user;
         iii) an object signaling the end of the conversation.
 
-        @param choiceIndex An integer representing the index choice within the node
+        @param choiceIndex An integer representing the index choice within the node,
+                           where null and undefined represent no choice (i.e. advance in a single dialogue).
         */
-        advanceConvo: function(choiceIndex=null) {
+        advanceConvo: function(choiceIndex) {
             if (this.convoActive) {
-                if (choiceIndex === null) { //Just advancing a conversation, not picking an option
+                if (choiceIndex == null) { //Just advancing a conversation, not picking an option
                     if (this.dialoguePointer === null) {
                         log.error("Attempting to advance a null dialogue");
                         return;

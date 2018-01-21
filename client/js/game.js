@@ -1496,10 +1496,12 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.audioManager.playSound("chat");
 
                     //Client side chat history log, also see worldServer.chatHistory
-                    self.chatClientHistory.append({id: entityId, message: message});
-                    if (self.chatClientHistory.length > this.chatHistoryLimit) {
+                    self.chatClientHistory.push({id: entityId, message: message});
+                    if (self.chatClientHistory.length > self.chatHistoryLimit) {
                         self.chatClientHistory.splice(0, 1);
                     }
+
+                    self.app.displayChatlog($("#gameMenu"));
                 });
 
                 self.client.onPopulationChange(function(worldPlayers, totalPlayers) {

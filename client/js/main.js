@@ -338,6 +338,10 @@ define(['jquery', 'app'], function($, App) {
                 }
             });
 
+            $('#chatbutton').click(function() {
+                app.showGameMenu("chatlog");
+            });
+
             $('#respawn').click(function(event) {
                 game.audioManager.playSound("revive");
                 game.restart();
@@ -375,6 +379,7 @@ define(['jquery', 'app'], function($, App) {
                         //app.hideChat();
                         //$('#foreground').focus();
                         chat_el.val("");
+                        //app.displayChatlog($("#gameMenu"));
                     } else {
                         app.hideChat();
                     }

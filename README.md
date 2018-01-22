@@ -13,7 +13,7 @@ New Features
   * Quest progression and JSON data
   * Fix map editor export code and add custom tileset
   * Custom combat formulas
-  * Basic trainable skills, which affect combat
+  * Levels and experience, which give points for trainable skills, which affect combat
   * An inventory system with equippable weapons and armor
   * Better client-server communication with these new features
   * Beautifully written dialogue, inspired by the Witcher book series, Warhammer lore, Monty Python, and more.

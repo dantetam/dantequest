@@ -77,6 +77,7 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
 
     //var finalDamage = Math.max(0, rawDamage - rawDefence);
     var finalDamage = Math.floor(this.armorDefTradeOff(rawDamage, rawDefence));
+    finalDamage = Math.max(0, finalDamage);
     log.info("Dealt damage: " + finalDamage);
     return finalDamage;
 };

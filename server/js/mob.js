@@ -2,7 +2,6 @@
 var cls = require("./lib/class"),
     _ = require("underscore"),
     Messages = require("./message"),
-    Properties = require("./properties"),
     Types = require("../../shared/js/gametypes");
 
 module.exports = Mob = Character.extend({
@@ -12,8 +11,8 @@ module.exports = Mob = Character.extend({
         this.updateHitPoints();
         this.spawningX = x;
         this.spawningY = y;
-        this.armorData = Properties.getArmorData(this.kind);
-        this.weaponData = Properties.getWeaponData(this.kind);
+        this.armorData = Types.getArmorData(this.kind);
+        this.weaponData = Types.getWeaponData(this.kind);
         this.hatelist = [];
         this.respawnTimeout = null;
         this.returnTimeout = null;
@@ -154,7 +153,7 @@ module.exports = Mob = Character.extend({
     },
 
     updateHitPoints: function() {
-        this.resetHitPoints(Properties.getHitPoints(this.kind));
+        this.resetHitPoints(Types.getHitPoints(this.kind));
     },
 
     distanceToSpawningPoint: function(x, y) {

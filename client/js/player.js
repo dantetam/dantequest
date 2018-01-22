@@ -52,14 +52,6 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                     currentArmorName = this.spriteName;
                 }
 
-                if(item.type === "armor") {
-                    rank = Types.getArmorRank(item.kind);
-                    currentRank = Types.getArmorRank(Types.getKindFromString(currentArmorName));
-                } else if(item.type === "weapon") {
-                    rank = Types.getWeaponRank(item.kind);
-                    currentRank = Types.getWeaponRank(Types.getKindFromString(this.weaponName));
-                }
-
                 msg = "Inventory full, cannot pick up: " + item.kind;
 
                 if (this.inventory.length >= this.inventoryLimit) {
@@ -112,7 +104,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
         setWeapon: function(weaponObj) {
             this.weapon = weaponObj;
             this.weaponName = weaponObj.itemKind;
-            //this.weaponData = Properties.WeaponData[this.weaponName];
+            //this.weaponData = Types.WeaponData[this.weaponName];
         },
 
         getInventory: function() {return this.inventory;},

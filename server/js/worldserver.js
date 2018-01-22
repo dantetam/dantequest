@@ -13,7 +13,6 @@ var cls = require("./lib/class"),
     ChestArea = require('./chestarea'),
     Chest = require('./chest'),
     Messages = require('./message'),
-    Properties = require("./properties"),
     Utils = require("./utils"),
     Types = require("../../shared/js/gametypes");
 
@@ -616,7 +615,7 @@ module.exports = World = cls.Class.extend({
     },
 
     handlePlayerExp: function(mob, player) {
-        var expGiven = Properties.EnemyData[Types.getKindAsString(mob.kind)].expOnKill;
+        var expGiven = Types.EnemyData[Types.getKindAsString(mob.kind)].expOnKill;
         player.giveExp(expGiven);
         //this.giveExpToPlayer(player, expGiven);
     },
@@ -656,7 +655,7 @@ module.exports = World = cls.Class.extend({
 
     getDroppedItem: function(mob) {
         var kind = Types.getKindAsString(mob.kind),
-            drops = Properties.EnemyData[kind].drops,
+            drops = Types.EnemyData[kind].drops,
             v = Utils.random(100),
             p = 0,
             item = null;

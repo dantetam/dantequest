@@ -3,7 +3,6 @@ var cls = require("./lib/class"),
     _ = require("underscore"),
     Messages = require("./message"),
     Utils = require("./utils"),
-    Properties = require("./properties"),
     Formulas = require("./formulas"),
     check = require("./format").check,
     Types = require("../../shared/js/gametypes");
@@ -125,12 +124,12 @@ module.exports = Player = Character.extend({
                     if(self.equipment_callback) {
                         self.equipment_callback();
                     }
-                    //Set the auxiliary equipment data, from the server Properties file/module
+                    //Set the auxiliary equipment data, from the server Types file/module
                     if (self.player.weapon) {
-                        self.weaponData = Properties.WeaponData[player.weapon.itemKind];
+                        self.weaponData = Types.WeaponData[player.weapon.itemKind];
                     }
                     if (self.player.armor) {
-                        self.armorData = Properties.ArmorData[player.armor.itemKind];
+                        self.armorData = Types.ArmorData[player.armor.itemKind];
                     }
                 }
             }
@@ -180,10 +179,10 @@ module.exports = Player = Character.extend({
                 var item = message[2];
 
                 if (player.weapon) {
-                    self.weaponData = Properties.WeaponData[player.weapon.itemKind];
+                    self.weaponData = Types.WeaponData[player.weapon.itemKind];
                 }
                 if (player.armor) {
-                    self.armorData = Properties.ArmorData[player.armor.itemKind];
+                    self.armorData = Types.ArmorData[player.armor.itemKind];
                 }
                 self.broadcast(self.equip(item.kind));
             }
@@ -285,7 +284,7 @@ module.exports = Player = Character.extend({
 
     giveExp: function(exp) {
         this.characterSkills["exp"] += exp;
-        var expLevelUpReq = Properties.ExpLevelData[this.characterSkills["level"]];
+        var expLevelUpReq = Types.ExpLevelData[this.characterSkills["level"]];
         if (this.characterSkills["exp"] >= expLevelUpReq && expLevelUpReq !== -1) { //Level up with enough exp
             this.characterSkills["level"]++;
             this.characterSkills["exp"] -= expLevelUpReq;
@@ -396,12 +395,12 @@ module.exports = Player = Character.extend({
 
     equipArmor: function(kind) {
         this.armor = kind;
-        this.armorData = Properties.getArmorData(kind);
+        this.armorData = Types.getArmorData(kind);
     },
 
     equipWeapon: function(kind) {
         this.weapon = kind;
-        this.weaponData = Properties.getWeaponData(kind);
+        this.weaponData = Types.getWeaponData(kind);
     },
 
     equipItem: function(item) {
@@ -412,10 +411,10 @@ module.exports = Player = Character.extend({
                 this.equipArmor(item.kind);
                 this.updateHitPoints();
                 this.send(new Messages.HitPoints(this.maxHitPoints).serialize());
-                //this.armorData = Properties.getArmorData(kind);
+                //this.armorData = Types.getArmorData(kind);
             } else if(Types.isWeapon(item.kind)) {
                 this.equipWeapon(item.kind);
-                //this.weaponData = Properties.getWeaponData(kind);
+                //this.weaponData = Types.getWeaponData(kind);
             }
         }
     },

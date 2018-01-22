@@ -2,7 +2,6 @@
 var cls = require("./lib/class"),
     Messages = require("./message"),
     Utils = require("./utils"),
-    Properties = require("./properties"),
     Types = require("../../shared/js/gametypes");
 
 module.exports = Character = Entity.extend({

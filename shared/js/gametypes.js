@@ -426,7 +426,7 @@ Types = {
             quickDmgBase: 10,
             quickDmgVar: 4,
             strongDmgBase: 13,
-            strongDmgVar: 7.5,
+            strongDmgVar: 8,
             dexProp: 0.4,
             strProp: 0.4,
             vtyProp: 0.2
@@ -835,6 +835,43 @@ Types.getWeaponData = function(kind) {
 
 Types.getHitPoints = function(kind) {
     return Types.EnemyData[Types.getKindAsString(kind)].hp;
+};
+
+Types.getItemTooltip = function(item) {
+    var itemName = Types.getKindAsString(item.kind);
+    return Types.getItemTooltipFromName(itemName, item.type);
+};
+Types.getItemTooltipFromName = function(itemName, itemType) {
+    var itemData = Types.WeaponData[itemName] || Types.ArmorData[itemName] || Types.PotionData[itemName];
+
+    html = "<h4>" + itemName + "</h4>";
+    html += "<h5>" + itemType + "</h5>";
+
+    if (itemData) {
+        html += "<p>Required Level: " + itemData.levelReq + "</p>";
+
+        if (itemType === "weapon") {
+            var upperQuick = itemData.quickDmgBase + itemData.quickDmgVar,
+                lowerQuick = itemData.quickDmgBase - itemData.quickDmgVar;
+            html += "<p>Quick Attack: " + lowerQuick + "-" + upperQuick + " Damage</p>";
+            var upperStrong = itemData.strongDmgBase + itemData.strongDmgVar,
+                lowerStrong = itemData.strongDmgBase - itemData.strongDmgVar;
+            html += "<p>Strong Attack: " + lowerStrong + "-" + upperStrong + " Damage</p>";
+            html += "<p>Dexterity Focus: " + Math.floor(itemData.dexProp * 100) + "</p>";
+            html += "<p>Strength Focus: " + Math.floor(itemData.strProp * 100) + "</p>";
+            html += "<p>Vitality Focus: " + Math.floor(itemData.vtyProp * 100) + "</p>";
+        }
+        else if (itemType === "armor") {
+            html += "<p>Quick Melee Def: " + itemData.quickAtkDef + " Armor</p>";
+            html += "<p>Strong Melee Def: " + itemData.strongAtkDef + " Armor</p>";
+            html += "<p>Human Magic Def: " + itemData.humanMagicDef + " Armor</p>";
+            html += "<p>Ancient Magic Def: " + itemData.ancientMagicDef + " Armor</p>";
+            html += "<p>Dexterity Focus: " + Math.floor(itemData.dexProp * 100) + "</p>";
+            html += "<p>Strength Focus: " + Math.floor(itemData.strProp * 100) + "</p>";
+            html += "<p>Vitality Focus: " + Math.floor(itemData.vtyProp * 100) + "</p>";
+        }
+    }
+    return html;
 };
 
 

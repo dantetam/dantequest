@@ -844,7 +844,8 @@ define(['jquery', 'storage'], function($, Storage) {
                         if (attr != null) {
                             var index = +(this.attributes["inventory-index"].value);
                             var item = app.game.player.inventory[index];
-                            tooltipMenu.html("<h4>" + Types.getKindAsString(item.kind) + "</h4>")
+                            var itemDesc = Types.getItemTooltip(item);
+                            tooltipMenu.html(itemDesc);
                         }
                     }
                 });
@@ -886,6 +887,9 @@ define(['jquery', 'storage'], function($, Storage) {
                     if (attr != null) {
                         var name = this.attributes["item-name"].value;
                         tooltipMenu.html("<h4>" + name + "</h4>")
+
+                        var itemDesc = Types.getItemTooltipFromName(name, "weapon");
+                        tooltipMenu.html(tooltipMenu.html() + itemDesc);
                     }
                 }
             });
@@ -894,7 +898,10 @@ define(['jquery', 'storage'], function($, Storage) {
                     var attr = this.attributes["item-name"];
                     if (attr != null) {
                         var name = this.attributes["item-name"].value;
-                        tooltipMenu.html("<h4>" + name + "</h4>")
+                        tooltipMenu.html("<h4>" + name + "</h4>");
+
+                        var itemDesc = Types.getItemTooltipFromName(name, "armor");
+                        tooltipMenu.html(tooltipMenu.html() + itemDesc);
                     }
                 }
             });

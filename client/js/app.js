@@ -618,8 +618,8 @@ define(['jquery', 'storage'], function($, Storage) {
             menu.html(menuHtmlString);
 
             var rawSkillNames = {
-                "level": "Level",
-                "exp": "Experience",
+                //"level": "Level",
+                //"exp": "Experience",
                 "availableSkillPoints": "Free Skill Points",
                 "dexterity": "Dexterity",
                 "strength": "Strength",
@@ -629,6 +629,15 @@ define(['jquery', 'storage'], function($, Storage) {
                 "bowsRanged": "Archery",
                 "machineRanged": "Machinery"
             }
+
+            var level = player.characterSkills["level"];
+
+            menu.html(menu.html() + "<p>Level " + level + "</p><br>");
+
+            var curExp = player.characterSkills["exp"];
+            var neededExp = Types.ExpLevelData[player.characterSkills["level"]];
+
+            menu.html(menu.html() + "<p>Experience " + curExp + "/" + neededExp + "</p><br>");
 
             for (var skill in rawSkillNames) {
                 if (rawSkillNames.hasOwnProperty(skill)) {
@@ -768,7 +777,7 @@ define(['jquery', 'storage'], function($, Storage) {
             var app = this; //Preserve the scope of the larger app
 
             //General purpose method for creating a path for a sprite at scale factor
-            var scale = this.game.renderer.getScaleFactor();
+            var scale = 2; //this.game.renderer.getScaleFactor();
             var getIconPath = function(spriteName) {
                     return 'img/'+ scale +'/item-' + spriteName + '.png';
                 };

@@ -150,14 +150,17 @@ define(['jquery', 'app'], function($, App) {
 
           $('#inventory').click(function(event) {
               app.showGameMenu("inventory");
+              event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
           });
 
           $('#quests').click(function(event) {
               app.showGameMenu("quests");
+              event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
           });
 
           $('#skills').click(function(event) {
               app.showGameMenu("skills");
+              event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
           });
 
           var data = app.storage.data;

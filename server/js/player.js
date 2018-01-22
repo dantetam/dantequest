@@ -287,7 +287,7 @@ module.exports = Player = Character.extend({
         var expLevelUpReq = Types.ExpLevelData[this.characterSkills["level"]];
         if (this.characterSkills["exp"] >= expLevelUpReq && expLevelUpReq !== -1) { //Level up with enough exp
             this.characterSkills["level"]++;
-            this.characterSkills["exp"] -= expLevelUpReq;
+            //this.characterSkills["exp"] -= expLevelUpReq;
             this.characterSkills["availableSkillPoints"] += 3;
         }
         //See also this.getState()

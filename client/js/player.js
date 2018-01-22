@@ -179,7 +179,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 this.inventory.splice(inventoryIndex, 1);
 
                 if (this.getWeaponName() !== null) {
-                    this.inventory.push(this.weapon);
+                    this.inventory.splice(inventoryIndex, 0, this.weapon); //Insert the item into the correct indexed slot i.e. the one the user clicked on
                 }
 
                 this.setWeapon(item);
@@ -192,7 +192,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 this.inventory.splice(inventoryIndex, 1);
 
                 if (this.getSpriteName() !== null) {
-                    this.inventory.push(this.armor);
+                    this.inventory.splice(inventoryIndex, 0, this.armor);
                 }
 
                 this.setArmor(item);

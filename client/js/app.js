@@ -800,9 +800,7 @@ define(['jquery', 'storage'], function($, Storage) {
             var inventoryGridWidth = 8;
             var iconPixelWidth = 32;
             var inventory = this.game.player.inventory;
-            for (var i = 0; i < inventory.length; i += 1) {
-
-                console.log(inventory[i]);
+            for (var i = 0; i < inventory.length; i++) {
 
                 var itemName = inventory[i].itemKind;
 

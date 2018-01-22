@@ -1,5 +1,5 @@
 
-define(['camera', 'item', 'character', 'player', 'timer'],
+define(['camera', 'item', 'character', 'player', 'timer', '../../shared/js/gametypes'],
 function(Camera, Item, Character, Player, Timer) {
 
     var Renderer = Class.extend({
@@ -584,6 +584,10 @@ function(Camera, Item, Character, Player, Timer) {
         drawEntityName: function(entity) {
             //this.context.save();
             var name = entity.name || Types.getKindAsString(entity.kind);
+            var level;
+            if (entity.characterSkills) level = entity.characterSkills["level"];
+            else if (name && Types.EnemyData[name]) level = Types.EnemyData[name]["level"];
+
             if(name) { // && entity instanceof Player) {
                 var color;
                 if (entity.id === this.game.playerId) {
@@ -593,7 +597,9 @@ function(Camera, Item, Character, Player, Timer) {
                     color = "white";
                 }
                 //console.log(entity.x + " " + entity.y);
-                this.drawText(name,
+                var fullDisplayName = name;
+                if (level) fullDisplayName += " (" + level + ")";
+                this.drawText(fullDisplayName,
                               (entity.x + 8) * this.scale,
                               (entity.y - 8) * this.scale,
                               //(entity.x + 8) * this.scale,

@@ -220,3 +220,15 @@ Messages.StatsUpdate = Message.extend({
                 this.skillsObj];
     }
 });
+
+Messages.LevelUpdate = Message.extend({
+    init: function(playerId, skillsObj) {
+        this.playerId = playerId;
+        this.skillsObj = skillsObj;
+    },
+    serialize: function() {
+        return [Types.Messages.LEVEL_UPDATE,
+                this.playerId,
+                this.skillsObj];
+    }
+});

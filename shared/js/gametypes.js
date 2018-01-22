@@ -28,7 +28,8 @@ Types = {
         BLINK: 24,
         OPEN: 25,
         CHECK: 26,
-        STATS_UPDATE: 27
+        STATS_UPDATE: 27,
+        LEVEL_UPDATE: 28
     },
 
     Entities: {

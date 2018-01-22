@@ -33,6 +33,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.BLINK] = this.receiveBlink;
 
             this.handlers[Types.Messages.STATS_UPDATE] = this.receiveStatsUpdate;
+            this.handlers[Types.Messages.LEVEL_UPDATE] = this.receiveLevelUpdate;
 
             this.useBison = false;
             this.enable();
@@ -164,6 +165,15 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             }
         },
 
+        receiveLevelUpdate: function(data) {
+            var id = data[1],
+                skills = data[2];
+
+            if (this.level_callback) {
+                this.level_callback(id, skills);
+            }
+        },
+
         receiveWelcome: function(data) {
             var id = data[1],
                 name = data[2],
@@ -279,7 +289,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         receiveChat: function(data) {
             var id = data[1],
                 text = data[2];
-                
+
             if(this.chat_callback) {
                 this.chat_callback(id, text);
             }
@@ -392,6 +402,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
         onWelcome: function(callback) {
             this.welcome_callback = callback;
+        },
+
+        onLevel: function(callback) {
+            this.level_callback = callback;
         },
 
         onSpawnCharacter: function(callback) {

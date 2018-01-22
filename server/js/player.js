@@ -262,6 +262,9 @@ module.exports = Player = Character.extend({
                 //var skills = message[1];
 
             }
+            else if(action === Types.Messages.LEVEL_UPDATE) {
+                self.message_callback(message);
+            }
             else {
                 if(self.message_callback) {
                     self.message_callback(message);
@@ -289,6 +292,7 @@ module.exports = Player = Character.extend({
             this.characterSkills["level"]++;
             //this.characterSkills["exp"] -= expLevelUpReq;
             this.characterSkills["availableSkillPoints"] += 3;
+            this.send(new Messages.LevelUpdate(this.id, this.characterSkills).serialize());
         }
         //See also this.getState()
         this.send(new Messages.StatsUpdate(this.id, this.characterSkills).serialize()); //Server to client propogation

@@ -1257,6 +1257,10 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     }
                 });
 
+                self.client.onLevel(function(id, skills) {
+                    self.showNotification("You leveled up!");
+                });
+
                 self.client.onDespawnEntity(function(entityId) {
                     var entity = self.getEntityById(entityId);
 
@@ -1374,6 +1378,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         mobName = 'death knight';
                     }
 
+                    /*
                     if(mobName === 'boss') {
                         self.showNotification("You killed the skeleton king");
                     } else {
@@ -1400,6 +1405,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     if(kind === Types.Entities.BOSS) {
                         self.tryUnlockingAchievement("HERO");
                     }
+                    */
                 });
 
                 self.client.onPlayerChangeHealth(function(points, isRegen) {

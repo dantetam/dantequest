@@ -582,7 +582,7 @@ function(Camera, Item, Character, Player, Timer) {
         },
 
         drawEntityName: function(entity) {
-            this.context.save();
+            //this.context.save();
             var name = entity.name || Types.getKindAsString(entity.kind);
             if(name) { // && entity instanceof Player) {
                 var color;
@@ -593,15 +593,15 @@ function(Camera, Item, Character, Player, Timer) {
                     color = "white";
                 }
                 //console.log(entity.x + " " + entity.y);
-                this.drawText(entity.name,
+                this.drawText(name,
                               (entity.x + 8) * this.scale,
-                              (entity.y - 4) * this.scale,
+                              (entity.y - 8) * this.scale,
                               //(entity.x + 8) * this.scale,
                               //(entity.y + entity.nameOffsetY) * this.scale,
                               true,
                               color);
             }
-            this.context.restore();
+            //this.context.restore();
         },
 
         drawMinimapEntity: function(entity) {
@@ -630,10 +630,6 @@ function(Camera, Item, Character, Player, Timer) {
                     this.context.globalAlpha = entity.fadingAlpha;
                 }
 
-                //if(!this.mobile && !this.tablet) {
-                this.drawEntityName(entity);
-                //}
-
                 this.context.save();
                 if(entity.flipSpriteX) {
                     this.context.translate(dx + this.tilesize*s, dy);
@@ -650,6 +646,9 @@ function(Camera, Item, Character, Player, Timer) {
                 if(entity.isVisible()) {
                     //console.log(dx, dy, dw, dh);
                     this.context.drawImage(sprite.image, x, y, w, h, ox, oy, dw, dh);
+                    //if(!this.mobile && !this.tablet) {
+                    this.drawEntityName(entity);
+                    //}
                 }
 
                 this.context.restore();

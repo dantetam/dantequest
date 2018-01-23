@@ -387,14 +387,14 @@ module.exports = World = cls.Class.extend({
         return item;
     },
 
-    createItem: function(kind, x, y) {
+    createItem: function(kind, x, y, count) {
         var id = '9'+this.itemCount++,
             item = null;
 
         if(kind === Types.Entities.CHEST) {
             item = new Chest(id, x, y);
         } else {
-            item = new Item(id, kind, x, y);
+            item = new Item(id, kind, x, y, count);
         }
         return item;
     },
@@ -661,11 +661,16 @@ module.exports = World = cls.Class.extend({
             item = null;
 
         for(var itemName in drops) {
-            var percentage = drops[itemName];
+            var data = drops[itemName];
+            var percentage = data, count = 1;
+            if (Array.isArray(data)) {
+                percentage = data[0];
+                count = data[1];
+            }
 
             p += percentage;
             if(v <= p) {
-                item = this.addItem(this.createItem(Types.getKindFromString(itemName), mob.x, mob.y));
+                item = this.addItem(this.createItem(Types.getKindFromString(itemName), mob.x, mob.y, count));
                 break;
             }
         }

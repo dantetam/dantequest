@@ -75,7 +75,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                 "sorceress-blackhair", "annoying-knight", "chachie-the-suitor", "princess-penelope",
                                 "platearmor", "redarmor", "goldenarmor", "firefox", "death", "sword1", "axe", "chest",
                                 "sword2", "redsword", "bluesword", "goldensword", "item-sword2", "item-axe", "item-redsword", "item-bluesword", "item-goldensword", "item-leatherarmor", "item-mailarmor",
-                                "item-platearmor", "item-redarmor", "item-goldenarmor", "item-flask", "item-cake", "item-burger", "morningstar", "item-morningstar", "item-firepotion"];
+                                "item-platearmor", "item-redarmor", "item-goldenarmor", "item-flask", "item-gold", "item-cake", "item-burger", "morningstar", "item-morningstar", "item-firepotion"];
         },
 
         setup: function($bubbleContainer, canvas, background, foreground, minimap, input) {
@@ -1622,7 +1622,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             if(item) {
                 this.player.isLootMoving = true;
                 this.makePlayerGoTo(item.gridX, item.gridY);
-                this.client.sendLootMove(item, item.gridX, item.gridY);
+                this.client.sendLootMove(item, item.gridX, item.gridY, item.count);
             }
         },
 

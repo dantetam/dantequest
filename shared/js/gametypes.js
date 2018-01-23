@@ -66,27 +66,29 @@ Types = {
         FIREPOTION: 38,
         CAKE: 39,
 
+        GOLD: 999,
+
         // NPCs
-        GUARD: 40,
-        KING: 41,
-        OCTOCAT: 42,
-        VILLAGEGIRL: 43,
-        VILLAGER: 44,
-        PRIEST: 45,
-        SCIENTIST: 46,
-        AGENT: 47,
-        RICK: 48,
-        NYAN: 49,
-        SORCERER: 50,
-        BEACHNPC: 51,
-        FORESTNPC: 52,
-        DESERTNPC: 53,
-        LAVANPC: 54,
-        CODER: 55,
-        SORCERESS_BLACKHAIR: 56,
-        ANNOYING_KNIGHT: 57,
-        CHACHIE_THE_SUITOR: 58,
-        PRINCESS_PENELOPE: 59,
+        GUARD: 1040,
+        KING: 1041,
+        OCTOCAT: 1042,
+        VILLAGEGIRL: 1043,
+        VILLAGER: 1044,
+        PRIEST: 1045,
+        SCIENTIST: 1046,
+        AGENT: 1047,
+        RICK: 1048,
+        NYAN: 1049,
+        SORCERER: 1050,
+        BEACHNPC: 1051,
+        FORESTNPC: 1052,
+        DESERTNPC: 1053,
+        LAVANPC: 1054,
+        CODER: 1055,
+        SORCERESS_BLACKHAIR: 1056,
+        ANNOYING_KNIGHT: 1057,
+        CHACHIE_THE_SUITOR: 1058,
+        PRINCESS_PENELOPE: 1059,
 
         // Weapons
         SWORD1: 500,
@@ -110,7 +112,8 @@ Types = {
             drops: {
                 flask: 40,
                 burger: 10,
-                firepotion: 5
+                firepotion: 5,
+                gold: [20, 5] //percentage, amount
             },
             hp: 25,
             level: 1,
@@ -346,7 +349,7 @@ Types = {
 
         bat: {
             drops: {
-                flask: 50,
+                flask: 80,
                 axe: 10,
                 firepotion: 5
             },
@@ -610,6 +613,7 @@ var kinds = {
     burger: [Types.Entities.BURGER, "object"],
     chest: [Types.Entities.CHEST, "object"],
     firepotion: [Types.Entities.FIREPOTION, "object"],
+    gold: [Types.Entities.GOLD, "object"],
 
     guard: [Types.Entities.GUARD, "npc"],
     villagegirl: [Types.Entities.VILLAGEGIRL, "npc"],
@@ -840,12 +844,12 @@ Types.getHitPoints = function(kind) {
 
 Types.getItemTooltip = function(item) {
     var itemName = Types.getKindAsString(item.kind);
-    return Types.getItemTooltipFromName(itemName, item.type);
+    return Types.getItemTooltipFromName(itemName, item.type, item.count);
 };
-Types.getItemTooltipFromName = function(itemName, itemType) {
+Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
     var itemData = Types.WeaponData[itemName] || Types.ArmorData[itemName] || Types.PotionData[itemName];
 
-    html = "<h4>" + itemName + "</h4>";
+    html = "<h4>" + itemName + " (" + itemCount + ")</h4>";
     html += "<h5>" + itemType + "</h5>";
 
     if (itemData) {

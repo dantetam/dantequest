@@ -18,6 +18,7 @@ define(function() {
                     weapon: "",
                     armor: "",
                     inventory: [],
+                    gold: 50,
                     characterSkills: {
                         level: 1,
                         exp: 0,

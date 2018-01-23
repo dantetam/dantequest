@@ -106,9 +106,12 @@ module.exports = Player = Character.extend({
 
                     var item = self.server.getEntityById(message[3]);
                     if(item) {
+                        var count = +message[4];
+                        item.count = count;
+
                         self.clearTarget();
 
-                        self.broadcast(new Messages.LootMove(self, item));
+                        self.broadcast(new Messages.LootMove(self, item, count));
                         self.lootmove_callback(self.x, self.y);
                     }
 

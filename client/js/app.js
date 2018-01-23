@@ -794,6 +794,8 @@ define(['jquery', 'storage'], function($, Storage) {
             menu.html(menuHtmlString);
 
             var leftGameMenu = $("#leftGameMenu"), rightGameMenu = $("#rightGameMenu");
+
+            leftGameMenu.html("<p>Gold: " + this.game.player.gold + "</p>");
             rightGameMenu.html("<p>Equipment</p>");
 
             //Render the left side: all the items currently in inventory
@@ -893,10 +895,8 @@ define(['jquery', 'storage'], function($, Storage) {
                     var attr = this.attributes["item-name"];
                     if (attr != null) {
                         var name = this.attributes["item-name"].value;
-                        tooltipMenu.html("<h4>" + name + "</h4>")
-
-                        var itemDesc = Types.getItemTooltipFromName(name, "weapon");
-                        tooltipMenu.html(tooltipMenu.html() + itemDesc);
+                        var itemDesc = Types.getItemTooltipFromName(name, "weapon", 1);
+                        tooltipMenu.html(itemDesc);
                     }
                 }
             });
@@ -905,10 +905,8 @@ define(['jquery', 'storage'], function($, Storage) {
                     var attr = this.attributes["item-name"];
                     if (attr != null) {
                         var name = this.attributes["item-name"].value;
-                        tooltipMenu.html("<h4>" + name + "</h4>");
-
-                        var itemDesc = Types.getItemTooltipFromName(name, "armor");
-                        tooltipMenu.html(tooltipMenu.html() + itemDesc);
+                        var itemDesc = Types.getItemTooltipFromName(name, "armor", 1);
+                        tooltipMenu.html(itemDesc);
                     }
                 }
             });

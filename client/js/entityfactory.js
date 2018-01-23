@@ -79,63 +79,67 @@ define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs
     //===== items ======
 
     EntityFactory.builders[Types.Entities.SWORD2] = function(id) {
-        return new Items.Sword2(id);
+        return new Items.Sword2(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.AXE] = function(id) {
-        return new Items.Axe(id);
+        return new Items.Axe(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.REDSWORD] = function(id) {
-        return new Items.RedSword(id);
+        return new Items.RedSword(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.BLUESWORD] = function(id) {
-        return new Items.BlueSword(id);
+        return new Items.BlueSword(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.GOLDENSWORD] = function(id) {
-        return new Items.GoldenSword(id);
+        return new Items.GoldenSword(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.MORNINGSTAR] = function(id) {
-        return new Items.MorningStar(id);
+        return new Items.MorningStar(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.MAILARMOR] = function(id) {
-        return new Items.MailArmor(id);
+        return new Items.MailArmor(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.LEATHERARMOR] = function(id) {
-        return new Items.LeatherArmor(id);
+        return new Items.LeatherArmor(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.PLATEARMOR] = function(id) {
-        return new Items.PlateArmor(id);
+        return new Items.PlateArmor(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.REDARMOR] = function(id) {
-        return new Items.RedArmor(id);
+        return new Items.RedArmor(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.GOLDENARMOR] = function(id) {
-        return new Items.GoldenArmor(id);
+        return new Items.GoldenArmor(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.FLASK] = function(id) {
-        return new Items.Flask(id);
+        return new Items.Flask(id, 1);
+    };
+
+    EntityFactory.builders[Types.Entities.GOLD] = function(id) {
+        return new Items.Gold(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.FIREPOTION] = function(id) {
-        return new Items.FirePotion(id);
+        return new Items.FirePotion(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.BURGER] = function(id) {
-        return new Items.Burger(id);
+        return new Items.Burger(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.CAKE] = function(id) {
-        return new Items.Cake(id);
+        return new Items.Cake(id, 1);
     };
 
     EntityFactory.builders[Types.Entities.CHEST] = function(id) {

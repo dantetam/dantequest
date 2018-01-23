@@ -2,12 +2,16 @@
 define(['entity'], function(Entity) {
 
     var Item = Entity.extend({
-        init: function(id, kind, type) { //Kind refers to the actual name; type is the much larger subclass
-    	    this._super(id, kind);
+        init: function(id, kind, type, stackable, count) {
+            //Kind refers to the actual name; type is the much larger subclass
+            //itemKind is a nice display string of the item's kind, the unique identifier
+            this._super(id, kind);
 
             this.itemKind = Types.getKindAsString(kind);
     	    this.type = type;
     	    this.wasDropped = false;
+            this.stackable = stackable;
+            this.count = count;
         },
 
         hasShadow: function() {
@@ -18,8 +22,8 @@ define(['entity'], function(Entity) {
         //Now: simply add the item to the player's inventory,
         //and do not check for conditions
         onLoot: function(player) {
-            player.inventory.push(this);
-            console.log(player.inventory);
+            // @see player(client).loot()
+            //console.log(player.inventory);
         },
 
         getSpriteName: function() {

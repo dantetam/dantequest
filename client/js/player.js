@@ -13,14 +13,18 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
      		this.nameOffsetY = -10;
 
             // sprites
-            this.armor = new Items.MailArmor(23);
-            this.armorName = "mailarmor";
+            this.setArmor(new Items.MailArmor(9999910, 1));
+            //this.armorName = "mailarmor";
 
-            this.weapon = new Items.GoldenSword(503);
-            this.weaponName = "goldensword";
+            this.setWeapon(new Items.GoldenSword(999999, 1));
+            //this.weaponName = "goldensword";
             //this.equipWeapon(new Items.GoldenSword(503));
 
-            this.inventory = [new Items.RedArmor(25), new Items.Sword2(501), new Items.BlueSword(506)];
+            this.inventory = [
+                new Items.RedArmor(9739654, 1),
+                new Items.Sword2(9999999, 1),
+                new Items.BlueSword(5060000, 1)
+            ];
             this.inventoryLimit = 30;
             this.completedQuestNames = [];
             this.inProgressQuestObjs = [];
@@ -44,28 +48,33 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
 
         loot: function(item) {
             if(item) {
-                var rank, currentRank, msg, currentArmorName;
-
-                if(this.currentArmorSprite) {
-                    currentArmorName = this.currentArmorSprite.name;
-                } else {
-                    currentArmorName = this.spriteName;
+                if (this.itemKind === "gold") {
+                    this.gold += item.count;
+                    return;
+                }
+                else if (item.stackable) {
+                    for (var i = 0; i < this.inventory.length; i++) {
+                        var existingItem = this.inventory[i];
+                        //Both items, the new and the match, must be stackable
+                        //There are cases of the same item being both stackable and not stackable
+                        //e.g. a unique variant of an item that is not stackable.
+                        if (existingItem.itemKind === item.itemKind || existingItem.stackable) {
+                            existingItem.count += item.count;
+                            item.onLoot(this);
+                            return;
+                        }
+                    }
                 }
 
-                msg = "Inventory full, cannot pick up: " + item.kind;
-
                 if (this.inventory.length >= this.inventoryLimit) {
+                    var msg = "Inventory full, cannot pick up: " + item.kind;
                     throw new Exceptions.LootException(msg);
                 }
                 else {
                     log.info('Player '+this.id+' has looted '+item.id);
-                    if(Types.isArmor(item.kind) && this.invincible) {
-                        this.stopInvincibility();
-                    }
+                    this.inventory.push(item);
                     item.onLoot(this);
                 }
-
-
             }
         },
 

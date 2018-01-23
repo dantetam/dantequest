@@ -198,10 +198,11 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
         receiveLootMove: function(data) {
             var id = data[1],
-                item = data[2];
+                item = data[2],
+                count = data[3];
 
             if(this.lootmove_callback) {
-                this.lootmove_callback(id, item);
+                this.lootmove_callback(id, item, count);
             }
         },
 
@@ -504,11 +505,12 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               y]);
         },
 
-        sendLootMove: function(item, x, y) {
+        sendLootMove: function(item, x, y, count) {
             this.sendMessage([Types.Messages.LOOTMOVE,
                               x,
                               y,
-                              item.id]);
+                              item.id,
+                              count]);
         },
 
         sendAggro: function(mob) {

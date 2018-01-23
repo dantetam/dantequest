@@ -42,14 +42,16 @@ Messages.Move = Message.extend({
 });
 
 Messages.LootMove = Message.extend({
-    init: function(entity, item) {
+    init: function(entity, item, count) {
         this.entity = entity;
         this.item = item;
+        this.count = count;
     },
     serialize: function() {
         return [Types.Messages.LOOTMOVE,
                 this.entity.id,
-                this.item.id];
+                this.item.id,
+                this.count];
     }
 });
 

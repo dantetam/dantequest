@@ -136,6 +136,22 @@ module.exports = Player = Character.extend({
                     }
                 }
             }
+            else if(action === Types.Messages.SHOPCLOSE) {
+                self.storage.savePlayer(self.renderer.getPlayerImage(),
+                                        self.player.getArmor(),
+                                        self.player.getWeapon(),
+                                        self.player.getInventory(),
+                                        self.player.getCharacterSkills(),
+                                        self.player.getGold(),
+                                        self.player.getCompletedQuests(),
+                                        self.player.getInProgressQuests());
+                /*if (self.player.weapon) {
+                    self.weaponData = Types.WeaponData[player.weapon.itemKind];
+                }
+                if (self.player.armor) {
+                    self.armorData = Types.ArmorData[player.armor.itemKind];
+                }*/
+            }
             else if(action === Types.Messages.AGGRO) {
                 if(self.move_callback) {
                     self.server.handleMobHate(message[1], self.id, 5);

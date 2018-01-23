@@ -879,6 +879,20 @@ Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
     return html;
 };
 
+Types.getValueOfItem = function(item) {
+    var name = Types.getKindAsString(item);
+    if (item.type === "weapon") {
+        var data = this.weaponData[name];
+        return data["levelReq"] * 20;
+    }
+    else if (item.type === "armor") {
+        var data = this.armorData[name];
+        return data["levelReq"] * 20;
+    }
+    else {
+        return 25;
+    }
+};
 
 if(!(typeof exports === 'undefined')) {
     module.exports = Types;

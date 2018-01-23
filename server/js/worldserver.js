@@ -40,6 +40,7 @@ module.exports = World = cls.Class.extend({
         this.mobAreas = [];
         this.chestAreas = [];
         this.groups = {};
+        this.shops = {};
 
         this.chatHistory = [];
         this.chatHistoryLimit = 100;

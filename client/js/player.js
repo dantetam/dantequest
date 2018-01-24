@@ -48,7 +48,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
 
         loot: function(item) {
             if(item) {
-                if (this.itemKind === "gold") {
+                if (item.itemKind === "gold") {
                     this.gold += item.count;
                     return;
                 }

@@ -560,10 +560,21 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "chatlog") {
                     this.displayChatlog(menu);
                 }
+                else if (menuType === "shop") {
+                    this.displayShop(shop, actionData);
+                }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
             }
+        },
+
+        /**
+        @param menu The menu div/DOM object UI being modified
+        */
+        displayShop: function(menu, actionData) {
+            var shop = actionData["shop"];
+            console.log(shop);
         },
 
         /**

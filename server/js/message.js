@@ -234,3 +234,15 @@ Messages.LevelUpdate = Message.extend({
                 this.skillsObj];
     }
 });
+
+Messages.OpenShop = Message.extend({
+    init: function(playerId, shop) {
+        this.playerId = playerId;
+        this.shop = shop;
+    },
+    serialize: function() {
+        return [Types.Messages.OPEN_SHOP,
+                this.playerId,
+                this.shop];
+    }
+});

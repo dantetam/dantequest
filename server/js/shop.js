@@ -1,8 +1,8 @@
 var Utils = require('./utils'),
     Types = require("../../shared/js/gametypes");
 
-module.exports = Shop = Item.extend({
-    init: function(id, x, y) {
+module.exports = Shop = Class.extend({
+    init: function() {
         this.items = [];
         this.gold = 0;
     },

@@ -29,7 +29,8 @@ Types = {
         OPEN: 25,
         CHECK: 26,
         STATS_UPDATE: 27,
-        LEVEL_UPDATE: 28
+        LEVEL_UPDATE: 28,
+        OPEN_SHOP: 29
     },
 
     Entities: {

@@ -392,6 +392,10 @@ module.exports = Player = Character.extend({
         this.broadcastzone_callback = callback;
     },
 
+    onBrowseShop: function(callback) {
+        this.browse_shop_callback = callback;
+    },
+
     equip: function(item) { //TODO: Item needs to be an actual item object
         return new Messages.EquipItem(this, item);
     },

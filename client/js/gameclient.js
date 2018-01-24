@@ -35,6 +35,8 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.STATS_UPDATE] = this.receiveStatsUpdate;
             this.handlers[Types.Messages.LEVEL_UPDATE] = this.receiveLevelUpdate;
 
+            this.handles[Types.Messages.OPEN_SHOP] = this.receiveOpenShop;
+
             this.useBison = false;
             this.enable();
         },
@@ -171,6 +173,15 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
             if (this.level_callback) {
                 this.level_callback(id, skills);
+            }
+        },
+
+        receiveOpenShop: function(data) {
+            var id = data[1],
+                shop = data[2];
+
+            if (this.open_shop_callback) {
+                this.open_shop_callback(id, skills);
             }
         },
 
@@ -407,6 +418,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
         onLevel: function(callback) {
             this.level_callback = callback;
+        },
+
+        onOpenShop: function(callback) {
+            this.open_shop_callback = callback;
         },
 
         onSpawnCharacter: function(callback) {

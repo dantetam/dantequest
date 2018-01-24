@@ -1261,6 +1261,11 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.showNotification("You leveled up!");
                 });
 
+                self.client.onOpenShop(function(id, shop) {
+                    //Open a new UI which communicates with the server, to purchase and sell items
+                    self.app.showGameMenu("shop", {"shop": shop});
+                });
+
                 self.client.onDespawnEntity(function(entityId) {
                     var entity = self.getEntityById(entityId);
 

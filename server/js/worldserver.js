@@ -114,6 +114,10 @@ module.exports = World = cls.Class.extend({
                 self.pushToGroup(player.group, message, ignoreSelf ? player.id : null);
             });
 
+            player.onBrowseShop(function(shop) {
+                self.pushToPlayer(player, new Messages.OpenShop(player.id, shop));
+            });
+
             player.onExit(function() {
                 log.info(player.name + " has left the game.");
                 self.removePlayer(player);

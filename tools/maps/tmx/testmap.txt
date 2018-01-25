@@ -1,0 +1,23 @@
+<layer name="canyon" width="250" height="314">
+  <data>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>
+   <tile gid="1379"/>
+   <tile gid="1378"/>

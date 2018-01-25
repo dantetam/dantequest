@@ -1263,6 +1263,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
 
                 self.client.onOpenShop(function(id, shop) {
                     //Open a new UI which communicates with the server, to purchase and sell items
+                    //Send the shop object to
                     self.app.showGameMenu("shop", {"shop": shop});
                 });
 

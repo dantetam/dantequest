@@ -181,7 +181,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                 shop = data[2];
 
             if (this.open_shop_callback) {
-                this.open_shop_callback(id, skills);
+                this.open_shop_callback(id, shop);
             }
         },
 

@@ -273,9 +273,9 @@ module.exports = Player = Character.extend({
             }
             else if(action === Types.Messages.OPEN_SHOP) {
                 var shopName = message[1];
-                console.log(shopName);
                 var shopObj = self.server.shops[shopName];
-                console.log(shopObj);
+                this.send(new Messages.OpenShop(self.id, shopObj).serialize());
+                //self.broadcast(new Messages.OpenShop(self.id, shopObj));
             }
             else if(action === Types.Messages.CHECK) {
                 var checkpoint = self.server.map.getCheckpoint(message[1]);

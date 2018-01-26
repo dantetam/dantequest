@@ -87,11 +87,6 @@ define(function() {
                             return null;
                         }
 
-                        this.nodeResult = null;
-
-                        this.dialoguePointer = null;
-                        this.dialogueIndexPointer = null;
-
                         //An object indicates a special option at the end of the conversation
                         if (_.isObject(this.nodeResult)) {
                             if (this.nodeResult.hasOwnProperty("shop")) {
@@ -100,6 +95,9 @@ define(function() {
                         }
                         else {
                             this.nodePointer = this.nodeResult;
+                            this.nodeResult = null;
+                            this.dialoguePointer = null;
+                            this.dialogueIndexPointer = null;
                             var curNode = this.nodes[this.nodePointer];
                             return curNode; //This is now just a JSON object that refers directly to the array of choices
                         }

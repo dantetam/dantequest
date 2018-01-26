@@ -561,7 +561,7 @@ define(['jquery', 'storage'], function($, Storage) {
                     this.displayChatlog(menu);
                 }
                 else if (menuType === "shop") {
-                    this.displayShop(shop, actionData);
+                    this.displayShop(menu, actionData);
                 }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
@@ -575,6 +575,27 @@ define(['jquery', 'storage'], function($, Storage) {
         displayShop: function(menu, actionData) {
             var shop = actionData["shop"];
             console.log(shop);
+
+            menu.html("");
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Shop</h1><br>";
+            menuHtmlString += "<h4>Gold: " + shop.gold + "</h4><br>";
+
+            for (var i = 0; i < shop.items.length; i++) {
+                var item = shop.items[i];
+
+                var tpl = _.template('<div item-index="<%= shopIndex %>"><p><%= itemName %> (<%= itemCount %>)</p></div>');
+                var tplString = tpl({
+                    itemName: item.itemKind,
+                    itemCount: item.count,
+                    shopIndex: i
+                    //left: xPos + "px",
+                    //top: yPos + "px"
+                });
+                menuHtmlString += tplString;
+            }
+
+            menu.html(menuHtmlString);
         },
 
         /**
@@ -738,14 +759,7 @@ define(['jquery', 'storage'], function($, Storage) {
                 conve.endConvo(null);
                 return;
             }
-            else if (_.isObject(result)) {
-                if (result.hasOwnProperty("shop")) {
-                    var shopName = result["shop-id"];
-                    self.game.client.sendShopBrowse(shopName);
-                    return;
-                }
-            }
-            if (Array.isArray(result)) { //This represents a series of choices between given
+            else if (Array.isArray(result)) { //This represents a series of choices between given
                 //Temporary jQuery templating; TODO: replace with a better templating stack
                 for (var i = 0; i < result.length; i++) {
                     var choice = result[i];
@@ -773,6 +787,13 @@ define(['jquery', 'storage'], function($, Storage) {
                         app.displayDialogue(menu, actionData);
                         event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                     });
+                }
+            }
+            else if (_.isObject(result)) {
+                if (result.hasOwnProperty("shop")) {
+                    var shopName = result["shop-id"];
+                    app.game.client.sendShopBrowse(shopName);
+                    return;
                 }
             }
             else {

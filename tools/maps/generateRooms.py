@@ -4,6 +4,10 @@ import numpy as np
 import random
 import math
 
+import DiamondSquare
+
+WALL = 8
+FREE = 0
 
 def rotateAboutPoint(origin, point, angle):
   # Get offset from origin
@@ -14,7 +18,19 @@ def rotateAboutPoint(origin, point, angle):
   # Rotate about the point
   x_prime = x * cos_a - y * sin_a
   y_prime = y * cos_a + x * sin_a
-  return [x_prime, y_prime]
+  # Since we transformed the point to calculate, reverse the transform
+  return [origin[0] + x_prime, origin[1] + y_prime]
+ 
+def dist(p1, p2):
+  dx = p2[0] - p1[0]
+  dy = p2[1] - p1[1]
+  return math.sqrt(dx*dx + dy*dy)
+
+def smooth_arr(arr):
+  result = np.copy(arr)
+  for r in range(0, arr.shape[0]):
+    for c in range(0, arr.shape[1]):
+      
   
 
 class Polygon:
@@ -23,6 +39,8 @@ class Polygon:
     self.points = points
   
   def tileInPolygon(self, x, y):
+    # return self.pointInPolygon(x, y)
+    # Increase threshold for rasterizer
     return self.pointInPolygon(x - 0.5, y) or \
       self.pointInPolygon(x + 0.5, y) or \
       self.pointInPolygon(x, y - 0.5) or \
@@ -48,7 +66,7 @@ class Polygon:
 class World:
   
   def __init__(self, x_size, y_size):
-    self._data = [[False for x in range(x_size)] for x in range(y_size)]
+    self._data = [[WALL for x in range(x_size)] for x in range(y_size)]
     self.x_size = x_size
     self.y_size = y_size
     
@@ -74,18 +92,18 @@ class World:
     
     return Polygon(first_triangle), Polygon(second_triangle)
     
-  def createWorld(self):
+  def createWorld(self, roomPoly, refillPoly):
     cutPolygons, fillPolygons = [], []
  
     # Create many polygons
-    for _ in range(10):
-      width, height = int(random.random() * 10), int(random.random() * 10)
+    for _ in range(roomPoly):
+      width, height = int(random.random() * 5) + 8, int(random.random() * 5) + 8
       tri1, tri2 = self.randomRectangle(width, height)
       cutPolygons.append(tri1)
       cutPolygons.append(tri2)
       
-    for _ in range(5):
-      width, height = int(random.random() * 10), int(random.random() * 10)
+    for _ in range(refillPoly):
+      width, height = int(random.random() * 5) + 5, int(random.random() * 5) + 5
       tri1, tri2 = self.randomRectangle(width, height)
       fillPolygons.append(tri1)
       fillPolygons.append(tri2) 
@@ -95,13 +113,54 @@ class World:
       for y in range(0, self.y_size):
         for polygon in cutPolygons:
           if polygon.tileInPolygon(x, y):
-            self.setTile(x, y, True)
+            self.setTile(x, y, FREE)
         for polygon in fillPolygons:
           if polygon.tileInPolygon(x, y):
-            self.setTile(x, y, False)
+            self.setTile(x, y, WALL)
             
-    print(self._data)
+    #print(self._data)
     
+  def getNeighbors(self, point):
+    x, y = point[0], point[1]
+    neighbors = []
+    if x < self.x_size - 1:
+      neighbors.append([x + 1, y])
+    if x > 0:
+      neighbors.append([x - 1, y])
+    if y < self.y_size - 1:
+      neighbors.append([x, y + 1])
+    if y > 0:
+      neighbors.append([x, y - 1])
+    return neighbors
     
-testWorld = World(50, 50)
-testWorld.createWorld()
+  def carvePath(self, position, pathLength, value):
+    if pathLength == 0:
+      return
+    self.setTile(position[0], position[1], value)
+    neighbors = self.getNeighbors(position)
+    randomNeighbor = neighbors[int(random.random() * len(neighbors))]
+    self.carvePath(randomNeighbor, pathLength - 1, value)
+   
+  def carveRandomPath(self, value):
+    x = int(random.random() * self.x_size)
+    y = int(random.random() * self.y_size)
+    pathLength = int(random.random() * max(self.x_size, self.y_size))
+    self.carvePath([x, y], pathLength, value)
+    
+world_width, world_height = 25, 25    
+roomPoly, refillPoly = 10, 10
+
+testWorld = World(world_width, world_height)
+testWorld.createWorld(roomPoly, refillPoly)
+
+for _ in range(8):
+  testWorld.carveRandomPath(FREE);
+
+print(np.matrix(testWorld._data))
+
+
+
+
+#make a height map of size 16x20, with values ranging from 1 to 100, with moderate roughness
+map1 = DiamondSquare.diamond_square((16,16),1,100,0.95)
+print(np.vectorize(lambda x: int(x))(map1))

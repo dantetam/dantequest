@@ -16,7 +16,7 @@ define(['entity'], function(Entity) {
 
         clone: function() {
             return new Item(this.id, this.kind, this.type, this.stackable, this.count);
-        }
+        },
 
         hasShadow: function() {
             return true;

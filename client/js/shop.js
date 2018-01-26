@@ -1,5 +1,5 @@
 
-define(['entity'], function(Entity) {
+define([], function() {
 
     var Shop = Class.extend({
         init: function() {

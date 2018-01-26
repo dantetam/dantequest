@@ -738,7 +738,13 @@ define(['jquery', 'storage'], function($, Storage) {
                 conve.endConvo(null);
                 return;
             }
-
+            else if (_.isObject(result)) {
+                if (result.hasOwnProperty("shop")) {
+                    var shopName = result["shop-id"];
+                    self.game.client.sendShopBrowse(shopName);
+                    return;
+                }
+            }
             if (Array.isArray(result)) { //This represents a series of choices between given
                 //Temporary jQuery templating; TODO: replace with a better templating stack
                 for (var i = 0; i < result.length; i++) {

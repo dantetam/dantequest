@@ -35,7 +35,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.STATS_UPDATE] = this.receiveStatsUpdate;
             this.handlers[Types.Messages.LEVEL_UPDATE] = this.receiveLevelUpdate;
 
-            this.handles[Types.Messages.OPEN_SHOP] = this.receiveOpenShop;
+            this.handlers[Types.Messages.OPEN_SHOP] = this.receiveOpenShop;
 
             this.useBison = false;
             this.enable();
@@ -584,6 +584,11 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         sendOpen: function(chest) {
             this.sendMessage([Types.Messages.OPEN,
                               chest.id]);
+        },
+
+        sendShopBrowse: function(shopName) {
+            this.sendMessage([Types.Messages.OPEN_SHOP,
+                              shopName])
         },
 
         sendCheck: function(id) {

@@ -8,6 +8,7 @@ var cls = require("./lib/class"),
     Map = require('./map'),
     Npc = require('./npc'),
     Player = require('./player'),
+    Shop = require('./shop'),
     Item = require('./item'),
     MobArea = require('./mobarea'),
     ChestArea = require('./chestarea'),
@@ -41,6 +42,11 @@ module.exports = World = cls.Class.extend({
         this.chestAreas = [];
         this.groups = {};
         this.shops = {};
+
+        var testShop = new Shop();
+        var testItems = [];
+        testShop.setShopItems(testItems, 300);
+        this.shops["shop-merchant-aeterna"] = testShop;
 
         this.chatHistory = [];
         this.chatHistoryLimit = 100;

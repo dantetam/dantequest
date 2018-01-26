@@ -271,6 +271,12 @@ module.exports = Player = Character.extend({
                     self.server.handleOpenedChest(chest, self);
                 }
             }
+            else if(action === Types.Messages.OPEN_SHOP) {
+                var shopName = message[1];
+                console.log(shopName);
+                var shopObj = self.server.shops[shopName];
+                console.log(shopObj);
+            }
             else if(action === Types.Messages.CHECK) {
                 var checkpoint = self.server.map.getCheckpoint(message[1]);
                 if(checkpoint) {

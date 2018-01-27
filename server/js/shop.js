@@ -41,29 +41,30 @@ module.exports = Shop = Class.extend({
         }
     },
 
-    /**
-    Attempt to sell an item to the player, server side.
-    If the player has enough money on the server, complete the transaction
-
-    @param player    The server player object
-    @param itemIndex The index of the item within the shop's inventory, that the player wants
-    @param count     The desired amount the player wants to purchase
-
-    @return Whether or not the transaction is valid (implies also that the transaction has started server side)
-    */
-    sellItemToPlayer: function(player, itemIndex, count) {
+    determineValue: function(itemIndex, count) {
         var shopItem = this.items[itemIndex];
         if (count > shopItem.count) count = shopItem.count;
 
         var name = shopItem.itemDisplayName; //Types.getKindAsString(shopItem);
         var value = this.prices[name] * count;
-        if (player.gold >= value) {
-            player.gold -= value; //handle it server side
-            this.gold += value;
-            //var product = shopItem.clone();
-            //product.count = count;
-            //player.loot(product);
+        return value;
+    },
 
+    /**
+    Attempt to sell an item to the player, server side.
+    If the player has enough money on the server, complete the transaction
+
+    @param playerGold The amount of gold the player has on client
+    @param itemIndex  The index of the item within the shop's inventory, that the player wants
+    @param count      The desired amount the player wants to purchase
+
+    @return Whether or not the transaction is valid (implies also that the transaction has started server side)
+    */
+    sellItemToPlayer: function(playerGold, itemIndex, count) {
+        var value = this.determineValue(itemIndex, count);
+        var shopItem = this.items[itemIndex];
+        if (playerGold >= value) {
+            this.gold += value;
             if (count === shopItem.count) {
                 this.items.splice(itemIndex, 1);
             }
@@ -72,28 +73,16 @@ module.exports = Shop = Class.extend({
             }
             return true;
         }
+        return false;
     },
 
-    purchaseItemFromPlayer: function(player, inventoryIndex, count) {
-        var playerItem = player.inventory[inventoryIndex];
-        if (count > playerItem.count) count = playerItem.count;
-
-        var name = playerItem.itemDisplayName;
-        var value = this.prices[name] * count;
+    purchaseItemFromPlayer: function(itemName, count) {
+        var value = this.prices[itemName] * count; //Complete the rest of the transaction client side (guaranteed to be valid)
         if (this.gold >= value) {
             this.gold -= value;
-            player.gold += value; //handle it server side
-            //var product = playerItem.clone();
-            //product.count = count;
-            //this.addItemToShopInventory(product);
-
-            if (count === playerItem.count) {
-                player.inventory.splice(inventoryIndex, 1);
-            }
-            else {
-                playerItem.count -= count;
-            }
+            return true;
         }
+        return false;
     }
 
 });

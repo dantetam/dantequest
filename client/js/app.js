@@ -616,7 +616,7 @@ define(['jquery', 'storage'], function($, Storage) {
                     var attr = this.attributes["item-index"];
                     if (attr != null) {
                         var index = attr.value;
-                        app.game.client.sendShopBuy(app.game.player, shop.name, +index, 1);
+                        app.game.client.sendShopBuy(app.game.player, shop.name, +index, 1, app.game.player.gold);
                     }
                 });
             }

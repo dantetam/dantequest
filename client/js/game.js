@@ -1267,18 +1267,19 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.app.showGameMenu("shop", {"shop": shop});
                 });
 
-                self.client.onShopTransactionUpdate(function(playerId, shop, newPlayerGold, itemKindBought, buyCount) {
+                self.client.onShopTransactionUpdate(function(playerId, shop, goldSpent, itemKindBought, buyCount) {
                     //Open a new UI which communicates with the server, to purchase and sell items
                     //Send the shop object to
                     //self.app.showGameMenu("shop", {"shop": shop});
-                    self.player.gold = newPlayerGold;
-                    self.app.displayShop($("#gameMenu"), {"shop": shop});
+                    self.player.gold -= goldSpent;
 
                     var itemEnum = Types.getKindFromString(itemKindBought);
                     var boughtItems = EntityFactory.createEntity(itemEnum, 0, null);
 
                     boughtItems.count = buyCount;
                     self.player.loot(boughtItems);
+
+                    self.app.displayShop($("#gameMenu"), {"shop": shop});
 
                     //Save player's entire inventory
                     self.storage.savePlayer(self.renderer.getPlayerImage(),

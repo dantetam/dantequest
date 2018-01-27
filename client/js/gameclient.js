@@ -189,12 +189,12 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         receiveShopTransactionUpdate: function(data) {
             var id = data[1],
                 shop = data[2],
-                newPlayerGold = +data[3],
+                goldSpent = +data[3],
                 itemKindBought = data[4],
                 buyCount = data[5];
 
             if (this.update_shop_callback) {
-                this.update_shop_callback(id, shop, newPlayerGold, itemKindBought, buyCount);
+                this.update_shop_callback(id, shop, goldSpent, itemKindBought, buyCount);
             }
         },
 
@@ -603,12 +603,13 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               chest.id]);
         },
 
-        sendShopBuy: function(playerObj, shopName, shopItemIndex, playerBuyCount) {
+        sendShopBuy: function(playerObj, shopName, shopItemIndex, playerBuyCount, playerGold) {
             this.sendMessage([Types.Messages.BUY_ITEM_FROM_SHOP,
                               playerObj,
                               shopName,
                               shopItemIndex,
-                              playerBuyCount])
+                              playerBuyCount,
+                              playerGold])
         },
 
         sendShopBrowse: function(shopName) {

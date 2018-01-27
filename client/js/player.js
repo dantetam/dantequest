@@ -40,7 +40,7 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 bowsRanged: 1, //Normal bows, longbows, enchanted and natural weapons
                 machineRanged: 1 //Compound bows, crossbow, siege machines, cannons, and other machines
             };
-            this.gold = 50;
+            this.gold = 250;
 
             // modes
             this.isLootMoving = false;
@@ -59,8 +59,13 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                         //There are cases of the same item being both stackable and not stackable
                         //e.g. a unique variant of an item that is not stackable.
                         if (existingItem.itemKind === item.itemKind || existingItem.stackable) {
-                            existingItem.count += item.count;
-                            item.onLoot(this);
+                            existingItem.count += item.count; //Note that item.count can be negative
+                            if (existingItem.count <= 0) {
+                                this.inventory.splice(i, 1);
+                            }
+                            else {
+                                item.onLoot(this);
+                            }
                             return;
                         }
                     }
@@ -71,9 +76,21 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                     throw new Exceptions.LootException(msg);
                 }
                 else {
-                    log.info('Player '+this.id+' has looted '+item.id);
-                    this.inventory.push(item);
-                    item.onLoot(this);
+                    if (item.count <= 0) {
+                        for (var i = this.inventory.length - 1; i >= 0; i--) {
+                            if (item.count === 0) return;
+                            var existingItem = this.inventory[i];
+                            if (existingItem.itemKind === item.itemKind) {
+                                this.inventory.splice(i, 1);
+                                item.count--;
+                            }
+                        }
+                    }
+                    else {
+                        log.info('Player '+this.id+' has looted '+item.id);
+                        this.inventory.push(item);
+                        item.onLoot(this);
+                    }
                 }
             }
         },

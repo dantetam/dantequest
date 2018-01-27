@@ -41,6 +41,16 @@ module.exports = Shop = Class.extend({
         }
     },
 
+    /**
+    Attempt to sell an item to the player, server side.
+    If the player has enough money on the server, complete the transaction
+
+    @param player    The server player object
+    @param itemIndex The index of the item within the shop's inventory, that the player wants
+    @param count     The desired amount the player wants to purchase
+
+    @return Whether or not the transaction is valid (implies also that the transaction has started server side)
+    */
     sellItemToPlayer: function(player, itemIndex, count) {
         var shopItem = this.items[itemIndex];
         if (count > shopItem.count) count = shopItem.count;
@@ -60,6 +70,7 @@ module.exports = Shop = Class.extend({
             else {
                 shopItem.count -= count;
             }
+            return true;
         }
     },
 

@@ -189,10 +189,12 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         receiveShopTransactionUpdate: function(data) {
             var id = data[1],
                 shop = data[2],
-                playerGold = data[3];
+                newPlayerGold = +data[3],
+                itemKindBought = data[4],
+                buyCount = data[5];
 
             if (this.update_shop_callback) {
-                this.update_shop_callback(id, shop, playerGold);
+                this.update_shop_callback(id, shop, newPlayerGold, itemKindBought, buyCount);
             }
         },
 

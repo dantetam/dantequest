@@ -575,15 +575,26 @@ define(['jquery', 'storage'], function($, Storage) {
         displayShop: function(menu, actionData) {
             var app = this;
 
+            //General purpose method for creating a path for a sprite at scale factor
+            var scale = 2; //this.game.renderer.getScaleFactor();
+            var getIconPath = function(spriteName) {
+                    return 'img/'+ scale +'/item-' + spriteName + '.png';
+                };
+
             var shop = actionData["shop"];
             console.log(shop);
 
-            menu.html("");
             var menuHtmlString = "";
-            menuHtmlString += "<h1>Shop:</h1><br>";
+            menuHtmlString += "<h1>Shop</h1>";
             menuHtmlString += "<h4>Merchant Gold: " + shop.gold + "</h4><br>";
             menuHtmlString += "<h4>" + app.game.player.name + "'s Gold: " + app.game.player.gold + "</h4><br>";
+            menuHtmlString += "<div id='leftGameMenu' style='float:left; display: inline-block; width: 40%; height: 100%;'></div>";
+            menuHtmlString += "<div id='rightGameMenu' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
+            menuHtmlString += "<div id='tooltipInventory' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
+            menu.html(menuHtmlString);
 
+            var rightGameMenu = $("#rightGameMenu");
+            menuHtmlString = "";
             for (var i = 0; i < shop.items.length; i++) {
                 var item = shop.items[i];
 
@@ -598,8 +609,7 @@ define(['jquery', 'storage'], function($, Storage) {
                 });
                 menuHtmlString += tplString;
             }
-
-            menu.html(menuHtmlString);
+            rightGameMenu.html(menuHtmlString);
 
             for (var i = 0; i < shop.items.length; i++) {
                 $("#shopButton" + i).click(function(event) {
@@ -609,6 +619,43 @@ define(['jquery', 'storage'], function($, Storage) {
                         app.game.client.sendShopBuy(app.game.player, shop.name, +index, 1);
                     }
                 });
+            }
+
+            var leftGameMenu = $("#leftGameMenu");
+            //Render the left side: all the items currently in inventory
+            var inventoryGridWidth = 8;
+            var iconPixelWidth = 32;
+            var inventory = this.game.player.inventory;
+            for (var i = 0; i < inventory.length; i++) {
+
+                var itemName = inventory[i].itemKind;
+
+                var xPos = (i % inventoryGridWidth) * iconPixelWidth;
+                var yPos = Math.floor(i / inventoryGridWidth) * iconPixelWidth;
+                var inventoryImgPath = getIconPath(itemName);
+
+                //var tpl = _.template('<img src="<%= path %>">');
+                //var tplString = tpl({path: inventoryImgPath});
+
+                //$('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
+
+                //var tpl = _.template('<div style="display: inline-block; width: <%= width %>; height: <%= height %>; top: <%= top %>; left: <%= left %>; background-image: <%= path %>"></div>');
+                var tpl = _.template('<div id="<%= divId %>" inventory-index="<%= inventoryIndex %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
+                var tplString = tpl({
+                    path: "url(" + inventoryImgPath + ")",
+                    width: iconPixelWidth + "px",
+                    height: iconPixelWidth + "px", //,
+                    divId: "inventoryEquipButton" + i,
+                    inventoryIndex: i
+                    //left: xPos + "px",
+                    //top: yPos + "px"
+                });
+
+                leftGameMenu.html(leftGameMenu.html() + tplString);
+
+                if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
+                    leftGameMenu.html(leftGameMenu.html() + "<br>");
+                }
             }
         },
 

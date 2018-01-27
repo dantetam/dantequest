@@ -2,11 +2,11 @@
 define(['infomanager', 'bubble', 'renderer', 'map', 'animation', 'sprite', 'tile',
         'warrior', 'gameclient', 'audio', 'updater', 'transition', 'pathfinder',
         'conversations', 'conversation', 'quests', 'quest',
-        'item', 'mob', 'npc', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
+        'entityfactory', 'item', 'mob', 'npc', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
 function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedTile,
          Warrior, GameClient, AudioManager, Updater, Transition, Pathfinder,
          Conversations, Conversation, Quests, Quest,
-         Item, Mob, Npc, Player, Character, Chest, Mobs, Exceptions, config) {
+         EntityFactory, Item, Mob, Npc, Player, Character, Chest, Mobs, Exceptions, config) {
 
     var Game = Class.extend({
         init: function(app) {
@@ -1267,12 +1267,18 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.app.showGameMenu("shop", {"shop": shop});
                 });
 
-                self.client.onShopTransactionUpdate(function(playerId, shop, playerGold) {
+                self.client.onShopTransactionUpdate(function(playerId, shop, newPlayerGold, itemKindBought, buyCount) {
                     //Open a new UI which communicates with the server, to purchase and sell items
                     //Send the shop object to
                     //self.app.showGameMenu("shop", {"shop": shop});
-                    self.player.gold = playerGold;
+                    self.player.gold = newPlayerGold;
                     self.app.displayShop($("#gameMenu"), {"shop": shop});
+
+                    var itemEnum = Types.getKindFromString(itemKindBought);
+                    var boughtItems = EntityFactory.createEntity(itemEnum, 0, null);
+
+                    boughtItems.count = buyCount;
+                    self.player.loot(boughtItems);
 
                     //Save player's entire inventory
                     self.storage.savePlayer(self.renderer.getPlayerImage(),

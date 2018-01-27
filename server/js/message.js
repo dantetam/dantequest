@@ -248,15 +248,20 @@ Messages.OpenShop = Message.extend({
 });
 
 Messages.ShopTransactionComplete = Message.extend({
-    init: function(playerId, shop, playerGold) {
+    init: function(playerId, shop, playerGold, itemKindBought, buyCount) {
         this.playerId = playerId;
         this.shop = shop;
         this.playerGold = playerGold;
+        this.itemKindBought = itemKindBought;
+        this.buyCount = buyCount;
     },
     serialize: function() {
         return [Types.Messages.SHOP_TRANSACTION,
                 this.playerId,
                 this.shop,
-                this.playerGold];
+                this.playerGold,
+                this.itemKindBought,
+                this.buyCount
+                ];
     }
 });

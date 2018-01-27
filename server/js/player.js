@@ -284,11 +284,19 @@ module.exports = Player = Character.extend({
                 var shopItemIndex = +message[3];
                 var playerBuyCount = +message[4];
 
-                shopObj.sellItemToPlayer(self, shopItemIndex, playerBuyCount);
+                var itemKindBought = shopObj.items[shopItemIndex].itemDisplayName;
 
-                this.send(new Messages.ShopTransactionComplete(self.id, shopObj, self.gold).serialize());
-                //Furthermore, the player needs the client side item class, not the server side
-                //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)
+                var transactionValid = shopObj.sellItemToPlayer(self, shopItemIndex, playerBuyCount);
+
+                if (transactionValid) {
+                    var msg = new Messages.ShopTransactionComplete(self.id, shopObj, self.gold, itemKindBought, playerBuyCount);
+                    this.send(msg.serialize());
+                    //Furthermore, the player needs the client side item class, not the server side
+                    //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)
+                }
+                else {
+                    console.log("Could not afford item");
+                }
             }
             else if(action === Types.Messages.CHECK) {
                 var checkpoint = self.server.map.getCheckpoint(message[1]);

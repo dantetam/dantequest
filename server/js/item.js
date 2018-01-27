@@ -1,10 +1,12 @@
+var Types = require("../../shared/js/gametypes");
 
 module.exports = Item = Entity.extend({
     init: function(id, kind, x, y, count) {
         this._super(id, "item", kind, x, y);
+        this.itemDisplayName = Types.getKindAsString(kind);
         this.isStatic = false;
         this.isFromChest = false;
-        this.count = count;
+        this.count = count || 1;
     },
 
     handleDespawn: function(params) {

@@ -2,7 +2,8 @@ var Utils = require('./utils'),
     Types = require("../../shared/js/gametypes");
 
 module.exports = Shop = Class.extend({
-    init: function() {
+    init: function(name) {
+        this.name = name;
         this.items = [];
         this.gold = 0;
     },
@@ -13,7 +14,7 @@ module.exports = Shop = Class.extend({
         this.setPrices();
     },
 
-    addShopItem: function(item) {
+    addItemToShopInventory: function(item) {
         if (item.itemKind === "gold") {
             this.gold += item.count;
         }
@@ -35,25 +36,26 @@ module.exports = Shop = Class.extend({
         this.prices = {};
         for (var i = 0; i < this.items.length; i++) {
             var item = this.items[i];
-            var name = Types.getKindAsString(item);
+            var name = item.itemDisplayName;
             this.prices[name] = Types.getValueOfItem(item);
         }
     },
 
     sellItemToPlayer: function(player, itemIndex, count) {
         var shopItem = this.items[itemIndex];
-        if (count > item.count) count = item.count;
+        if (count > shopItem.count) count = shopItem.count;
 
-        var name = Types.getKindAsString(item);
+        var name = shopItem.itemDisplayName; //Types.getKindAsString(shopItem);
         var value = this.prices[name] * count;
         if (player.gold >= value) {
-            player.gold -= value;
-            var product = shopItem.clone();
-            product.count = count;
-            player.loot(product);
+            player.gold -= value; //handle it server side
+            this.gold += value;
+            //var product = shopItem.clone();
+            //product.count = count;
+            //player.loot(product);
 
             if (count === shopItem.count) {
-                this.splice(itemIndex, 1);
+                this.items.splice(itemIndex, 1);
             }
             else {
                 shopItem.count -= count;
@@ -63,18 +65,19 @@ module.exports = Shop = Class.extend({
 
     purchaseItemFromPlayer: function(player, inventoryIndex, count) {
         var playerItem = player.inventory[inventoryIndex];
-        if (count > item.count) count = item.count;
+        if (count > playerItem.count) count = playerItem.count;
 
-        var name = Types.getKindAsString(item);
+        var name = playerItem.itemDisplayName;
         var value = this.prices[name] * count;
         if (this.gold >= value) {
             this.gold -= value;
-            var product = playerItem.clone();
-            product.count = count;
-            this.addShopItem(product);
+            player.gold += value; //handle it server side
+            //var product = playerItem.clone();
+            //product.count = count;
+            //this.addItemToShopInventory(product);
 
             if (count === playerItem.count) {
-                player.inventory.splice(itemIndex, 1);
+                player.inventory.splice(inventoryIndex, 1);
             }
             else {
                 playerItem.count -= count;

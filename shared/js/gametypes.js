@@ -30,7 +30,9 @@ Types = {
         CHECK: 26,
         STATS_UPDATE: 27,
         LEVEL_UPDATE: 28,
-        OPEN_SHOP: 29
+        OPEN_SHOP: 29,
+        BUY_ITEM_FROM_SHOP: 30,
+        SHOP_TRANSACTION: 31
     },
 
     Entities: {

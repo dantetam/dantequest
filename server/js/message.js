@@ -246,3 +246,17 @@ Messages.OpenShop = Message.extend({
                 this.shop];
     }
 });
+
+Messages.ShopTransactionComplete = Message.extend({
+    init: function(playerId, shop, playerGold) {
+        this.playerId = playerId;
+        this.shop = shop;
+        this.playerGold = playerGold;
+    },
+    serialize: function() {
+        return [Types.Messages.SHOP_TRANSACTION,
+                this.playerId,
+                this.shop,
+                this.playerGold];
+    }
+});

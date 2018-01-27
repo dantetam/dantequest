@@ -43,8 +43,13 @@ module.exports = World = cls.Class.extend({
         this.groups = {};
         this.shops = {};
 
-        var testShop = new Shop();
-        var testItems = [];
+        var testShop = new Shop("shop-merchant-aeterna");
+        var testItems = [
+            this.createItem(Types.getKindFromString("sword1"), -1, -1, 25),
+            this.createItem(Types.getKindFromString("bluesword"), -1, -1, 15)
+        ];
+        //this.addItem();
+
         testShop.setShopItems(testItems, 300);
         this.shops["shop-merchant-aeterna"] = testShop;
 
@@ -413,7 +418,7 @@ module.exports = World = cls.Class.extend({
     },
 
     createChest: function(x, y, items) {
-        var chest = this.createItem(Types.Entities.CHEST, x, y);
+        var chest = this.createItem(Types.Entities.CHEST, x, y, 1);
         chest.setItems(items);
         return chest;
     },
@@ -425,8 +430,8 @@ module.exports = World = cls.Class.extend({
         return this.addItem(item);
     },
 
-    addItemFromChest: function(kind, x, y) {
-        var item = this.createItem(kind, x, y);
+    addItemFromChest: function(kind, x, y, count) {
+        var item = this.createItem(kind, x, y, count);
         item.isFromChest = true;
 
         return this.addItem(item);
@@ -615,7 +620,7 @@ module.exports = World = cls.Class.extend({
                 self.tryAddingMobToChestArea(mob);
             }
             if(Types.isItem(kind)) {
-                self.addStaticItem(self.createItem(kind, pos.x + 1, pos.y));
+                self.addStaticItem(self.createItem(kind, pos.x + 1, pos.y, 1));
             }
         });
     },
@@ -876,9 +881,9 @@ module.exports = World = cls.Class.extend({
         this.pushToAdjacentGroups(chest.group, chest.despawn());
         this.removeEntity(chest);
 
-        var kind = chest.getRandomItem();
-        if(kind) {
-            var item = this.addItemFromChest(kind, chest.x, chest.y);
+        var itemBase = chest.getRandomItem();
+        if(itemBase) {
+            var item = this.addItemFromChest(itemBase, chest.x, chest.y, itemBase.count);
             this.handleItemDespawn(item);
         }
     },

@@ -277,6 +277,19 @@ module.exports = Player = Character.extend({
                 this.send(new Messages.OpenShop(self.id, shopObj).serialize());
                 //self.broadcast(new Messages.OpenShop(self.id, shopObj));
             }
+            else if(action === Types.Messages.BUY_ITEM_FROM_SHOP) {
+                //var playerClientObj = message[1];
+                var shopName = message[2];
+                var shopObj = self.server.shops[shopName];
+                var shopItemIndex = +message[3];
+                var playerBuyCount = +message[4];
+
+                shopObj.sellItemToPlayer(self, shopItemIndex, playerBuyCount);
+
+                this.send(new Messages.ShopTransactionComplete(self.id, shopObj, self.gold).serialize());
+                //Furthermore, the player needs the client side item class, not the server side
+                //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)
+            }
             else if(action === Types.Messages.CHECK) {
                 var checkpoint = self.server.map.getCheckpoint(message[1]);
                 if(checkpoint) {

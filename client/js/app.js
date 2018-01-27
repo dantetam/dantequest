@@ -573,22 +573,26 @@ define(['jquery', 'storage'], function($, Storage) {
         @param menu The menu div/DOM object UI being modified
         */
         displayShop: function(menu, actionData) {
+            var app = this;
+
             var shop = actionData["shop"];
             console.log(shop);
 
             menu.html("");
             var menuHtmlString = "";
-            menuHtmlString += "<h1>Shop</h1><br>";
-            menuHtmlString += "<h4>Gold: " + shop.gold + "</h4><br>";
+            menuHtmlString += "<h1>Shop:</h1><br>";
+            menuHtmlString += "<h4>Merchant Gold: " + shop.gold + "</h4><br>";
+            menuHtmlString += "<h4>" + app.game.player.name + "'s Gold: " + app.game.player.gold + "</h4><br>";
 
             for (var i = 0; i < shop.items.length; i++) {
                 var item = shop.items[i];
 
-                var tpl = _.template('<div item-index="<%= shopIndex %>"><p><%= itemName %> (<%= itemCount %>)</p></div>');
+                var tpl = _.template('<div id="<%= domId %>" item-index="<%= shopIndex %>"><p><%= itemName %> (<%= itemCount %>)</p></div>');
                 var tplString = tpl({
-                    itemName: item.itemKind,
+                    itemName: item.itemDisplayName,
                     itemCount: item.count,
-                    shopIndex: i
+                    shopIndex: i,
+                    domId: "shopButton" + i
                     //left: xPos + "px",
                     //top: yPos + "px"
                 });
@@ -596,6 +600,16 @@ define(['jquery', 'storage'], function($, Storage) {
             }
 
             menu.html(menuHtmlString);
+
+            for (var i = 0; i < shop.items.length; i++) {
+                $("#shopButton" + i).click(function(event) {
+                    var attr = this.attributes["item-index"];
+                    if (attr != null) {
+                        var index = attr.value;
+                        app.game.client.sendShopBuy(app.game.player, shop.name, +index, 1);
+                    }
+                });
+            }
         },
 
         /**

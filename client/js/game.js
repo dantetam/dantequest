@@ -1267,6 +1267,24 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     self.app.showGameMenu("shop", {"shop": shop});
                 });
 
+                self.client.onShopTransactionUpdate(function(playerId, shop, playerGold) {
+                    //Open a new UI which communicates with the server, to purchase and sell items
+                    //Send the shop object to
+                    //self.app.showGameMenu("shop", {"shop": shop});
+                    self.player.gold = playerGold;
+                    self.app.displayShop($("#gameMenu"), {"shop": shop});
+
+                    //Save player's entire inventory
+                    self.storage.savePlayer(self.renderer.getPlayerImage(),
+                                            self.player.getArmor(),
+                                            self.player.getWeapon(),
+                                            self.player.getInventory(),
+                                            self.player.getCharacterSkills(),
+                                            self.player.getGold(),
+                                            self.player.getCompletedQuests(),
+                                            self.player.getInProgressQuests());
+                });
+
                 self.client.onDespawnEntity(function(entityId) {
                     var entity = self.getEntityById(entityId);
 

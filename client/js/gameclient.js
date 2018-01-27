@@ -36,6 +36,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.LEVEL_UPDATE] = this.receiveLevelUpdate;
 
             this.handlers[Types.Messages.OPEN_SHOP] = this.receiveOpenShop;
+            this.handlers[Types.Messages.SHOP_TRANSACTION] = this.receiveShopTransactionUpdate;
 
             this.useBison = false;
             this.enable();
@@ -182,6 +183,16 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
 
             if (this.open_shop_callback) {
                 this.open_shop_callback(id, shop);
+            }
+        },
+
+        receiveShopTransactionUpdate: function(data) {
+            var id = data[1],
+                shop = data[2],
+                playerGold = data[3];
+
+            if (this.update_shop_callback) {
+                this.update_shop_callback(id, shop, playerGold);
             }
         },
 
@@ -424,6 +435,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.open_shop_callback = callback;
         },
 
+        onShopTransactionUpdate: function(callback) {
+            this.update_shop_callback = callback;
+        },
+
         onSpawnCharacter: function(callback) {
             this.spawn_character_callback = callback;
         },
@@ -584,6 +599,14 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         sendOpen: function(chest) {
             this.sendMessage([Types.Messages.OPEN,
                               chest.id]);
+        },
+
+        sendShopBuy: function(playerObj, shopName, shopItemIndex, playerBuyCount) {
+            this.sendMessage([Types.Messages.BUY_ITEM_FROM_SHOP,
+                              playerObj,
+                              shopName,
+                              shopItemIndex,
+                              playerBuyCount])
         },
 
         sendShopBrowse: function(shopName) {

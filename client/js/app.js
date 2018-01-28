@@ -658,14 +658,16 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
             }
 
-            $("#inventorySellButton" + i).click(function(event) {
-                var attr = this.attributes["inventory-index"];
-                if (attr != null) {
-                    var index = +attr.value;
-                    var itemName = app.game.player.inventory[index].itemKind;
-                    app.game.client.sendShopSell(app.game.player, shop.name, itemName, 1, app.game.player.gold);
-                }
-            });
+            for (var i = 0; i < inventory.length; i++) {
+                $("#inventorySellButton" + i).click(function(event) {
+                    var attr = this.attributes["inventory-index"];
+                    if (attr != null) {
+                        var index = +attr.value;
+                        var itemName = app.game.player.inventory[index].itemKind;
+                        app.game.client.sendShopSell(app.game.player, shop.name, itemName, 1, app.game.player.gold);
+                    }
+                });
+            }
         },
 
         /**

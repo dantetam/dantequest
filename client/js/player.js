@@ -77,12 +77,14 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                 }
                 else {
                     if (item.count <= 0) {
-                        for (var i = this.inventory.length - 1; i >= 0; i--) {
-                            if (item.count === 0) return;
-                            var existingItem = this.inventory[i];
-                            if (existingItem.itemKind === item.itemKind) {
-                                this.inventory.splice(i, 1);
-                                item.count--;
+                        while (item.count !== 0) {
+                            for (var i = this.inventory.length - 1; i >= 0; i--) {
+                                var existingItem = this.inventory[i];
+                                if (existingItem.itemKind === item.itemKind) {
+                                    this.inventory.splice(i, 1);
+                                    item.count++;
+                                    break;
+                                }
                             }
                         }
                     }

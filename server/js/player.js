@@ -290,7 +290,7 @@ module.exports = Player = Character.extend({
                 var transactionValid = shopObj.sellItemToPlayer(playerGold, shopItemIndex, playerBuyCount);
 
                 if (transactionValid) {
-                    var goldSpent = shopObj.determineValue(shopItemIndex, playerBuyCount);
+                    var goldSpent = shopObj.determineValueFromIndex(shopItemIndex, playerBuyCount);
                     var msg = new Messages.ShopTransactionComplete(self.id, shopObj, goldSpent, itemKindBought, playerBuyCount);
                     this.send(msg.serialize());
                     //Furthermore, the player needs the client side item class, not the server side
@@ -307,11 +307,11 @@ module.exports = Player = Character.extend({
                 var playerSellCount = +message[4];
                 //var playerGold = +message[5];
 
-                var transactionValid = shopObj.purchaseItemFromPlayer(itemName, playerBuyCount);
+                var transactionValid = shopObj.purchaseItemFromPlayer(itemName, playerSellCount);
 
                 if (transactionValid) {
-                    var goldEarned = shopObj.determineValue(shopItemIndex, playerBuyCount);
-                    var msg = new Messages.ShopTransactionComplete(self.id, shopObj, -goldEarned, itemName, playerSellCount);
+                    var goldEarned = shopObj.determineValueFromName(itemName, playerSellCount);
+                    var msg = new Messages.ShopTransactionComplete(self.id, shopObj, -goldEarned, itemName, -playerSellCount);
                     this.send(msg.serialize());
                     //Furthermore, the player needs the client side item class, not the server side
                     //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)

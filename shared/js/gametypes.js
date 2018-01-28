@@ -885,12 +885,8 @@ Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
 
 Types.getValueOfItem = function(item) {
     var name = Types.getKindAsString(item);
-    if (item.type === "weapon") {
-        var data = this.weaponData[name];
-        return data["levelReq"] * 20;
-    }
-    else if (item.type === "armor") {
-        var data = this.armorData[name];
+    var data = this.weaponData[name] || this.armorData[name];
+    if (data) {
         return data["levelReq"] * 20;
     }
     else {

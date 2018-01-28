@@ -41,11 +41,18 @@ module.exports = Shop = Class.extend({
         }
     },
 
-    determineValue: function(itemIndex, count) {
+    determineValueFromIndex: function(itemIndex, count) {
         var shopItem = this.items[itemIndex];
         if (count > shopItem.count) count = shopItem.count;
-
         var name = shopItem.itemDisplayName; //Types.getKindAsString(shopItem);
+        return this.determineValueFromName(name, count);
+    },
+
+    determineValueFromName: function(name, count) {
+        if (!this.prices.hasOwnProperty(name)) {
+            this.prices[name] = Types.getValueOfItem(Types.getKindFromString(name));
+        }
+        console.log(this.prices[name] + " " + name + " " + count);
         var value = this.prices[name] * count;
         return value;
     },
@@ -61,7 +68,7 @@ module.exports = Shop = Class.extend({
     @return Whether or not the transaction is valid (implies also that the transaction has started server side)
     */
     sellItemToPlayer: function(playerGold, itemIndex, count) {
-        var value = this.determineValue(itemIndex, count);
+        var value = this.determineValueFromIndex(itemIndex, count);
         var shopItem = this.items[itemIndex];
         if (playerGold >= value) {
             this.gold += value;
@@ -77,7 +84,7 @@ module.exports = Shop = Class.extend({
     },
 
     purchaseItemFromPlayer: function(itemName, count) {
-        var value = this.prices[itemName] * count; //Complete the rest of the transaction client side (guaranteed to be valid)
+        var value = this.determineValueFromName(itemName, count); //Complete the rest of the transaction client side (guaranteed to be valid)
         if (this.gold >= value) {
             this.gold -= value;
             return true;

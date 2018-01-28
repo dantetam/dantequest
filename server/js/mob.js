@@ -101,7 +101,7 @@ module.exports = Mob = Character.extend({
     },
 
     handleRespawn: function() {
-        var delay = 30000,
+        var delay = Types.getRespawnTime(this.kind),
             self = this;
 
         if(this.area && this.area instanceof MobArea) {

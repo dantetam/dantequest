@@ -112,6 +112,27 @@ Types = {
     },
 
     EnemyData: {
+        dummy: {
+            drops: {
+            },
+            hp: 80,
+            level: 1,
+            expOnKill: 10,
+            respawnTime: 8000,
+            defenseStats: {
+                quickAtkDef: 0,
+                strongAtkDef: 0,
+                humanMagicDef: 0,
+                ancientMagicDef: 0
+            },
+            offenseStats: {
+                quickDmgBase: 0,
+                quickDmgVar: 0,
+                strongDmgBase: 0,
+                strongDmgVar: 0,
+            }
+        },
+
         rat: {
             drops: {
                 flask: 40,
@@ -846,6 +867,14 @@ Types.getHitPoints = function(kind) {
     return Types.EnemyData[Types.getKindAsString(kind)].hp;
 };
 
+Types.getRespawnTime = function(kind) {
+    var data = Types.EnemyData[Types.getKindAsString(kind)];
+    if (data.hasOwnProperty("respawnTime")) {
+        return data["respawnTime"];
+    }
+    return 30000;
+};
+
 Types.getItemTooltip = function(item) {
     var itemName = Types.getKindAsString(item.kind);
     return Types.getItemTooltipFromName(itemName, item.type, item.count);
@@ -885,7 +914,7 @@ Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
 
 Types.getValueOfItem = function(item) {
     var name = Types.getKindAsString(item);
-    var data = this.weaponData[name] || this.armorData[name];
+    var data = Types.WeaponData[name] || Types.ArmorData[name];
     if (data) {
         return data["levelReq"] * 20;
     }

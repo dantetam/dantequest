@@ -83,6 +83,16 @@ module.exports = Shop = Class.extend({
         return false;
     },
 
+    /**
+    Attempt to sell an item to the player, server side.
+    If the player has enough money on the server, complete the transaction
+
+    @param playerGold The amount of gold the player has on client
+    @param itemIndex  The index of the item within the shop's inventory, that the player wants
+    @param count      The desired amount the player wants to purchase
+
+    @return Whether or not the transaction is valid (implies also that the transaction has started server side)
+    */
     purchaseItemFromPlayer: function(itemName, count) {
         var value = this.determineValueFromName(itemName, count); //Complete the rest of the transaction client side (guaranteed to be valid)
         if (this.gold >= value) {

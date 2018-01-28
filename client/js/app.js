@@ -582,7 +582,7 @@ define(['jquery', 'storage'], function($, Storage) {
                 };
 
             var shop = actionData["shop"];
-            console.log(shop);
+            //console.log(shop);
 
             var menuHtmlString = "";
             menuHtmlString += "<h1>Shop</h1>";
@@ -594,6 +594,8 @@ define(['jquery', 'storage'], function($, Storage) {
             menu.html(menuHtmlString);
 
             var rightGameMenu = $("#rightGameMenu");
+            var tooltipMenu = $("#tooltipInventory");
+            
             menuHtmlString = "";
             for (var i = 0; i < shop.items.length; i++) {
                 var item = shop.items[i];
@@ -617,6 +619,18 @@ define(['jquery', 'storage'], function($, Storage) {
                     if (attr != null) {
                         var index = attr.value;
                         app.game.client.sendShopBuy(app.game.player, shop.name, +index, 1, app.game.player.gold);
+                    }
+                });
+                //Render tooltip for store items purchase options
+                $("#shopButton" + i).mouseover(function(event) {
+                    if (app.game.player) {
+                        var attr = this.attributes["item-index"];
+                        if (attr != null) {
+                            var index = +(this.attributes["item-index"].value);
+                            var item = shop.items[index];
+                            var itemDesc = Types.getItemTooltip(item);
+                            tooltipMenu.html(itemDesc);
+                        }
                     }
                 });
             }
@@ -665,6 +679,18 @@ define(['jquery', 'storage'], function($, Storage) {
                         var index = +attr.value;
                         var itemName = app.game.player.inventory[index].itemKind;
                         app.game.client.sendShopSell(app.game.player, shop.name, itemName, 1, app.game.player.gold);
+                    }
+                });
+                //Render tooltip for player's own inventory offered to shop
+                $("#inventorySellButton" + i).mouseover(function(event) {
+                    if (app.game.player) {
+                        var attr = this.attributes["inventory-index"];
+                        if (attr != null) {
+                            var index = +(this.attributes["inventory-index"].value);
+                            var item = app.game.player.inventory[index];
+                            var itemDesc = Types.getItemTooltip(item);
+                            tooltipMenu.html(itemDesc);
+                        }
                     }
                 });
             }

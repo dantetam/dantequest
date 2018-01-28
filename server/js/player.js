@@ -297,7 +297,27 @@ module.exports = Player = Character.extend({
                     //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)
                 }
                 else {
-                    console.log("Could not afford item");
+                    console.log("Could not afford to buy item, from shop to player.");
+                }
+            }
+            else if(action === Types.Messages.SELL_ITEM_TO_SHOP) {
+                var shopName = message[2];
+                var shopObj = self.server.shops[shopName];
+                var itemName = message[3];
+                var playerSellCount = +message[4];
+                //var playerGold = +message[5];
+
+                var transactionValid = shopObj.purchaseItemFromPlayer(itemName, playerBuyCount);
+
+                if (transactionValid) {
+                    var goldEarned = shopObj.determineValue(shopItemIndex, playerBuyCount);
+                    var msg = new Messages.ShopTransactionComplete(self.id, shopObj, -goldEarned, itemName, playerSellCount);
+                    this.send(msg.serialize());
+                    //Furthermore, the player needs the client side item class, not the server side
+                    //TODO: Broadcast the shop changes to all other players (if they are viewing the shop as well)
+                }
+                else {
+                    console.log("Could not sell item from player to shop; shop does not have enough money.");
                 }
             }
             else if(action === Types.Messages.CHECK) {

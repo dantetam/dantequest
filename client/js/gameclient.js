@@ -612,6 +612,15 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               playerGold])
         },
 
+        sendShopSell: function(playerObj, shopName, itemName, playerSellCount, playerGold) {
+            this.sendMessage([Types.Messages.SELL_ITEM_TO_SHOP,
+                              playerObj,
+                              shopName,
+                              itemName,
+                              playerSellCount,
+                              playerGold])
+        },
+
         sendShopBrowse: function(shopName) {
             this.sendMessage([Types.Messages.OPEN_SHOP,
                               shopName])

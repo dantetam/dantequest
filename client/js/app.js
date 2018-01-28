@@ -645,7 +645,7 @@ define(['jquery', 'storage'], function($, Storage) {
                     path: "url(" + inventoryImgPath + ")",
                     width: iconPixelWidth + "px",
                     height: iconPixelWidth + "px", //,
-                    divId: "inventoryEquipButton" + i,
+                    divId: "inventorySellButton" + i,
                     inventoryIndex: i
                     //left: xPos + "px",
                     //top: yPos + "px"
@@ -657,6 +657,15 @@ define(['jquery', 'storage'], function($, Storage) {
                     leftGameMenu.html(leftGameMenu.html() + "<br>");
                 }
             }
+
+            $("#inventorySellButton" + i).click(function(event) {
+                var attr = this.attributes["inventory-index"];
+                if (attr != null) {
+                    var index = +attr.value;
+                    var itemName = app.game.player.inventory[index].itemKind;
+                    app.game.client.sendShopSell(app.game.player, shop.name, itemName, 1, app.game.player.gold);
+                }
+            });
         },
 
         /**

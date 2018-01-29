@@ -1,5 +1,5 @@
 
-define(['character', 'exceptions', 'items', 'quests'], function(Character, Exceptions, Items, Quests) {
+define(['character', 'exceptions', 'items', 'quests', 'entityfactory', "../../shared/js/gametypes"], function(Character, Exceptions, Items, Quests, EntityFactory) {
 
     var Player = Character.extend({
         MAX_LEVEL: 10,
@@ -184,6 +184,22 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
                         requirements[itemName] -= itemAmount;
                     }
                 }
+            }
+            for (var i = 0; i < recipe.input.length; i++) {
+                var reqName = recipe.input[i][0];
+                if (requirements[reqName] > 0) { //There is still an ingredient need to be met
+                    log.error("Could not execute valid recipe with missing ingredients");
+                    return null;
+                }
+            }
+            //Recipe was successfull, award the player the results of the recipe
+            for (var i = 0; i < recipe.output.length; i++) {
+                var outputName = recipe.output[i][0];
+                var outputAmount = recipe.output[i][1];
+                var kind = Types.getKindFromString(outputName);
+                var newItem = EntityFactory.createEntity(kind, 999, null);
+                newItem.count = outputAmount;
+                this.loot(newItem);
             }
         },
 

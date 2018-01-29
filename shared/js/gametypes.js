@@ -638,8 +638,51 @@ Types = {
             vtyProp: 0.2
         }
     },
-    PotionData: {
+    ItemData: {
+        // Foods
+        "bread": {value: 5},
+        "veggie_soup": {value: 10},
+        "egg": {value: 25},
+        "steak": {value: 55},
 
+        //Other consumables
+        "dexterity_potion": {value: 25},
+        "strength_potion": {value: 25},
+        "blood_potion": {value: 55},
+        "speed_potion": {value: 20},
+
+        //Raw organic resources
+        "pine_wood": {value: 5},
+        "oak_wood": {value: 10},
+        "red_wood": {value: 18},
+        "maple_wood": {value: 28},
+        "rose_wood": {value: 60},
+        "iron_wood": {value: 110},
+
+        //Raw mineral/rock resources
+        "glass": {value: 8},
+        "stone": {value: 2},
+        "sand": {value: 2},
+        "dark_iron": {value: 20},
+        "illustrian": {value: 50},
+        "blood_stone": {value: 90},
+        "dantean": {value: 350},
+
+        "iron_ore": {value: 20},
+        "gold_ore": {value: 45},
+        "coke": {value: 15},
+
+        //Processed resources/intermediate products
+        "iron_bar": {value: 35}, //3 iron ore
+        "steel_bar": {value: 65}, //2 iron ore + 3 coke
+        "sand_steel_bar": {value: 100}, //1 steel + 3 coke + 3 sand
+        "black_steel_bar": {value: 135}, //1 steel + 2 coke + 2 dark iron
+        "bright_steel_bar": {value: 150}, //1 steel + 3 coke + 2 illustrian
+        "red_steel_bar": {value: 280}, //2 steel + 5 coke + 3 blood stone
+        "legendary_steel_bar": {value: 1180}, //2 steel + 8 coke + 4 dantean
+        "gold_bar": {value: 100}, //3 gold ore
+
+        "gold": {value: 1}
     },
     ExpLevelData: { //Indexed by level i: exp need to level from i -> i + 1
         1: 150,
@@ -979,7 +1022,11 @@ Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
 
 Types.getValueOfItem = function(item) {
     var name = Types.getKindAsString(item);
-    var data = Types.WeaponData[name] || Types.ArmorData[name];
+
+    var data = Types.ItemData[name];
+    if (data) return data["value"];
+
+    data = Types.WeaponData[name] || Types.ArmorData[name];
     if (data) {
         return data["levelReq"] * 20;
     }

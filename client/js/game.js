@@ -1,11 +1,11 @@
 
 define(['infomanager', 'bubble', 'renderer', 'map', 'animation', 'sprite', 'tile',
         'warrior', 'gameclient', 'audio', 'updater', 'transition', 'pathfinder',
-        'conversations', 'conversation', 'quests', 'quest',
+        'recipes', 'conversations', 'conversation', 'quests', 'quest',
         'entityfactory', 'item', 'mob', 'npc', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
 function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedTile,
          Warrior, GameClient, AudioManager, Updater, Transition, Pathfinder,
-         Conversations, Conversation, Quests, Quest,
+         Recipes, Conversations, Conversation, Quests, Quest,
          EntityFactory, Item, Mob, Npc, Player, Character, Chest, Mobs, Exceptions, config) {
 
     var Game = Class.extend({

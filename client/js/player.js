@@ -139,6 +139,54 @@ define(['character', 'exceptions', 'items', 'quests'], function(Character, Excep
 
         setInventory: function(inventory) {this.inventory = inventory;},
 
+        /**
+        Return if the player can go through a recipe i.e. has all the required ingredients
+        Memotized so this O(inventory + recipe) time and memory,
+        as opposed to O(inventory * recipe) time, with a brute force search.
+        */
+        canUseRecipe: function(recipe) {
+            var requirements = {};
+            for (var i = 0; i < recipe.input.length; i++) {
+                var reqName = recipe.input[i][0], reqAmount = recipe.input[i][1];
+                requirements[reqName] = reqAmount;
+            }
+            for (var i = 0; i < this.inventory.length; i++) {
+                var itemName = this.inventory[i]["itemKind"];
+                var itemAmount = this.inventory[i]["amount"];
+                if (requirements[itemName]) requirements[itemName] -= itemAmount;
+            }
+            for (var i = 0; i < recipe.input.length; i++) {
+                var reqName = recipe.input[i][0];
+                if (requirements[reqName] > 0) { //There is still an ingredient need to be met
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        useRecipe: function(recipe) {
+            var requirements = {};
+            for (var i = 0; i < recipe.input.length; i++) {
+                var reqName = recipe.input[i][0], reqAmount = recipe.input[i][1];
+                requirements[reqName] = reqAmount;
+            }
+            for (var i = this.inventory.length - 1; i >= 0; i--) {
+                var itemName = this.inventory[i]["itemKind"];
+                var itemAmount = this.inventory[i]["amount"];
+                if (requirements[itemName]) {
+                    if (requirements[itemName] > 0) {
+                        if (requirements[itemName] >= itemAmount) {
+                            this.inventory.splice(i, 1);
+                        }
+                        else {
+                            this.inventory[i].count -= itemAmount;
+                        }
+                        requirements[itemName] -= itemAmount;
+                    }
+                }
+            }
+        },
+
         getCharacterSkills: function() {
             return this.characterSkills;
         },

@@ -1,0 +1,109 @@
+{
+  "id": "player-crafting",
+  "recipes": [
+    {
+      "id": "iron-smelt",
+      "displayText": "Smelt an iron bar.",
+      "input": [
+        ["iron_ore", 3]
+      ],
+      "output": [
+        ["iron_bar", 1]
+      ]
+    },
+    {
+      "id": "steel-smelt",
+      "displayText": "Smelt a steel bar.",
+      "input": [
+        ["iron_ore", 2],
+        ["coke", 3]
+      ],
+      "output": [
+        ["steel_bar", 1]
+      ]
+    },
+    {
+      "id": "sand-steel-smelt",
+      "displayText": "Smelt a sandsteel bar.",
+      "input": [
+        ["steel_bar", 1],
+        ["coke", 3],
+        ["sand", 3]
+      ],
+      "output": [
+        ["sand_steel_bar", 1]
+      ]
+    },
+    {
+      "id": "black-steel-smelt",
+      "displayText": "Smelt a blacksteel bar.",
+      "input": [
+        ["steel_bar", 1],
+        ["coke", 2],
+        ["dark_iron", 2]
+      ],
+      "output": [
+        ["black_steel_bar", 1]
+      ]
+    },
+    {
+      "id": "bright-steel-smelt",
+      "displayText": "Smelt a brightsteel bar.",
+      "input": [
+        ["steel_bar", 1],
+        ["coke", 3],
+        ["illustrian", 2]
+      ],
+      "output": [
+        ["bright_steel_bar", 1]
+      ]
+    },
+    {
+      "id": "red-steel-smelt",
+      "displayText": "Smelt a redsteel bar.",
+      "input": [
+        ["steel_bar", 2],
+        ["coke", 5],
+        ["blood_stone", 3]
+      ],
+      "output": [
+        ["red_steel_bar", 1]
+      ]
+    },
+    {
+      "id": "legendary-steel-smelt",
+      "displayText": "Smelt a legendsteel bar.",
+      "input": [
+        ["steel_bar", 2],
+        ["coke", 8],
+        ["dantean", 4]
+      ],
+      "output": [
+        ["legendary_steel_bar", 1]
+      ]
+    },
+    {
+      "id": "iron-smelt",
+      "displayText": "Smelt a gold bar.",
+      "input": [
+        ["gold_ore", 3]
+      ],
+      "output": [
+        ["gold_bar", 1]
+      ]
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

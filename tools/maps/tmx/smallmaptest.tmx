@@ -10585,6 +10585,11 @@
     <property name="type" value="platearmor"/>
    </properties>
   </tile>
+  <tile id="53">
+   <properties>
+    <property name="type" value="eviltree"/>
+   </properties>
+  </tile>
   <tile id="69">
    <properties>
     <property name="type" value="chachie-the-suitor"/>

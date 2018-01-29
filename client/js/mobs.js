@@ -95,6 +95,15 @@ define(['mob', 'timer'], function(Mob, Timer) {
             }
         }),
 
+        EvilTree: Mob.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.EVIL_TREE);
+                this.moveSpeed = 100;
+                this.atkSpeed = 30;
+                this.idleSpeed = 500;
+            }
+        }),
+
         Snake: Mob.extend({
             init: function(id) {
                 this._super(id, Types.Entities.SNAKE);

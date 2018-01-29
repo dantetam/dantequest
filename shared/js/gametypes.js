@@ -53,15 +53,7 @@ Types = {
         SKELETON2: 12,
         BOSS: 13,
         DEATHKNIGHT: 14,
-
-        // Armors
-        FIREFOX: 20,
-        CLOTHARMOR: 21,
-        LEATHERARMOR: 22,
-        MAILARMOR: 23,
-        PLATEARMOR: 24,
-        REDARMOR: 25,
-        GOLDENARMOR: 26,
+        EVIL_TREE: 15,
 
         // Objects
         FLASK: 35,
@@ -69,6 +61,48 @@ Types = {
         CHEST: 37,
         FIREPOTION: 38,
         CAKE: 39,
+
+        // Foods
+        BREAD: 50,
+        VEGGIE_SOUP: 51,
+        EGG: 52,
+        STEAK: 53,
+
+        //Other consumables
+        DEXTERITY_POTION: 80,
+        STRENGTH_POTION: 81,
+        BLOOD_POTION: 82,
+        SPEED_POTION: 83,
+
+        //Raw organic resources
+        PINE_WOOD: 100,
+        OAK_WOOD: 101,
+        RED_WOOD: 102,
+        MAPLE_WOOD: 103,
+        ROSE_WOOD: 104,
+        IRON_WOOD: 105,
+
+        //Raw mineral/rock resources
+        GLASS: 150,
+        STONE: 151,
+        SAND: 152,
+        DARK_IRON: 153,
+        ILLUSTRIAN: 154,
+        BLOOD_STONE: 155,
+        DANTEAN: 156,
+
+        IRON_ORE: 170,
+        COKE: 171,
+
+        //Processed resources/intermediate products
+        IRON_BAR: 172,
+        STEEL_BAR: 173,
+        SAND_STEEL_BAR: 174,
+        BLACK_STEEL_BAR: 175,
+        BRIGHT_STEEL_BAR: 176,
+        RED_STEEL_BAR: 177,
+        LEGENDARY_STEEL_BAR: 178,
+        GOLD_BAR: 179,
 
         GOLD: 999,
 
@@ -93,6 +127,15 @@ Types = {
         ANNOYING_KNIGHT: 1057,
         CHACHIE_THE_SUITOR: 1058,
         PRINCESS_PENELOPE: 1059,
+
+        // Armors
+        FIREFOX: 400,
+        CLOTHARMOR: 401,
+        LEATHERARMOR: 402,
+        MAILARMOR: 403,
+        PLATEARMOR: 404,
+        REDARMOR: 405,
+        GOLDENARMOR: 406,
 
         // Weapons
         SWORD1: 500,
@@ -345,6 +388,28 @@ Types = {
                 quickDmgVar: 2,
                 strongDmgBase: 4,
                 strongDmgVar: 4,
+            }
+        },
+
+        eviltree: {
+            drops: {
+                flask: 20,
+                gold: [20, 5] //percentage, amount
+            },
+            hp: 250,
+            level: 8,
+            expOnKill: 150,
+            defenseStats: {
+                quickAtkDef: 3,
+                strongAtkDef: 2,
+                humanMagicDef: 4,
+                ancientMagicDef: 4
+            },
+            offenseStats: {
+                quickDmgBase: 2,
+                quickDmgVar: 2,
+                strongDmgBase: 4,
+                strongDmgVar: 2,
             }
         },
 

@@ -60,6 +60,10 @@ define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs
         return new Mobs.Snake(id);
     };
 
+    EntityFactory.builders[Types.Entities.EVIL_TREE] = function(id) {
+        return new Mobs.EvilTree(id);
+    };
+
     EntityFactory.builders[Types.Entities.EYE] = function(id) {
         return new Mobs.Eye(id);
     };

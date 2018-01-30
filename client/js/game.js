@@ -52,6 +52,9 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             this.chatClientHistory = [];
             this.chatHistoryLimit = 100;
 
+            // Recipes
+            this.recipes = Recipes;
+
             // combat
             this.infoManager = new InfoManager(this);
 

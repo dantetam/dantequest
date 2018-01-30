@@ -345,6 +345,12 @@ define(['jquery', 'app'], function($, App) {
                 app.showGameMenu("chatlog");
             });
 
+            //TODO: temporary
+            $('#chatbutton').click(function() {
+                var actionData = {"recipes": game.recipes["player-crafting"]};
+                app.showGameMenu("crafting", actionData);
+            });
+
             $('#respawn').click(function(event) {
                 game.audioManager.playSound("revive");
                 game.restart();

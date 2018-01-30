@@ -1,5 +1,5 @@
 
-define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs, Warrior, Chest) {
+define(['mobs', 'items', 'npcs', 'chest'], function(Mobs, Items, NPCs, Chest) {
 
     var EntityFactory = {};
 

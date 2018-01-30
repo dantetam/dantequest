@@ -563,10 +563,21 @@ define(['jquery', 'storage'], function($, Storage) {
                 else if (menuType === "shop") {
                     this.displayShop(menu, actionData);
                 }
+                else if (menuType === "crafting") {
+                    this.displayRecipes(menu, actionData);
+                }
                 menu.click(function(event) {
                     event.stopPropagation(); //Stop the user from moving when clicking a button on the screen
                 });
             }
+        },
+
+        /**
+        @param menu The menu div/DOM object UI being modified
+        */
+        displayRecipes: function(menu, actionData) {
+            console.log(actionData);
+            menu.html("<h1>Crafting</h1>");
         },
 
         /**
@@ -595,7 +606,7 @@ define(['jquery', 'storage'], function($, Storage) {
 
             var rightGameMenu = $("#rightGameMenu");
             var tooltipMenu = $("#tooltipInventory");
-            
+
             menuHtmlString = "";
             for (var i = 0; i < shop.items.length; i++) {
                 var item = shop.items[i];

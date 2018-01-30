@@ -1,5 +1,5 @@
 
-define(['character', 'exceptions', 'items', 'quests', 'entityfactory', "../../shared/js/gametypes"], function(Character, Exceptions, Items, Quests, EntityFactory) {
+define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes"], function(Character, Exceptions, Items, Quests) {
 
     var Player = Character.extend({
         MAX_LEVEL: 10,
@@ -193,6 +193,7 @@ define(['character', 'exceptions', 'items', 'quests', 'entityfactory', "../../sh
                 }
             }
             //Recipe was successfull, award the player the results of the recipe
+            /*
             for (var i = 0; i < recipe.output.length; i++) {
                 var outputName = recipe.output[i][0];
                 var outputAmount = recipe.output[i][1];
@@ -201,6 +202,8 @@ define(['character', 'exceptions', 'items', 'quests', 'entityfactory', "../../sh
                 newItem.count = outputAmount;
                 this.loot(newItem);
             }
+            */
+            return recipe.output;
         },
 
         getCharacterSkills: function() {

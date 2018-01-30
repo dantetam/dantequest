@@ -5,10 +5,10 @@
       "id": "test-recipe",
       "displayText": "TEST RECIPE",
       "input": [
-        ["sword2", 1]
+        ["sword1", 1]
       ],
       "output": [
-        ["golden_sword", 1]
+        ["goldensword", 1]
       ]
     },
     {

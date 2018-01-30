@@ -23,7 +23,9 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
             this.inventory = [
                 new Items.RedArmor(9739654, 1),
                 new Items.Sword2(9999999, 1),
-                new Items.BlueSword(5060000, 1)
+                new Items.BlueSword(5060000, 1),
+                new Items.Sword1(9999999, 1),
+                new Items.Sword1(9999999, 1)
             ];
             this.inventoryLimit = 30;
             this.completedQuestNames = [];
@@ -152,9 +154,10 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
             }
             for (var i = 0; i < this.inventory.length; i++) {
                 var itemName = this.inventory[i]["itemKind"];
-                var itemAmount = this.inventory[i]["amount"];
+                var itemAmount = this.inventory[i]["count"];
                 if (requirements[itemName]) requirements[itemName] -= itemAmount;
             }
+            console.log(requirements);
             for (var i = 0; i < recipe.input.length; i++) {
                 var reqName = recipe.input[i][0];
                 if (requirements[reqName] > 0) { //There is still an ingredient need to be met
@@ -172,7 +175,7 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
             }
             for (var i = this.inventory.length - 1; i >= 0; i--) {
                 var itemName = this.inventory[i]["itemKind"];
-                var itemAmount = this.inventory[i]["amount"];
+                var itemAmount = this.inventory[i]["count"];
                 if (requirements[itemName]) {
                     if (requirements[itemName] > 0) {
                         if (requirements[itemName] >= itemAmount) {
@@ -192,7 +195,7 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
                     return null;
                 }
             }
-            //Recipe was successfull, award the player the results of the recipe
+            //Recipe was successful, award the player the results of the recipe
             /*
             for (var i = 0; i < recipe.output.length; i++) {
                 var outputName = recipe.output[i][0];

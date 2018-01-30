@@ -408,6 +408,17 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             this.renderer.camera.lookAt(this.player);
         },
 
+        awardPlayerItems: function(player, listItems) {
+            for (var i = 0; i < listItems.length; i++) {
+                var itemName = listItems[i][0], itemAmount = listItems[i][1];
+                var kind = Types.getKindFromString(itemName);
+                console.log(itemName + " " + kind + " " + EntityFactory.createEntity(kind, 999, null));
+                var newItem = EntityFactory.createEntity(kind, 999, null);
+                newItem.count = itemAmount;
+                player.loot(newItem);
+            }
+        },
+
         addEntity: function(entity) {
             var self = this;
 

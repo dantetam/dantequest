@@ -577,10 +577,12 @@ define(['jquery', 'storage'], function($, Storage) {
         */
         displayRecipes: function(menu, actionData) {
             var app = this;
+            var player = app.game.player;
 
             var recipeSet = actionData["recipe-set"];
             var recipes = app.game.recipes[recipeSet];
             menu.html("<h1>Crafting</h1>");
+
             var index = 0;
             for (var recipeId in recipes) {
                 var recipe = recipes[recipeId];
@@ -592,18 +594,25 @@ define(['jquery', 'storage'], function($, Storage) {
                     domId: "craftButton" + index
                 });
                 menu.html(menu.html() + tplString);
+                index++;
+            }
+
+            index = 0;
+            for (var recipeId in recipes) {
+                var recipe = recipes[recipeId];
                 $("#craftButton" + index).click(function(event) {
-                    console.log(this);
                     var chosenRecipeSet = this.attributes["recipe-set"].value;
                     var chosenRecipeId = this.attributes["recipe-id"].value;
                     var chosenRecipe = app.game.recipes[chosenRecipeSet][chosenRecipeId];
 
-                    if (app.game.player.canUseRecipe(chosenRecipe)) {
-                        var result = useRecipe(chosenRecipe);
-                        console.log(result);
+                    //Execute the recipe if possible, taking away items if successful
+                    if (player.canUseRecipe(chosenRecipe)) {
+                        var result = player.useRecipe(chosenRecipe);
+                        //Clone every item in the recipe's output to the player's inventory
+                        app.game.awardPlayerItems(player, result);
                     }
                     else {
-                        console.log("Could not use recipe");
+
                     }
                 });
                 index++;

@@ -579,10 +579,23 @@ define(['jquery', 'storage'], function($, Storage) {
             var app = this;
             var player = app.game.player;
 
+            //General purpose method for creating a path for a sprite at scale factor
+            var scale = 2; //this.game.renderer.getScaleFactor();
+            var getIconPath = function(spriteName) {
+                    return 'img/'+ scale +'/item-' + spriteName + '.png';
+                };
+
+            var menuHtmlString = "";
+            menuHtmlString += "<h1>Crafting</h1>";
+            menuHtmlString += "<div id='leftGameMenu' style='float:left; display: inline-block; width: 40%; height: 100%;'></div>";
+            menuHtmlString += "<div id='rightGameMenu' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
+            menuHtmlString += "<div id='tooltipInventory' style='float:left; display: inline-block; width: 30%; height: 100%;'></div>";
+            menu.html(menuHtmlString);
+
+            var rightGameMenu = $("#rightGameMenu"), leftGameMenu = $("#leftGameMenu");
+
             var recipeSet = actionData["recipe-set"];
             var recipes = app.game.recipes[recipeSet];
-            menu.html("<h1>Crafting</h1>");
-
             var index = 0;
             for (var recipeId in recipes) {
                 var recipe = recipes[recipeId];
@@ -593,7 +606,7 @@ define(['jquery', 'storage'], function($, Storage) {
                     recipeId: recipe.id,
                     domId: "craftButton" + index
                 });
-                menu.html(menu.html() + tplString);
+                rightGameMenu.html(rightGameMenu.html() + tplString);
                 index++;
             }
 
@@ -604,18 +617,41 @@ define(['jquery', 'storage'], function($, Storage) {
                     var chosenRecipeSet = this.attributes["recipe-set"].value;
                     var chosenRecipeId = this.attributes["recipe-id"].value;
                     var chosenRecipe = app.game.recipes[chosenRecipeSet][chosenRecipeId];
-
                     //Execute the recipe if possible, taking away items if successful
                     if (player.canUseRecipe(chosenRecipe)) {
                         var result = player.useRecipe(chosenRecipe);
                         //Clone every item in the recipe's output to the player's inventory
                         app.game.awardPlayerItems(player, result);
+                        app.displayRecipes(menu, actionData);
                     }
                     else {
 
                     }
                 });
                 index++;
+            }
+
+            //Render the left side: all the items currently in inventory
+            var inventoryGridWidth = 8;
+            var iconPixelWidth = 32;
+            var inventory = this.game.player.inventory;
+            for (var i = 0; i < inventory.length; i++) {
+                var itemName = inventory[i].itemKind;
+                var xPos = (i % inventoryGridWidth) * iconPixelWidth;
+                var yPos = Math.floor(i / inventoryGridWidth) * iconPixelWidth;
+                var inventoryImgPath = getIconPath(itemName);
+                var tpl = _.template('<div id="<%= divId %>" inventory-index="<%= inventoryIndex %>" style="display: inline-block; width: <%= width %>; height: <%= height %>; background-image: <%= path %>"></div>');
+                var tplString = tpl({
+                    path: "url(" + inventoryImgPath + ")",
+                    width: iconPixelWidth + "px",
+                    height: iconPixelWidth + "px", //,
+                    divId: "inventoryCraftItem" + i,
+                    inventoryIndex: i
+                });
+                leftGameMenu.html(leftGameMenu.html() + tplString);
+                if (i % inventoryGridWidth == inventoryGridWidth - 1) { //end of the row i.e. last column
+                    leftGameMenu.html(leftGameMenu.html() + "<br>");
+                }
             }
         },
 

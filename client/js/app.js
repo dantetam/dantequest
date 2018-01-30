@@ -576,8 +576,38 @@ define(['jquery', 'storage'], function($, Storage) {
         @param menu The menu div/DOM object UI being modified
         */
         displayRecipes: function(menu, actionData) {
-            console.log(actionData);
+            var app = this;
+
+            var recipeSet = actionData["recipe-set"];
+            var recipes = app.game.recipes[recipeSet];
             menu.html("<h1>Crafting</h1>");
+            var index = 0;
+            for (var recipeId in recipes) {
+                var recipe = recipes[recipeId];
+                var tpl = _.template('<div id="<%= domId %>" recipe-set="<%= recipeSet %>" recipe-id="<%= recipeId %>"><p><%= displayText %></p></div>');
+                var tplString = tpl({
+                    displayText: recipe.displayText,
+                    recipeSet: recipeSet,
+                    recipeId: recipe.id,
+                    domId: "craftButton" + index
+                });
+                menu.html(menu.html() + tplString);
+                $("#craftButton" + index).click(function(event) {
+                    console.log(this);
+                    var chosenRecipeSet = this.attributes["recipe-set"].value;
+                    var chosenRecipeId = this.attributes["recipe-id"].value;
+                    var chosenRecipe = app.game.recipes[chosenRecipeSet][chosenRecipeId];
+
+                    if (app.game.player.canUseRecipe(chosenRecipe)) {
+                        var result = useRecipe(chosenRecipe);
+                        console.log(result);
+                    }
+                    else {
+                        console.log("Could not use recipe");
+                    }
+                });
+                index++;
+            }
         },
 
         /**

@@ -31,7 +31,7 @@ define(['recipe',
         for (var i = 0; i < recipes.length; i++) {
             var recipe = recipes[i];
             var recipeObj = convertRecipeJsonToObj(recipe); //Organize it into the _Conversation_ object
-            Recipes[groupId].push(recipeObj); //Set the conversation into a global table, indexed by npc-id
+            Recipes[groupId][recipeObj.id] = recipeObj; //Set the conversation into a global table, indexed by npc-id
         }
     });
 

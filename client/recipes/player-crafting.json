@@ -2,6 +2,16 @@
   "id": "player-crafting",
   "recipes": [
     {
+      "id": "test-recipe",
+      "displayText": "TEST RECIPE",
+      "input": [
+        ["sword2", 1]
+      ],
+      "output": [
+        ["golden_sword", 1]
+      ]
+    },
+    {
       "id": "iron-smelt",
       "displayText": "Smelt an iron bar.",
       "input": [

@@ -988,7 +988,7 @@ Types.getItemTooltip = function(item) {
     return Types.getItemTooltipFromName(itemName, item.type, item.count);
 };
 Types.getItemTooltipFromName = function(itemName, itemType, itemCount) {
-    var itemData = Types.WeaponData[itemName] || Types.ArmorData[itemName] || Types.PotionData[itemName];
+    var itemData = Types.WeaponData[itemName] || Types.ArmorData[itemName] || Types.ItemData[itemName];
 
     html = "<h4>" + itemName + " (" + itemCount + ")</h4>";
     html += "<h5>" + itemType + "</h5>";

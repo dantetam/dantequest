@@ -347,7 +347,10 @@ define(['jquery', 'app'], function($, App) {
 
             //TODO: temporary
             $('#chatbutton').click(function() {
-                var actionData = {"recipes": game.recipes["player-crafting"]};
+                var actionData = {
+                    //"recipes": game.recipes["player-crafting"],
+                    "recipe-set": "player-crafting"
+                };
                 app.showGameMenu("crafting", actionData);
             });
 

@@ -1,4 +1,4 @@
 {
-    "host": "Set production websocket host here",
-    "port": 8000
+    "host": "https://blooming-brushlands-25316.herokuapp.com",
+    "port": 8080
 }

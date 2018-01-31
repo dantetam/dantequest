@@ -346,7 +346,7 @@ define(['jquery', 'app'], function($, App) {
             });
 
             //TODO: temporary
-            $('#chatbutton').click(function() {
+            $('#crafting').click(function() {
                 var actionData = {
                     //"recipes": game.recipes["player-crafting"],
                     "recipe-set": "player-crafting"

@@ -412,7 +412,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
             for (var i = 0; i < listItems.length; i++) {
                 var itemName = listItems[i][0], itemAmount = listItems[i][1];
                 var kind = Types.getKindFromString(itemName);
-                console.log(itemName + " " + kind + " " + EntityFactory.createEntity(kind, 999, null));
                 var newItem = EntityFactory.createEntity(kind, 999, null);
                 newItem.count = itemAmount;
                 player.loot(newItem);

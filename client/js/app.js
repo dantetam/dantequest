@@ -256,11 +256,14 @@ define(['jquery', 'storage'], function($, Storage) {
             $('#inventory').css('background-image', 'url("' + inventoryImgPath + '")');
             //$('#armor').css('background-image', 'url("' + inventoryImgPath + '")');
 
-            var questsImgPath = "img/" + scale + "/loot.png";
+            var questsImgPath = "img/" + scale + "/talk.png";
             $('#quests').css('background-image', 'url("' + questsImgPath + '")');
 
-            var skillsImgPath = "img/" + scale + "/loot.png";
+            var skillsImgPath = "img/" + scale + "/book.png";
             $('#skills').css('background-image', 'url("' + skillsImgPath + '")');
+
+            var craftImgPath = "img/" + scale + "/dark_iron.png";
+            $('#crafting').css('background-image', 'url("' + craftImgPath + '")');
         },
 
         hideWindows: function() {
@@ -544,6 +547,7 @@ define(['jquery', 'storage'], function($, Storage) {
                 menu.css("opacity", "1");
                 menu.css("background-color", "rgba(255,255,255,0.4)");
                 menu.css("padding", "20px");
+                menu.css("line-height", "100%");
 
                 if (menuType === "inventory") {
                     this.displayInventoryMenu(menu);
@@ -555,9 +559,11 @@ define(['jquery', 'storage'], function($, Storage) {
                     this.displayQuests(menu);
                 }
                 else if (menuType === "skills") {
+                    menu.css("line-height", "50%");
                     this.displaySkills(menu);
                 }
                 else if (menuType === "chatlog") {
+                    menu.css("line-height", "50%");
                     this.displayChatlog(menu);
                 }
                 else if (menuType === "shop") {

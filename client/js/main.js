@@ -345,13 +345,13 @@ define(['jquery', 'app'], function($, App) {
                 app.showGameMenu("chatlog");
             });
 
-            //TODO: temporary
-            $('#crafting').click(function() {
+            $('#crafting').click(function(event) {
                 var actionData = {
                     //"recipes": game.recipes["player-crafting"],
                     "recipe-set": "player-crafting"
                 };
                 app.showGameMenu("crafting", actionData);
+                event.stopPropagation();
             });
 
             $('#respawn').click(function(event) {

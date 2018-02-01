@@ -621,6 +621,10 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                               playerGold])
         },
 
+        sendSkillPointChange: function(skillName, changeAmount) {
+            this.sendMessage([Types.Messages.SKILL_POINTS_UPDATE, skillName, changeAmount]);
+        },
+
         sendShopBrowse: function(shopName) {
             this.sendMessage([Types.Messages.OPEN_SHOP,
                               shopName])

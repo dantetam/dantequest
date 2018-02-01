@@ -6,6 +6,8 @@ Medieval fantasy adventure game, a full node.js/socket.io/HTML5 stack and browse
 
 This is a fork of [this repo](github.com/nenuadrian/browserquest), which is in turn, a fork of the popular [BrowserQuest](https://github.com/mozilla/BrowserQuest) HTML5/node.js adventure game and proof of concept.
 
+DanteQuest adds many new exciting features that work into the original socket.io client-server communication framework.
+
 New Features
 ============
   * NPC dialogues and speech options
@@ -15,6 +17,8 @@ New Features
   * Custom combat formulas
   * Levels and experience, which give points for trainable skills, which affect combat
   * An inventory system with equippable weapons and armor
+  * A crafting and recipe system for creating new items
+  * Shops synchronized across the server that allow for buying and selling items
   * Better client-server communication with these new features
   * Beautifully written dialogue, inspired by the Witcher book series, Warhammer lore, Monty Python, and more.
 

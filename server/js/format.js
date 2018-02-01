@@ -21,6 +21,7 @@ var _ = require('underscore'),
             this.formats[Types.Messages.OPEN_SHOP] = ['s'],
             this.formats[Types.Messages.BUY_ITEM_FROM_SHOP] = ['o', 's', 'n', 'n', 'n'],
             this.formats[Types.Messages.SELL_ITEM_TO_SHOP] = ['o', 's', 's', 'n', 'n'],
+            this.formats[Types.Messages.SKILL_POINTS_UPDATE] = ['s', 'n'],
             this.formats[Types.Messages.CHECK] = ['n'],
             this.formats[Types.Messages.EQUIP] = ['o']
         },

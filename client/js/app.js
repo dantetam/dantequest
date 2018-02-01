@@ -832,6 +832,7 @@ define(['jquery', 'storage'], function($, Storage) {
         @param menu The menu div/DOM object UI being modified
         */
         displaySkills: function(menu) {
+            var app = this;
             var player = this.game.player; //Preserve the scope of the larger app
 
             menu.html("");
@@ -866,11 +867,13 @@ define(['jquery', 'storage'], function($, Storage) {
                     var skillDisplayName = rawSkillNames[skill];
                     var playerLevel = player.characterSkills[skill];
 
-                    var tpl = _.template('<div id="<%= divId %>" style="display: inline-block;"><p><%= skillDisplayName %>&emsp;<%= playerLevel %></p></div><br>');
+                    var tpl = _.template('<div id="<%= divId %>" style="display: inline-block;"><p><%= skillDisplayName %>&emsp;<%= playerLevel %>&emsp;<button id="<%= buttonId %>" skill-name="<%= skill %>">+</button></p></div><br>');
                     var tplString = tpl({
                         skillDisplayName: skillDisplayName,
                         playerLevel: playerLevel,
-                        divId: "skillDisplay" + skill
+                        divId: "skillDisplay" + skill,
+                        buttonId: "buttonId" + skill,
+                        skill: skill
                         //left: xPos + "px",
                         //top: yPos + "px"
                     });
@@ -878,6 +881,19 @@ define(['jquery', 'storage'], function($, Storage) {
                     menu.html(menu.html() + tplString);
                 }
             }
+
+            for (var skill in rawSkillNames) {
+                if (rawSkillNames.hasOwnProperty(skill)) {
+                    var buttonId = "#buttonId" + skill;
+                    $(buttonId).click(function(event) {
+                        var skillName = this.attributes["skill-name"].value;
+                        var changeAmount = 1;
+                        app.game.client.sendSkillPointChange(skillName, changeAmount);
+                    });
+                }
+            }
+
+            //app.game.client.sendSkillPointChange
 
             //var pointsString = "<p>Skill Points: " + player.getAvailableSkillPoints() + "</p><br>";
             //menu.html(menu.html() + pointsString);

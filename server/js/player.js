@@ -333,6 +333,11 @@ module.exports = Player = Character.extend({
             else if(action === Types.Messages.LEVEL_UPDATE) {
                 self.message_callback(message);
             }
+            else if(action === Types.Messages.SKILL_POINTS_UPDATE) {
+                var skillName = message[1];
+                var changeAmount = +message[2];
+                self.handlePlayerSkillChange(skillName, changeAmount);
+            }
             else {
                 if(self.message_callback) {
                     self.message_callback(message);
@@ -363,6 +368,11 @@ module.exports = Player = Character.extend({
             this.send(new Messages.LevelUpdate(this.id, this.characterSkills).serialize());
         }
         //See also this.getState()
+        this.send(new Messages.StatsUpdate(this.id, this.characterSkills).serialize()); //Server to client propogation
+    },
+
+    changeSkillPoint: function(skillName, changeAmount) {
+        this.characterSkills[skillName] += changeAmount;
         this.send(new Messages.StatsUpdate(this.id, this.characterSkills).serialize()); //Server to client propogation
     },
 

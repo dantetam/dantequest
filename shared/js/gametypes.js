@@ -33,7 +33,8 @@ Types = {
         OPEN_SHOP: 29,
         BUY_ITEM_FROM_SHOP: 30,
         SHOP_TRANSACTION: 31,
-        SELL_ITEM_TO_SHOP: 32
+        SELL_ITEM_TO_SHOP: 32,
+        SKILL_POINTS_UPDATE: 33
     },
 
     Entities: {

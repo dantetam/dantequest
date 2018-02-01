@@ -963,6 +963,7 @@ define(['jquery', 'storage'], function($, Storage) {
             if (result === null) { //Result from the conversation object signaling end of conversation
                 this.hideGameMenu();
                 conve.endConvo(null);
+                app.game.player.checkAllQuests("talk", mainNpc.id); //Update any quests that involve the player talking for a quest objective
                 return;
             }
             else if (Array.isArray(result)) { //This represents a series of choices between given

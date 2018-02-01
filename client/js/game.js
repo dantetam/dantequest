@@ -841,6 +841,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
         	            self.renderer.targetRect = self.renderer.getTargetBoundingRect();
         	            self.checkOtherDirtyRects(self.renderer.targetRect, null, self.selectedX, self.selectedY);
         	        }
+
+                    self.player.checkAllQuests("walk", [x, y]);
                 });
 
                 self.player.onCheckAggro(function() {

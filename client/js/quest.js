@@ -53,12 +53,11 @@ define(['player', 'items'], function(Player, Items) {
                         break;
                     }
                 }
+                //All objectives were completed
                 if (thisStageCompleted) {
                     this.advanceToStageFromCur(questStageId);
                 }
             }
-            //All objectives were completed
-
         },
 
         /*objectiveCallback: function(objectiveJsonData, objCallback) {
@@ -117,6 +116,11 @@ define(['player', 'items'], function(Player, Items) {
                 };
             }
             else if (action === "give") {
+                return function() {
+
+                };
+            }
+            else if (action === "message") {
                 return function() {
 
                 };

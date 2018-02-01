@@ -50,6 +50,7 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
 
         loot: function(item) {
             if(item) {
+                this.checkAllQuests("loot", item.itemKind);
                 if (item.itemKind === "gold") {
                     this.gold += item.count;
                     return;
@@ -261,6 +262,12 @@ define(['character', 'exceptions', 'items', 'quests', "../../shared/js/gametypes
                 }
             }
             log.error("Could not find quest name to complete: " + questName);
+        },
+
+        checkAllQuests: function(actionName, actionData) {
+            for (var quest of this.inProgressQuestObjs) {
+                quest.checkActionToAdvanceQuest(actionName, actionData);
+            }
         },
 
         hasWeapon: function() {

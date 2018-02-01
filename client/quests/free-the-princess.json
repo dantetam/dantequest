@@ -40,7 +40,7 @@
           {
             "objText": "Fight and incapacitate the royal guards, then leave.",
             "objType": "walk",
-            "objData": ""
+            "objData": [75, 210]
           }
         ]
       }

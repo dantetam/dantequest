@@ -11,22 +11,54 @@ define(['player', 'items'], function(Player, Items) {
             this.listEndingStages = listEndingStages;
 
             this.currentStagePointer = null;
-            this.curObjectiveCallback = null;
+            this.curObjectives = null;
     	},
 
         startQuest: function(player) {
             this.currentStagePointer = this.startingStage;
             this.player = player;
+            this.curObjectives = this._getCurrentObjectives();
         },
 
         /**
         Return the current set(s) of objectives, indexed by
         next stage id -> array of objectives, all of which must be completed within this stage.
         */
-        getCurrentObjectives: function() {
+        _getCurrentObjectives: function() {
             if (this.currentStagePointer != null) {
                 return this.stages[this.currentStagePointer]["stageTargets"];
             }
+        },
+
+        /**
+        Find all the current sets of objectives,
+
+        */
+        checkActionToAdvanceQuest: function(actionType, actionData) {
+            for (var questStageId in this.curObjectives) {
+                var allObjectives = this.curObjectives[questStageId];
+                for (var objective of allObjectives) {
+                    if (objective["objType"] === actionType &&
+                        objective["objData"] === actionData) {
+                        objective["completed"] = true;
+                    }
+                }
+            }
+            for (var questStageId in this.curObjectives) {
+                var allObjectives = this.curObjectives[questStageId];
+                var thisStageCompleted = true;
+                for (var objective of allObjectives) {
+                    if (objective["completed"] === undefined) {
+                        thisStageCompleted = false;
+                        break;
+                    }
+                }
+                if (thisStageCompleted) {
+                    this.advanceToStageFromCur(questStageId);
+                }
+            }
+            //All objectives were completed
+
         },
 
         /*objectiveCallback: function(objectiveJsonData, objCallback) {
@@ -62,6 +94,7 @@ define(['player', 'items'], function(Player, Items) {
             }
 
             this.currentStagePointer = "" + nextStage;
+            this.curObjectives = this._getCurrentObjectives();
 
             var stage = this.stages[this.currentStagePointer];
 

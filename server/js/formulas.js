@@ -39,7 +39,7 @@ Formulas.armorDefTradeOff = function(damage, defence) {
     }
 };
 
-Formulas.dmg = function(weaponData, armorData, attackType) {
+Formulas.dmg = function(weaponData, armorData, attackType, attackerSkills, defenderSkills) {
     /*
     var dealt = weaponLevel * Utils.randomInt(5, 10),
         absorbed = armorLevel * Utils.randomInt(1, 3),
@@ -73,6 +73,22 @@ Formulas.dmg = function(weaponData, armorData, attackType) {
         log.error("Warning: No attack type specified for damage calculation");
         rawDamage = this.normalGen(weaponData["quickDmgBase"], weaponData["quickDmgVar"]);
         rawDefence = armorData["quickAtkDef"];
+    }
+
+    //PLayer skills damage/defence modifiers
+    if (attackerSkills) {
+        var linearComboSkills = weaponData["dexProp"] * attackerSkills["dexterity"] +
+                                weaponData["strProp"] * attackerSkills["strength"] +
+                                weaponData["vtyProp"] * attackerSkills["vitality"];
+        var mod = (linearComboSkills / 3) / weaponData["levelReq"]; //Every player gets 3 skill points per level
+        rawDamage *= mod;
+    }
+    if (defenderSkills) {
+        var linearComboSkills = armorData["dexProp"] * defenderSkills["dexterity"] +
+                                armorData["strProp"] * defenderSkills["strength"] +
+                                armorData["vtyProp"] * defenderSkills["vitality"];
+        var mod = (linearComboSkills / 3) / armorData["levelReq"]; //Every player gets 3 skill points per level
+        rawDefence *= mod;
     }
 
     //var finalDamage = Math.max(0, rawDamage - rawDefence);

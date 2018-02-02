@@ -1414,6 +1414,8 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                 self.client.onPlayerKillMob(function(kind) {
                     var mobName = Types.getKindAsString(kind);
 
+                    self.player.checkAllQuests("kill", mobName);
+                    /*
                     if(mobName === 'skeleton2') {
                         mobName = 'greater skeleton';
                     }
@@ -1426,7 +1428,6 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                         mobName = 'death knight';
                     }
 
-                    /*
                     if(mobName === 'boss') {
                         self.showNotification("You killed the skeleton king");
                     } else {

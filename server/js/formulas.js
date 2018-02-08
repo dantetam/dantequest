@@ -39,6 +39,14 @@ Formulas.armorDefTradeOff = function(damage, defence) {
     }
 };
 
+Formulas.skillRatioActivation = function(ratio) {
+    if (ratio < 0.5) return 0.4 + 0.35;
+    else if (ratio > 3.0) return 2.5 + 0.35;
+    //return (ratio - 0.5) * (0.6 / 0.5) + 0.4
+    else if (ratio < 1.0) return 1.2 * ratio - 0.2 + 0.35;
+    else return 0.75 * ratio + 0.25 + 0.35;
+};
+
 Formulas.dmg = function(weaponData, armorData, attackType, attackerSkills, defenderSkills) {
     /*
     var dealt = weaponLevel * Utils.randomInt(5, 10),
@@ -80,19 +88,23 @@ Formulas.dmg = function(weaponData, armorData, attackType, attackerSkills, defen
         var linearComboSkills = weaponData["dexProp"] * attackerSkills["dexterity"] +
                                 weaponData["strProp"] * attackerSkills["strength"] +
                                 weaponData["vtyProp"] * attackerSkills["vitality"];
+        linearComboSkills += 3;
         var mod = (linearComboSkills / 3) / weaponData["levelReq"]; //Every player gets 3 skill points per level
+        mod = Formulas.skillRatioActivation(mod);
         rawDamage *= mod;
     }
     if (defenderSkills) {
         var linearComboSkills = armorData["dexProp"] * defenderSkills["dexterity"] +
                                 armorData["strProp"] * defenderSkills["strength"] +
                                 armorData["vtyProp"] * defenderSkills["vitality"];
+        linearComboSkills += 3;
         var mod = (linearComboSkills / 3) / armorData["levelReq"]; //Every player gets 3 skill points per level
+        mod = Formulas.skillRatioActivation(mod);
         rawDefence *= mod;
     }
 
     //var finalDamage = Math.max(0, rawDamage - rawDefence);
-    var finalDamage = Math.floor(this.armorDefTradeOff(rawDamage, rawDefence));
+    var finalDamage = Math.ceil(this.armorDefTradeOff(rawDamage, rawDefence));
     finalDamage = Math.max(0, finalDamage);
     log.info("Dealt damage: " + finalDamage);
     return finalDamage;

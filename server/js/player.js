@@ -170,7 +170,7 @@ module.exports = Player = Character.extend({
                 var attackType = message[2];
 
                 if(mob) {
-                    var dmg = Formulas.dmg(self.weaponData, mob.armorData, attackType);
+                    var dmg = Formulas.dmg(self.weaponData, mob.armorData, attackType, self.characterSkills, null);
 
                     if(dmg > 0) {
                         mob.receiveDamage(dmg, self.id);
@@ -182,7 +182,7 @@ module.exports = Player = Character.extend({
             else if(action === Types.Messages.HURT) {
                 var mob = self.server.getEntityById(message[1]);
                 if(mob && self.hitPoints > 0) {
-                    self.hitPoints -= Formulas.dmg(mob.weaponData, self.armorData);
+                    self.hitPoints -= Formulas.dmg(mob.weaponData, self.armorData, null, null, self.characterSkills);
                     self.server.handleHurtEntity(self, mob);
 
                     if(self.hitPoints <= 0) {
@@ -336,7 +336,9 @@ module.exports = Player = Character.extend({
             else if(action === Types.Messages.SKILL_POINTS_UPDATE) {
                 var skillName = message[1];
                 var changeAmount = +message[2];
-                self.handlePlayerSkillChange(skillName, changeAmount);
+                self.characterSkills.availableSkillPoints -= changeAmount;
+                //self.server.handlePlayerSkillChange(self, skillName, changeAmount);
+                self.changeSkillPoint(skillName, changeAmount);
             }
             else {
                 if(self.message_callback) {

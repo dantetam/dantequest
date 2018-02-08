@@ -882,14 +882,18 @@ define(['jquery', 'storage'], function($, Storage) {
                 }
             }
 
-            for (var skill in rawSkillNames) {
-                if (rawSkillNames.hasOwnProperty(skill)) {
-                    var buttonId = "#buttonId" + skill;
-                    $(buttonId).click(function(event) {
-                        var skillName = this.attributes["skill-name"].value;
-                        var changeAmount = 1;
-                        app.game.client.sendSkillPointChange(skillName, changeAmount);
-                    });
+            if (player.characterSkills.availableSkillPoints > 0) {
+                for (var skill in rawSkillNames) {
+                    if (skill !== "availableSkillPoints") {
+                        if (rawSkillNames.hasOwnProperty(skill)) {
+                            var buttonId = "#buttonId" + skill;
+                            $(buttonId).click(function(event) {
+                                var skillName = this.attributes["skill-name"].value;
+                                var changeAmount = 1;
+                                app.game.client.sendSkillPointChange(skillName, changeAmount);
+                            });
+                        }
+                    }
                 }
             }
 

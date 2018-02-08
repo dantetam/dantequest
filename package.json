@@ -10,5 +10,8 @@
     "socket.io": ">0",
     "sanitizer": "0.1.2",
     "memcache": "0.3.0"
+  },
+  "scripts": {
+    "start": "node server/js/main.js"
   }
 }

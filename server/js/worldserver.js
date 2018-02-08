@@ -638,9 +638,11 @@ module.exports = World = cls.Class.extend({
         //this.giveExpToPlayer(player, expGiven);
     },
 
+    /*
     handlePlayerSkillChange: function(player, skillName, changeAmount) {
         player.changeSkillPoint(skillName, changeAmount);
     },
+    */
 
     handlePlayerVanish: function(player) {
         var self = this,

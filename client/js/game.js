@@ -1497,6 +1497,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     if (player) {
                         player.characterSkills = skillsObj;
                     }
+                    self.app.displaySkills($("#gameMenu"));
                 });
 
                 self.client.onPlayerEquipItem(function(playerId, item) {
